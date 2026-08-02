@@ -38,7 +38,7 @@ export const FooozPage: React.FC<FooozPageProps> = ({ onNavigate, onOpenAudit })
                 className="bg-amber-600 text-white font-bold py-3.5 px-6 rounded-2xl flex items-center gap-2 text-sm shadow-md hover:bg-amber-700 transition-colors"
               >
                 <Phone className="w-4 h-4" />
-                <span>Partner or Enquire: +91 8447561650</span>
+                <span>Call Us</span>
               </a>
 
               <a
@@ -46,7 +46,7 @@ export const FooozPage: React.FC<FooozPageProps> = ({ onNavigate, onOpenAudit })
                 className="bg-white border border-amber-300 text-amber-950 font-bold py-3.5 px-6 rounded-2xl flex items-center gap-2 text-sm shadow-2xs hover:bg-amber-50 transition-colors"
               >
                 <Mail className="w-4 h-4 text-amber-700" />
-                <span>Email hello@orixnal.com</span>
+                <span>Email Us</span>
               </a>
             </div>
           </div>

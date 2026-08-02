@@ -33,6 +33,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
     { label: 'About', route: 'about' },
     { label: 'Founder', route: 'founder' },
     { label: 'Services', route: 'services' },
+    { label: 'Events', route: 'events' },
     { label: 'Case Studies', route: 'case-studies' },
     { label: 'Portfolio', route: 'portfolio' },
     { label: 'Insights', route: 'insights' },
@@ -130,11 +131,11 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
 
             <a
               href={COMPANY_DETAILS.phoneRaw}
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-neutral-800 hover:text-purple-700 transition-colors px-2.5 py-1.5 rounded-lg border border-neutral-200/80 bg-white shadow-2xs"
-              title="Click to dial ORIXNAL Founder directly"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-neutral-800 hover:text-purple-700 transition-colors px-3 py-1.5 rounded-lg border border-neutral-200/80 bg-white shadow-2xs"
+              title="Click to call ORIXNAL directly (+91 8447561650)"
             >
               <Phone className="w-3.5 h-3.5 text-purple-700" />
-              <span>+91 8447561650</span>
+              <span>Call Us</span>
             </a>
 
             {onOpenChat && (

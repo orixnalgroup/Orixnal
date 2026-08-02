@@ -25,7 +25,7 @@ export const IndustriesPage: React.FC<IndustriesPageProps> = ({ onNavigate, onOp
     {
       title: 'B2B & Service Enterprises',
       icon: Briefcase,
-      desc: 'Transforming technical commoditized services into high-margin, trust-radiating category leaders.',
+      desc: 'Elevating technical commoditized services into high-margin, trust-radiating category leaders.',
       services: ['Value Proposition Design', 'Custom React Web App', 'B2B Contract Legal Drafting', 'Enterprise SLA Frameworks'],
     },
     {
@@ -100,17 +100,17 @@ export const IndustriesPage: React.FC<IndustriesPageProps> = ({ onNavigate, onOp
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
           <a
             href={COMPANY_DETAILS.phoneRaw}
-            className="orixnal-gradient-bg text-white font-bold py-3 px-6 rounded-xl flex items-center gap-2 text-sm"
+            className="orixnal-gradient-bg text-white font-bold py-3 px-6 rounded-xl flex items-center gap-2 text-sm hover:opacity-95 transition-opacity"
           >
             <Phone className="w-4 h-4" />
-            <span>Call +91 8447561650</span>
+            <span>Call Us</span>
           </a>
           <a
             href={COMPANY_DETAILS.emailRaw}
-            className="bg-neutral-900 text-white font-bold py-3 px-6 rounded-xl flex items-center gap-2 text-sm"
+            className="bg-white text-neutral-900 border border-neutral-300 font-bold py-3 px-6 rounded-xl flex items-center gap-2 text-sm hover:bg-neutral-50 transition-colors shadow-2xs"
           >
-            <Mail className="w-4 h-4" />
-            <span>Email hello@orixnal.com</span>
+            <Mail className="w-4 h-4 text-purple-700" />
+            <span>Email Us</span>
           </a>
         </div>
       </div>

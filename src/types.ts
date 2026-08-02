@@ -11,11 +11,39 @@ export type PageRoute =
   | 'insight-detail'
   | 'industries'
   | 'foooz'
+  | 'events'
   | 'careers'
   | 'faq'
   | 'contact'
   | 'privacy'
   | 'terms';
+
+export type EventStatus = 'Current' | 'Upcoming' | 'Past';
+
+export interface EventTicket {
+  price: string;
+  availability: 'Available' | 'Selling Fast' | 'Sold Out' | 'Invite Only';
+  bookingUrl?: string;
+  notes?: string;
+}
+
+export interface OrixnalEvent {
+  id: string;
+  name: string;
+  bannerImage: string;
+  startDate: string;
+  endDate: string;
+  startTime: string;
+  endTime: string;
+  location: string;
+  description: string;
+  activities: string[];
+  status: EventStatus;
+  ticket: EventTicket;
+  gallery: string[];
+  featuredOnHome?: boolean;
+  createdAt?: string;
+}
 
 export interface ServiceCategory {
   id: string;

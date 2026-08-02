@@ -166,20 +166,20 @@ export const BrandAuditModal: React.FC<BrandAuditModalProps> = ({ isOpen, onClos
             className="w-full sm:w-1/2 orixnal-gradient-bg text-white font-bold py-3.5 px-5 rounded-2xl flex items-center justify-center gap-2 hover:opacity-95 transition-opacity shadow-md text-sm"
           >
             <Mail className="w-4 h-4" />
-            <span>Launch Email Brief</span>
+            <span>Email Us</span>
             <ArrowRight className="w-4 h-4" />
           </a>
 
           <a
             href={COMPANY_DETAILS.phoneRaw}
-            className="w-full sm:w-1/2 bg-white text-neutral-900 border border-neutral-300 font-bold py-3.5 px-5 rounded-2xl flex items-center justify-center gap-2 hover:bg-neutral-50 transition-colors shadow-sm text-sm"
+            className="w-full sm:w-1/2 bg-white text-neutral-900 border border-neutral-300 font-bold py-3.5 px-5 rounded-2xl flex items-center justify-center gap-2 hover:bg-neutral-50 transition-colors shadow-2xs text-sm"
           >
             <Phone className="w-4 h-4 text-purple-700" />
-            <span>Call Founder Directly</span>
+            <span>Call Us</span>
           </a>
         </div>
         <p className="text-[11px] text-center text-neutral-500 mt-3">
-          Direct dial opens your phone dialer (+91 8447561650). Email opens your default mail app.
+          Direct dial opens your phone dialer. Email opens your default mail app.
         </p>
       </div>
     </div>

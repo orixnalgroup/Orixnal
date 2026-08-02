@@ -55,13 +55,13 @@ export const CareersPage: React.FC<CareersPageProps> = ({ onNavigate, onOpenAudi
         <p className="text-sm text-neutral-600 max-w-xl mx-auto">
           Send your portfolio, strategy essays, or GitHub profile directly to Founder Asim Khan via email at hello@orixnal.com.
         </p>
-        <div className="pt-2">
+        <div className="pt-2 flex flex-wrap justify-center gap-3">
           <a
             href={`mailto:${COMPANY_DETAILS.email}?subject=Career Application - ORIXNAL`}
             className="orixnal-gradient-bg text-white font-bold py-3.5 px-8 rounded-2xl inline-flex items-center gap-2 text-sm shadow-md"
           >
             <Mail className="w-4 h-4" />
-            <span>Apply via Email: hello@orixnal.com</span>
+            <span>Email Us</span>
           </a>
         </div>
       </div>

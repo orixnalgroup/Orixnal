@@ -19,6 +19,7 @@ import { PortfolioPage } from './pages/PortfolioPage';
 import { InsightsPage } from './pages/InsightsPage';
 import { IndustriesPage } from './pages/IndustriesPage';
 import { FooozPage } from './pages/FooozPage';
+import { EventsPage } from './pages/EventsPage';
 import { CareersPage } from './pages/CareersPage';
 import { FaqPage } from './pages/FaqPage';
 import { ContactPage } from './pages/ContactPage';
@@ -49,7 +50,7 @@ export default function App() {
       const hash = window.location.hash.replace('#/', '').replace('#', '') as PageRoute;
       if (hash && [
         'home', 'about', 'founder', 'services', 'case-studies',
-        'portfolio', 'insights', 'industries', 'foooz',
+        'portfolio', 'insights', 'industries', 'foooz', 'events',
         'careers', 'faq', 'contact', 'privacy', 'terms'
       ].includes(hash)) {
         setCurrentRoute(hash);
@@ -87,6 +88,8 @@ export default function App() {
         return <IndustriesPage onNavigate={navigateTo} onOpenAudit={() => setAuditModalOpen(true)} />;
       case 'foooz':
         return <FooozPage onNavigate={navigateTo} onOpenAudit={() => setAuditModalOpen(true)} />;
+      case 'events':
+        return <EventsPage onNavigate={navigateTo} onOpenAudit={() => setAuditModalOpen(true)} />;
       case 'careers':
         return <CareersPage onNavigate={navigateTo} onOpenAudit={() => setAuditModalOpen(true)} />;
       case 'faq':

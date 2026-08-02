@@ -26,8 +26,11 @@ import {
   Building2,
   Globe2,
   Award,
-  Filter
+  Filter,
+  Phone,
+  Mail
 } from 'lucide-react';
+import { COMPANY_DETAILS } from '../data/brandData';
 
 export interface OutcomeMetric {
   label: string;
@@ -327,25 +330,25 @@ export const CaseStudyOutcomes: React.FC<CaseStudyOutcomesProps> = ({
             className="space-y-6"
           >
             {/* Chart Control Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-neutral-900 text-white p-5 rounded-2xl border border-neutral-800">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-purple-50/80 text-neutral-900 p-5 rounded-2xl border border-purple-200/80">
               <div className="space-y-1">
                 <h4 className="text-sm font-bold flex items-center gap-2">
-                  <BarChart3 className="w-4 h-4 text-purple-400" />
+                  <BarChart3 className="w-4 h-4 text-purple-700" />
                   <span>{currentCase.chartTitle}</span>
                 </h4>
-                <p className="text-xs text-neutral-400">
+                <p className="text-xs text-neutral-600">
                   {currentCase.chartSubtitle}
                 </p>
               </div>
 
               {/* Sub-Metric Toggle */}
-              <div className="flex items-center gap-2 bg-neutral-800 p-1 rounded-xl text-xs font-bold shrink-0 border border-neutral-700">
+              <div className="flex items-center gap-2 bg-purple-100/80 p-1 rounded-xl text-xs font-bold shrink-0 border border-purple-200">
                 <button
                   onClick={() => setChartMetric('revenue')}
                   className={`px-3 py-1 rounded-lg transition-colors ${
                     chartMetric === 'revenue'
-                      ? 'bg-purple-700 text-white'
-                      : 'text-neutral-400 hover:text-white'
+                      ? 'orixnal-gradient-bg text-white'
+                      : 'text-neutral-600 hover:text-neutral-900'
                   }`}
                 >
                   Revenue / Scale
@@ -624,24 +627,40 @@ export const CaseStudyOutcomes: React.FC<CaseStudyOutcomesProps> = ({
       </AnimatePresence>
 
       {/* Footer Banner */}
-      <div className="p-6 sm:p-8 rounded-2xl bg-neutral-900 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 relative overflow-hidden">
+      <div className="p-6 sm:p-8 rounded-2xl bg-[#FAF8F5] border border-neutral-200 text-neutral-900 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 relative overflow-hidden shadow-2xs">
         <div className="space-y-1 max-w-xl z-10">
           <h4 className="text-base font-extrabold flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-purple-400" />
+            <Sparkles className="w-4 h-4 text-purple-700" />
             <span>Ready to achieve measurable growth & market share for your brand?</span>
           </h4>
-          <p className="text-xs text-neutral-400 leading-relaxed">
+          <p className="text-xs text-neutral-600 leading-relaxed">
             Schedule a 1-on-1 brand discovery audit directly with Founder Asim Khan to architect your growth roadmap.
           </p>
         </div>
 
-        <button
-          onClick={onOpenAudit}
-          className="orixnal-gradient-bg text-white font-bold text-xs px-6 py-3 rounded-xl shadow-2xs hover:opacity-95 transition-all inline-flex items-center gap-2 shrink-0 z-10"
-        >
-          <span>Request Brand Diagnostic Audit</span>
-          <ArrowUpRight className="w-4 h-4" />
-        </button>
+        <div className="flex flex-wrap items-center gap-3 shrink-0 z-10">
+          <button
+            onClick={onOpenAudit}
+            className="orixnal-gradient-bg text-white font-bold text-xs px-5 py-3 rounded-xl shadow-2xs hover:opacity-95 transition-all inline-flex items-center gap-1.5"
+          >
+            <span>Request Diagnostic Audit</span>
+            <ArrowUpRight className="w-4 h-4" />
+          </button>
+          <a
+            href={COMPANY_DETAILS.phoneRaw}
+            className="bg-white text-neutral-900 border border-neutral-300 font-bold text-xs px-4 py-3 rounded-xl hover:bg-neutral-50 transition-colors inline-flex items-center gap-1.5 shadow-2xs"
+          >
+            <Phone className="w-3.5 h-3.5 text-purple-700" />
+            <span>Call Us</span>
+          </a>
+          <a
+            href={COMPANY_DETAILS.emailRaw}
+            className="bg-white text-neutral-900 border border-neutral-300 font-bold text-xs px-4 py-3 rounded-xl hover:bg-neutral-50 transition-colors inline-flex items-center gap-1.5 shadow-2xs"
+          >
+            <Mail className="w-3.5 h-3.5 text-purple-700" />
+            <span>Email Us</span>
+          </a>
+        </div>
       </div>
     </section>
   );

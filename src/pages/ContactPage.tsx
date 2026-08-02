@@ -32,26 +32,26 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate, onOpenAudi
       {/* Primary Action Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Click to Call Card */}
-        <div className="bg-gradient-to-br from-purple-900 via-purple-950 to-neutral-900 text-white rounded-3xl p-8 sm:p-10 space-y-6 shadow-xl relative overflow-hidden">
+        <div className="bg-purple-50/70 border border-purple-200 text-neutral-900 rounded-3xl p-8 sm:p-10 space-y-6 shadow-2xs relative overflow-hidden">
           <div className="space-y-2">
-            <span className="text-xs font-mono font-bold uppercase tracking-widest text-purple-300">
+            <span className="text-xs font-mono font-bold uppercase tracking-widest text-purple-800">
               Immediate Phone Connection
             </span>
-            <h2 className="text-3xl font-extrabold">Call Founder Directly</h2>
-            <p className="text-purple-200 text-sm">
+            <h2 className="text-3xl font-extrabold text-neutral-900">Call Founder Directly</h2>
+            <p className="text-neutral-600 text-sm">
               Clicking below opens your phone dialer instantly to speak with Asim Khan.
             </p>
           </div>
 
           <a
             href={COMPANY_DETAILS.phoneRaw}
-            className="w-full bg-white text-neutral-900 font-extrabold text-lg py-4 px-6 rounded-2xl flex items-center justify-center gap-3 hover:bg-neutral-100 transition-colors shadow-lg"
+            className="w-full orixnal-gradient-bg text-white font-extrabold text-base py-4 px-6 rounded-2xl flex items-center justify-center gap-3 hover:opacity-95 transition-all shadow-md"
           >
-            <Phone className="w-5 h-5 text-purple-700 fill-current" />
-            <span>+91 8447561650</span>
+            <Phone className="w-5 h-5" />
+            <span>Call Us</span>
           </a>
 
-          <div className="text-xs text-purple-300 font-mono text-center pt-2">
+          <div className="text-xs text-neutral-600 font-mono text-center pt-2">
             Available Monday – Saturday, 10:00 AM – 7:00 PM IST
           </div>
         </div>
@@ -70,10 +70,10 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate, onOpenAudi
 
           <a
             href={COMPANY_DETAILS.emailRaw}
-            className="w-full orixnal-gradient-bg text-white font-extrabold text-lg py-4 px-6 rounded-2xl flex items-center justify-center gap-3 hover:opacity-95 transition-opacity shadow-md"
+            className="w-full bg-white text-purple-950 border border-purple-300 font-extrabold text-base py-4 px-6 rounded-2xl flex items-center justify-center gap-3 hover:bg-purple-50 transition-colors shadow-2xs"
           >
-            <Mail className="w-5 h-5" />
-            <span>hello@orixnal.com</span>
+            <Mail className="w-5 h-5 text-purple-700" />
+            <span>Email Us</span>
           </a>
 
           <div className="text-xs text-neutral-500 font-mono text-center pt-2">

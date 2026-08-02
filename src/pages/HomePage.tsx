@@ -24,6 +24,7 @@ import {
   INSIGHTS_MANIFEST,
   CONTACT_MANIFEST
 } from '../data/brandData';
+import { getEvents } from '../data/eventsData';
 import {
   Sparkles,
   Phone,
@@ -42,6 +43,9 @@ import {
   Target,
   Building2,
   Globe,
+  Calendar,
+  Ticket,
+  Clock
 } from 'lucide-react';
 
 interface HomePageProps {
@@ -89,7 +93,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenAudit }) =
                   className="orixnal-gradient-bg text-white font-bold py-4 px-7 rounded-2xl flex items-center justify-center gap-3 hover:opacity-95 transition-all shadow-md text-sm"
                 >
                   <Phone className="w-4 h-4" />
-                  <span>Call Founder: +91 8447561650</span>
+                  <span>Call Us</span>
                 </a>
 
                 <a
@@ -97,7 +101,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenAudit }) =
                   className="bg-white text-neutral-900 border border-neutral-300 font-bold py-4 px-7 rounded-2xl flex items-center justify-center gap-2 hover:bg-neutral-50 transition-colors text-sm shadow-2xs"
                 >
                   <Mail className="w-4 h-4 text-purple-700" />
-                  <span>Email hello@orixnal.com</span>
+                  <span>Email Us</span>
                 </a>
               </div>
 
@@ -406,6 +410,94 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenAudit }) =
         </div>
       </section>
 
+      {/* 6.5 FEATURED ORIXNAL EVENT™ SUMMITS & WORKSHOPS */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-white border border-neutral-200 rounded-3xl p-8 sm:p-12 shadow-2xs">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+            <div>
+              <div className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-purple-800 bg-purple-100 px-3 py-1 rounded-full border border-purple-200">
+                <Calendar className="w-3.5 h-3.5 text-purple-700" />
+                <span>ORIXNAL EVENT™ ACADEMY</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-neutral-900 tracking-tight mt-2">
+                Global Strategic Summits & IP Workshops
+              </h2>
+              <p className="text-xs text-neutral-600 mt-1 max-w-xl">
+                Exclusive brand engineering conclaves, trademark law masterclasses, and founder advisory roundtables hosted by ORIXNAL.
+              </p>
+            </div>
+
+            <button
+              onClick={() => onNavigate('events')}
+              className="orixnal-gradient-bg text-white text-xs font-bold px-5 py-3 rounded-full shadow-2xs hover:opacity-95 transition-all flex items-center gap-2 shrink-0"
+            >
+              <span>Explore All Events & Admin Portal</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {getEvents()
+              .filter((e) => e.featuredOnHome || e.status === 'Current' || e.status === 'Upcoming')
+              .slice(0, 3)
+              .map((evt) => (
+                <div
+                  key={evt.id}
+                  onClick={() => onNavigate('events')}
+                  className="bg-[#FAF9F6] border border-neutral-200/90 rounded-2xl overflow-hidden shadow-2xs hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="relative h-44 w-full bg-neutral-900 overflow-hidden">
+                      <img
+                        src={evt.bannerImage}
+                        alt={evt.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        referrerPolicy="no-referrer"
+                      />
+                      <div className="absolute top-3 left-3 flex items-center gap-1.5">
+                        <span className={`text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full ${
+                          evt.status === 'Current' ? 'bg-emerald-500 text-neutral-950' :
+                          evt.status === 'Upcoming' ? 'bg-purple-600 text-white' : 'bg-neutral-800 text-neutral-300'
+                        }`}>
+                          {evt.status}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="p-5 space-y-2">
+                      <div className="flex items-center gap-2 text-[11px] font-bold text-purple-800">
+                        <Calendar className="w-3.5 h-3.5" />
+                        <span>{evt.startDate}</span>
+                        <span>•</span>
+                        <Clock className="w-3 h-3 text-amber-600" />
+                        <span>{evt.startTime}</span>
+                      </div>
+
+                      <h3 className="text-base font-extrabold text-neutral-950 group-hover:text-purple-700 transition-colors line-clamp-2">
+                        {evt.name}
+                      </h3>
+
+                      <p className="text-xs text-neutral-600 line-clamp-2 leading-relaxed">
+                        {evt.description}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="px-5 pb-5 pt-2 border-t border-neutral-200/60 flex items-center justify-between text-xs font-bold text-neutral-900">
+                    <span className="flex items-center gap-1 text-purple-900">
+                      <Ticket className="w-3.5 h-3.5 text-purple-600" />
+                      {evt.ticket?.price || 'Free RSVP'}
+                    </span>
+                    <span className="text-purple-700 font-semibold group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
+                      View Event <ChevronRight className="w-3.5 h-3.5" />
+                    </span>
+                  </div>
+                </div>
+              ))}
+          </div>
+        </div>
+      </section>
+
       {/* 7. SUB-BRAND SPOTLIGHT: FOOOZ */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-gradient-to-br from-amber-500/10 via-amber-100/40 to-amber-50 border border-amber-200 rounded-3xl p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-8">
@@ -463,12 +555,18 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenAudit }) =
               <span className="text-neutral-500 text-[11px]">Micro Enterprise (Services)</span>
             </div>
 
-            <div className="p-4 rounded-xl bg-[#FAF9F6] border border-neutral-200/80 space-y-1">
-              <span className="text-neutral-500 font-mono block">Direct Dial & Email</span>
-              <a href={COMPANY_DETAILS.phoneRaw} className="text-sm font-extrabold text-purple-900 hover:underline block">
-                +91 8447561650
-              </a>
-              <span className="text-neutral-500 text-[11px]">hello@orixnal.com</span>
+            <div className="p-4 rounded-xl bg-[#FAF9F6] border border-neutral-200/80 space-y-2">
+              <span className="text-neutral-500 font-mono block text-xs">Direct Dial & Email</span>
+              <div className="flex flex-col gap-1.5 pt-0.5">
+                <a href={COMPANY_DETAILS.phoneRaw} className="inline-flex items-center gap-1.5 text-xs font-bold text-white orixnal-gradient-bg px-3 py-1.5 rounded-lg hover:opacity-95 shadow-2xs">
+                  <Phone className="w-3 h-3" />
+                  <span>Call Us</span>
+                </a>
+                <a href={COMPANY_DETAILS.emailRaw} className="inline-flex items-center gap-1.5 text-xs font-bold text-purple-900 bg-white border border-purple-200 px-3 py-1.5 rounded-lg hover:bg-purple-50 shadow-2xs">
+                  <Mail className="w-3 h-3 text-purple-700" />
+                  <span>Email Us</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -496,15 +594,15 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenAudit }) =
                 className="w-full sm:w-auto orixnal-gradient-bg text-white font-bold py-4 px-8 rounded-2xl flex items-center justify-center gap-3 shadow-md hover:opacity-95 transition-all text-sm"
               >
                 <Phone className="w-4 h-4" />
-                <span>Call Founder: +91 8447561650</span>
+                <span>Call Us</span>
               </a>
 
               <a
                 href={COMPANY_DETAILS.emailRaw}
-                className="w-full sm:w-auto bg-neutral-900 text-white font-bold py-4 px-8 rounded-2xl flex items-center justify-center gap-2 hover:bg-neutral-800 transition-colors text-sm shadow-sm"
+                className="w-full sm:w-auto bg-white border border-neutral-300 text-neutral-900 font-bold py-4 px-8 rounded-2xl flex items-center justify-center gap-2 hover:bg-neutral-50 transition-colors text-sm shadow-2xs"
               >
-                <Mail className="w-4 h-4" />
-                <span>Email hello@orixnal.com</span>
+                <Mail className="w-4 h-4 text-purple-700" />
+                <span>Email Us</span>
               </a>
 
               <button

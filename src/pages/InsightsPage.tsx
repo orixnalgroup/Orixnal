@@ -88,12 +88,14 @@ export const InsightsPage: React.FC<InsightsPageProps> = ({ onNavigate, onOpenAu
           <div className="p-6 bg-purple-50/60 rounded-2xl border border-purple-200 text-purple-950 text-xs sm:text-sm space-y-2">
             <div className="font-bold">Enjoyed this essay?</div>
             <p>Schedule a 1-on-1 brand strategy advisory call with author Asim Khan.</p>
-            <div className="pt-1 flex gap-3">
-              <a href={COMPANY_DETAILS.phoneRaw} className="font-bold text-purple-900 underline">
-                Call +91 8447561650
+            <div className="pt-2 flex flex-wrap gap-3">
+              <a href={COMPANY_DETAILS.phoneRaw} className="orixnal-gradient-bg text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 shadow-2xs hover:opacity-95">
+                <Phone className="w-3.5 h-3.5" />
+                <span>Call Us</span>
               </a>
-              <a href={COMPANY_DETAILS.emailRaw} className="font-bold text-purple-900 underline">
-                Email hello@orixnal.com
+              <a href={COMPANY_DETAILS.emailRaw} className="bg-white text-purple-900 border border-purple-200 font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 shadow-2xs hover:bg-purple-50">
+                <Mail className="w-3.5 h-3.5 text-purple-700" />
+                <span>Email Us</span>
               </a>
             </div>
           </div>
@@ -142,17 +144,17 @@ export const InsightsPage: React.FC<InsightsPageProps> = ({ onNavigate, onOpenAu
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
           <a
             href={COMPANY_DETAILS.phoneRaw}
-            className="orixnal-gradient-bg text-white font-bold py-3 px-6 rounded-xl flex items-center gap-2 text-sm"
+            className="orixnal-gradient-bg text-white font-bold py-3 px-6 rounded-xl flex items-center gap-2 text-sm hover:opacity-95 transition-opacity"
           >
             <Phone className="w-4 h-4" />
-            <span>Call +91 8447561650</span>
+            <span>Call Us</span>
           </a>
           <a
             href={COMPANY_DETAILS.emailRaw}
-            className="bg-neutral-900 text-white font-bold py-3 px-6 rounded-xl flex items-center gap-2 text-sm"
+            className="bg-white text-neutral-900 border border-neutral-300 font-bold py-3 px-6 rounded-xl flex items-center gap-2 text-sm hover:bg-neutral-50 transition-colors shadow-2xs"
           >
-            <Mail className="w-4 h-4" />
-            <span>Email hello@orixnal.com</span>
+            <Mail className="w-4 h-4 text-purple-700" />
+            <span>Email Us</span>
           </a>
         </div>
       </div>

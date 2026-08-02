@@ -267,11 +267,19 @@ How can I assist your business or brand development today?
             </button>
 
             <a
-              href={`mailto:${COMPANY_DETAILS.email}?subject=ORIXNAL AI Advisor Inquiry`}
-              className="bg-neutral-900 text-white font-bold text-xs px-3.5 py-2 rounded-xl hover:bg-neutral-800 transition-all inline-flex items-center gap-1.5"
+              href={COMPANY_DETAILS.phoneRaw}
+              className="orixnal-gradient-bg text-white font-bold text-xs px-3.5 py-2 rounded-xl shadow-2xs hover:opacity-95 transition-all inline-flex items-center gap-1.5"
             >
-              <Mail className="w-3.5 h-3.5 text-purple-400" />
-              <span>Email Asim Khan</span>
+              <Phone className="w-3.5 h-3.5" />
+              <span>Call Us</span>
+            </a>
+
+            <a
+              href={`mailto:${COMPANY_DETAILS.email}?subject=ORIXNAL AI Advisor Inquiry`}
+              className="bg-white text-purple-950 border border-purple-200 font-bold text-xs px-3.5 py-2 rounded-xl hover:bg-purple-50 transition-all inline-flex items-center gap-1.5 shadow-2xs"
+            >
+              <Mail className="w-3.5 h-3.5 text-purple-700" />
+              <span>Email Us</span>
             </a>
 
             <button

@@ -7,6 +7,7 @@ import {
   INSIGHTS_ARTICLES,
   FAQ_LIST
 } from '../data/brandData';
+import { getEvents } from '../data/eventsData';
 import {
   Search,
   X,
@@ -16,7 +17,8 @@ import {
   HelpCircle,
   ArrowRight,
   FileText,
-  Layout
+  Layout,
+  Calendar
 } from 'lucide-react';
 
 interface SearchResultItem {
@@ -40,11 +42,12 @@ const PAGE_ITEMS: SearchResultItem[] = [
   { id: 'p-about', title: 'About ORIXNAL Group', subtitle: 'Founder manifesto, corporate credentials & MSME Udyam details', category: 'Page', route: 'about', badge: 'Company', icon: <Layout className="w-4 h-4 text-rose-600" /> },
   { id: 'p-founder', title: 'Asim Khan (Founder)', subtitle: 'Founder & Chief Brand Strategist background & bio', category: 'Page', route: 'founder', badge: 'Leadership', icon: <Layout className="w-4 h-4 text-rose-600" /> },
   { id: 'p-services', title: 'Integrated Services', subtitle: '8 pillars of brand development & legal IP armor', category: 'Page', route: 'services', badge: 'Pillars', icon: <Sparkles className="w-4 h-4 text-purple-600" /> },
-  { id: 'p-case-studies', title: 'Case Studies & ROI Metrics', subtitle: 'Enterprise brand transformation results & client audits', category: 'Page', route: 'case-studies', badge: 'Results', icon: <FileText className="w-4 h-4 text-emerald-600" /> },
+  { id: 'p-case-studies', title: 'Case Studies & ROI Metrics', subtitle: 'Enterprise brand outcome metrics & client audits', category: 'Page', route: 'case-studies', badge: 'Results', icon: <FileText className="w-4 h-4 text-emerald-600" /> },
   { id: 'p-portfolio', title: 'Portfolio Showcase', subtitle: 'Visual logotypes, web platforms, and brand design guidelines', category: 'Page', route: 'portfolio', badge: 'Design', icon: <Briefcase className="w-4 h-4 text-amber-600" /> },
   { id: 'p-insights', title: 'Insights & Publications', subtitle: 'Brand strategy essays, audio summaries & market trends', category: 'Page', route: 'insights', badge: 'Research', icon: <BookOpen className="w-4 h-4 text-rose-600" /> },
   { id: 'p-industries', title: 'Industry Solutions', subtitle: 'SaaS, D2C, Fintech, Healthcare & Gaming specialization', category: 'Page', route: 'industries', badge: 'Sectors', icon: <Layout className="w-4 h-4 text-rose-600" /> },
   { id: 'p-foooz', title: 'FOOOZ™ Ecosystem', subtitle: 'Sovereign esports, gaming & food lifestyle venture', category: 'Page', route: 'foooz', badge: 'Ecosystem', icon: <Sparkles className="w-4 h-4 text-amber-600" /> },
+  { id: 'p-events', title: 'ORIXNAL EVENT™ Summits', subtitle: 'Global strategic summits, IP workshops & admin panel', category: 'Page', route: 'events', badge: 'Events', icon: <Calendar className="w-4 h-4 text-purple-600" /> },
   { id: 'p-faq', title: 'Frequently Asked Questions', subtitle: 'Pricing, deliverables, timelines & trademark process', category: 'Page', route: 'faq', badge: 'Support', icon: <HelpCircle className="w-4 h-4 text-neutral-600" /> },
   { id: 'p-contact', title: 'Contact & Advisory Booking', subtitle: 'Schedule direct strategy call with Founder Asim Khan', category: 'Page', route: 'contact', badge: 'Direct', icon: <Layout className="w-4 h-4 text-rose-600" /> },
 ];

@@ -12,6 +12,7 @@ export const COMPANY_DETAILS = {
   brandName: 'ORIXNAL',
   tradeName: 'ORIXNAL',
   legalName: 'Orixnal Group',
+  category: 'Brand Development Company',
   udyamNumber: 'UDYAM-UP-29-0079322',
   udyamType: 'Micro Enterprise (Services)',
   incorporationDate: '01/05/2023',
@@ -22,7 +23,9 @@ export const COMPANY_DETAILS = {
   emailRaw: 'mailto:hello@orixnal.com',
   website: 'www.orixnal.com',
   headquarters: 'ESquare Building, Plot C-2, Sector 96, Noida, Uttar Pradesh – 201301, India',
+  appointmentNote: 'Meetings are available strictly by prior appointment.',
   registeredAddress: 'Orixnal Group, Kh. No. 206, Shankar Vihar, Sadullabad, Ghaziabad, Uttar Pradesh - 201102, India',
+  expandingLocations: ['Dubai', 'London', 'New York', 'Singapore'],
   nicCodes: [
     { code: '73100', name: 'Advertising & Market Research' },
     { code: '70200', name: 'Management Consultancy Activities' },
@@ -30,7 +33,8 @@ export const COMPANY_DETAILS = {
     { code: '62012', name: 'Web Page Designing & Development' },
     { code: '82300', name: 'Organization of Conventions & Trade Shows' },
   ],
-  tagline: 'Brand is not how it looks. Brand is how it is understood.',
+  tagline: 'Original Thinking. Human Impact.',
+  philosophyTagline: 'Brand is not how it looks. Brand is how it is understood.',
 };
 
 export const FOUNDER_INFO = {
@@ -564,7 +568,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     purpose: 'Create immersive physical and hybrid brand experiences.',
     iconName: 'Calendar',
     tagline: 'Physical touchpoints leave permanent emotional impressions.',
-    description: 'Immersive exhibition booths, corporate summits, product launch experiences, and spatial stage designs that transform visitors into passionate brand advocates.',
+    description: 'Immersive exhibition booths, corporate summits, product launch experiences, and spatial stage designs that turn visitors into loyal brand advocates.',
     strategicValue: 'Digital ads are fleeting, but physical brand experiences create visceral memory anchors. ORIXNAL plans, designs, and executes physical brand environments. From trade show exhibition booths and executive summits to product launch galas, we handle spatial design, stage lighting, audio-visual identity, and attendee experience.',
     businessOutcomes: [
       'Drives high-value B2B partnership deals at industry trade shows and summits',
@@ -728,7 +732,7 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     id: 'logistics-cloud',
-    title: 'Transforming Legacy Freight Management into a Modern Cloud Logistics Platform',
+    title: 'Evolving Legacy Freight Management into a Modern Cloud Logistics Platform',
     clientCategory: 'Supply Chain & Logistics',
     tagline: 'Infusing speed, elegance, and clarity into industrial logistics.',
     summary: 'A complete brand overhaul that converted a 15-year-old logistics fleet operator into a tech-enabled supply chain leader.',
@@ -893,13 +897,12 @@ export const FAQ_LIST: FAQItem[] = [
    ========================================================================== */
 
 export const HERO_MANIFEST = {
-  badge: '✨ Founder-Led Global Brand Development Company',
+  badge: '✨ Founder-Led Brand Development Company',
   headlineLines: [
-    'Brands are remembered.',
-    'Businesses are recognised.',
-    'We help you become both.'
+    'Original Thinking.',
+    'Human Impact.',
   ],
-  subHeading: `At ORIXNAL, we don't just design logos or build websites—we build brands that people remember, businesses trust, and markets recognise. Through strategy, creativity and execution, we transform ambitious ideas into meaningful brands built for long-term growth.`,
+  subHeading: `ORIXNAL is India's founder-led Brand Development Company. We don't just design logos or build websites—we architect enduring masterbrands that people remember, businesses trust, and markets recognise.`,
   supportingParagraphs: [
     `Every successful business begins with an idea. But ideas alone don't build brands. Clarity does. Strategy does. Consistency does.`,
     `At ORIXNAL, we believe branding isn't about making your business look better. It's about making people understand why you exist, why they should trust you, and why they should remember you long after the first interaction.`,
@@ -934,7 +937,7 @@ export const PHILOSOPHY_MANIFEST = {
   corePhilosophy: `At ORIXNAL, we believe branding is never about decoration. It's about direction. A logo can be designed in a day. A memorable brand is built through clarity, consistency and meaningful experiences. That's why we don't start with colours. We start with questions. Who are you? Why do you exist? Who are you serving? What should people remember after meeting your brand? Only when those answers become crystal clear do we begin building everything else. Because strategy should always lead creativity—not the other way around.`,
   ourBelief: `A beautiful brand without strategy becomes decoration. A powerful strategy without execution remains an idea. Great brands need both. That balance is where ORIXNAL creates its best work.`,
   mission: `To help businesses build clear, strategic and impactful brands that create lasting value for customers, teams and communities.`,
-  vision: `To become one of the world's most respected founder-led Brand Development Companies, helping ambitious businesses transform meaningful ideas into globally recognised brands.`,
+  vision: `To become one of the world's most respected founder-led Brand Development Companies, helping ambitious businesses elevate meaningful ideas into globally recognised brands.`,
   values: [
     'Clarity before complexity.',
     'Strategy before execution.',
@@ -953,7 +956,7 @@ export const ABOUT_MANIFEST = {
   sectionLabel: 'Who We Are',
   mainHeadline: `We're not here to make your business look bigger. We're here to make your brand mean something.`,
   openingCopy: `ORIXNAL was founded on a simple belief: Businesses don't struggle because they lack ambition. They struggle because the market doesn't clearly understand who they are, what they stand for, or why they deserve attention. That's the gap we exist to close. We're a Founder-Led Brand Development Company that combines strategic thinking, creative execution and business understanding to help ambitious brands grow with clarity and confidence.`,
-  whoWeWorkWith: `Whether you're launching your first startup, building the next disruptive product, reimagining an established company or expanding into new markets, ORIXNAL helps transform ideas into brands that people recognise, trust and remember. Because growth isn't built on visibility alone. It's built on credibility.`,
+  whoWeWorkWith: `Whether you're launching your first startup, building the next disruptive product, reimagining an established company or expanding into new markets, ORIXNAL helps turn ideas into brands that people recognise, trust and remember. Because growth isn't built on visibility alone. It's built on credibility.`,
   whatMakesDifferent: `Most agencies begin by asking, "What would you like us to design?" We begin with a different question. "What are you trying to become?" That single question changes everything. It helps us understand your ambition before we touch your identity. Your vision before your visuals. Your purpose before your promotion. Because the strongest brands are built from the inside out—not the outside in.`,
   capabilitiesPillars: [
     'Brand Strategy',
@@ -967,7 +970,7 @@ export const ABOUT_MANIFEST = {
     'Events & Brand Experiences',
     'Business Consultancy',
     'Digital Growth',
-    'Brand Transformation'
+    'Brand Architecture'
   ],
   howWeThink: `We don't believe in one-size-fits-all branding. Every business has a different story. A different audience. A different ambition. And it deserves a different strategy. That's why every recommendation we make is built around your business—not around a template.`,
   headquarters: `ORIXNAL is proudly headquartered in E Square Building, Plot C-2, Sector 96, Noida, Uttar Pradesh, India. From here, we collaborate with founders, startups and businesses across India while serving clients remotely around the world.`,
@@ -990,7 +993,7 @@ export const FOUNDER_MANIFEST = {
   openingCopy: `ORIXNAL wasn't born in a boardroom. It wasn't created because another agency was needed. It was built on a simple observation. Too many promising businesses disappear—not because their products are ordinary, but because their brands fail to communicate what makes them extraordinary. That belief became the foundation of ORIXNAL. A company built to help businesses create brands that are understood, remembered and trusted.`,
   introduction: `Meet Asim Khan. Founder of ORIXNAL. Brand Strategist. Business Development Professional. Creative Thinker. A builder who believes that every successful business deserves a brand as thoughtful as the people behind it. With a career spanning business development, strategic consulting, branding and revenue growth, Asim brings together commercial understanding and creative thinking to help businesses build brands that are designed not only to attract attention—but to earn trust.`,
   philosophyQuote: `"Brand isn't what people see first. It's what they remember last. If people remember only your logo, you've created a design. If they remember your purpose, you've built a brand."`,
-  whyExists: `After years of working closely with founders, startups and growing businesses, one challenge appeared again and again: Amazing ideas. Strong products. Passionate founders. But unclear positioning. Confusing messaging. Inconsistent identity. Businesses weren't losing because they lacked potential. They were losing because they lacked clarity. ORIXNAL exists to solve that problem.`,
+  whyExists: `After years of working closely with founders, startups and growing businesses, one challenge appeared again and again: Ambitious ideas. Strong products. Committed founders. But unclear positioning. Confusing messaging. Inconsistent identity. Businesses weren't losing because they lacked potential. They were losing because they lacked clarity. ORIXNAL exists to solve that problem.`,
   wayWeWork: `At ORIXNAL, every project begins with listening. Not designing. Not selling. Listening. Because before we recommend a strategy, we want to understand your ambition. Before we build your identity, we want to understand your story. Before we talk about growth, we want to understand your purpose. Only then do we begin creating.`,
   whatDrivesMe: `I don't believe success is measured only by revenue. I believe it's measured by the number of businesses that become stronger because we worked together. Every founder has a vision. Every business has potential. My role is to help connect the two through strategy, creativity and clarity.`,
   beyondBusiness: `ORIXNAL is more than a company. It's the beginning of a long-term vision to build an ecosystem of brands that educate, inspire and create meaningful value. Every venture we launch will be built on the same foundation: Think originally. Build intentionally. Create lasting impact.`,
@@ -1016,7 +1019,7 @@ export const FOUNDER_MANIFEST = {
 export const SERVICES_MANIFEST = {
   sectionLabel: 'Our Expertise',
   mainHeadline: 'Everything your brand needs. All under one roof.',
-  openingCopy: `Building a remarkable brand requires far more than great design. It demands strategic thinking, creative excellence, legal protection, digital innovation, intelligent marketing, memorable experiences and long-term business guidance. At ORIXNAL, we've built an integrated ecosystem of services that supports businesses from their very first idea to sustainable long-term growth. Whether you're starting from scratch, launching a new venture, scaling an existing business or entering new markets, every service is designed to work together as one connected brand-building system.`,
+  openingCopy: `Building a remarkable brand requires far more than good design. It demands strategic thinking, creative rigor, legal protection, digital engineering, intelligent marketing, memorable experiences and long-term business guidance. At ORIXNAL, we've built an integrated ecosystem of services that supports businesses from their very first idea to sustainable long-term growth. Whether you're starting from scratch, launching a new venture, scaling an existing business or entering new markets, every service is designed to work together as one connected brand-building system.`,
   servicesList: [
     {
       num: '01',
@@ -1064,7 +1067,7 @@ export const SERVICES_MANIFEST = {
       num: '03',
       title: 'ORIXNAL DESIGN',
       subtitle: 'Create visual identities that people remember.',
-      desc: 'We transform business strategy into timeless visual systems that communicate professionalism, consistency and trust across every customer touchpoint.',
+      desc: 'We translate business strategy into timeless visual systems that communicate professionalism, consistency and trust across every customer touchpoint.',
       includes: [
         'Logo Design', 'Business Card Design', 'Website Creative Design', 'Flyer Design',
         'Graphic Design', 'T-shirt Design', 'Advertisement Design', 'Apparel Design',
@@ -1116,7 +1119,7 @@ export const SERVICES_MANIFEST = {
     {
       num: '05',
       title: 'ORIXNAL MARKETING',
-      subtitle: 'Transform strategy into sustainable business growth.',
+      subtitle: 'Build strategy into sustainable business growth.',
       desc: 'Marketing without strategy creates noise. We develop intelligent growth plans that connect your brand with the right audience through meaningful customer experiences.',
       includes: [
         'Integrated Marketing Strategy', 'Go-To-Market Strategy (GTM)', 'Market Entry Strategy',
@@ -1207,7 +1210,7 @@ export const SERVICES_MANIFEST = {
 export const PROCESS_MANIFEST = {
   sectionLabel: 'The ORIXNAL Method',
   mainHeadline: 'Every remarkable brand follows a process. Ours begins with clarity.',
-  openingCopy: `Great brands aren't created through guesswork. They are built through thoughtful decisions, structured collaboration and a clear roadmap. That's why every project at ORIXNAL follows a proven methodology that transforms ideas into meaningful, scalable and impactful brands. We don't rush into execution. We first understand. Then we define. Then we build.`,
+  openingCopy: `Great brands aren't created through guesswork. They are built through thoughtful decisions, structured collaboration and a clear roadmap. That's why every project at ORIXNAL follows a proven methodology that shapes ideas into meaningful, scalable and impactful brands. We don't rush into execution. We first understand. Then we define. Then we build.`,
   steps: [
     {
       num: '01',
@@ -1226,7 +1229,7 @@ export const PROCESS_MANIFEST = {
     {
       num: '03',
       title: 'CREATION',
-      tagline: 'Transform ideas into experiences.',
+      tagline: 'Turn ideas into experiences.',
       desc: 'With a strong strategy in place, we begin creating visual identities, digital experiences and communication systems that bring your brand to life. Every design decision is backed by purpose. Every detail supports your strategy.',
       deliverables: ['Brand Identity', 'Creative Design', 'Digital Experiences', 'Marketing Assets', 'Communication Systems']
     },
@@ -1281,7 +1284,7 @@ export const INDUSTRIES_MANIFEST = {
     { title: 'Corporate Organisations', tagline: 'Clarity at enterprise scale.', desc: 'Whether introducing new initiatives, refreshing an existing identity or strengthening internal and external communication, we help organisations maintain consistency across every touchpoint.' },
     { title: 'D2C & Consumer Brands', tagline: 'Products are purchased. Brands are chosen.', desc: 'We help consumer-focused businesses create memorable experiences that increase recognition, preference and customer loyalty.' },
     { title: 'Technology & SaaS', tagline: 'Innovation deserves clear communication.', desc: 'Complex products shouldn\'t require complicated messaging. We help technology companies simplify their positioning and communicate value with confidence.' },
-    { title: 'Education', tagline: 'Learning deserves inspiring brands.', desc: 'From educational institutions and coaching centres to online learning platforms, we build brands that communicate trust, credibility and excellence.' },
+    { title: 'Education', tagline: 'Learning deserves inspiring brands.', desc: 'From educational institutions and coaching centres to online learning platforms, we build brands that communicate trust, credibility and rigor.' },
     { title: 'Healthcare', tagline: 'Trust is everything.', desc: 'Healthcare brands require clarity, empathy and professionalism. We help healthcare organisations communicate with confidence while maintaining credibility and care.' },
     { title: 'Hospitality & Food', tagline: 'Great experiences begin long before customers arrive.', desc: 'From restaurants and cafés to hotels and food brands, we create memorable identities that people love to experience and recommend.' },
     { title: 'Retail & E-Commerce', tagline: 'Modern customers expect more than products.', desc: 'They expect experiences. We help retail businesses build seamless brand journeys across physical and digital channels.' },

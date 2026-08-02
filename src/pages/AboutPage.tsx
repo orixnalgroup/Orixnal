@@ -711,10 +711,18 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate, onOpenAudit })
 
           <a
             href={COMPANY_DETAILS.phoneRaw}
-            className="bg-neutral-800 hover:bg-neutral-700 text-neutral-200 font-bold py-3.5 px-6 rounded-2xl text-sm transition-colors inline-flex items-center gap-2"
+            className="bg-white text-neutral-900 border border-neutral-300 font-bold py-3.5 px-6 rounded-2xl text-sm hover:bg-neutral-50 transition-colors inline-flex items-center gap-2 shadow-2xs"
           >
-            <Phone className="w-4 h-4 text-rose-500" />
-            <span>Call +91 8447561650</span>
+            <Phone className="w-4 h-4 text-purple-700" />
+            <span>Call Us</span>
+          </a>
+
+          <a
+            href={COMPANY_DETAILS.emailRaw}
+            className="bg-white text-neutral-900 border border-neutral-300 font-bold py-3.5 px-6 rounded-2xl text-sm hover:bg-neutral-50 transition-colors inline-flex items-center gap-2 shadow-2xs"
+          >
+            <Mail className="w-4 h-4 text-purple-700" />
+            <span>Email Us</span>
           </a>
         </div>
       </div>

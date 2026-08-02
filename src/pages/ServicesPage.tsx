@@ -8,6 +8,7 @@ import { ServiceRoadmap } from '../components/ServiceRoadmap';
 import {
   Sparkles,
   Phone,
+  Mail,
   ArrowRight,
   CheckCircle2,
   ChevronRight,
@@ -54,7 +55,9 @@ import {
   RotateCcw,
   X,
   Layers3,
-  Filter
+  Filter,
+  Crown,
+  Layers2
 } from 'lucide-react';
 
 interface ServicesPageProps {
@@ -122,13 +125,26 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, onOpenAu
 
   const selectedCategory = SERVICE_CATEGORIES.find((c) => c.id === selectedCatId);
 
-  // Filter categories by filter buttons
-  const filteredCategories = useMemo(() => {
-    if (activeFilter === 'all') return SERVICE_CATEGORIES;
-    return SERVICE_CATEGORIES.filter((c) => c.id === activeFilter);
-  }, [activeFilter]);
+  // Flagship services IDs as per PRD
+  const flagshipIds = ['naming', 'design', 'event'];
 
-  // Global search matching across categories, modules, and sub-services
+  // Categories for Flagship level
+  const flagshipCategories = useMemo(() => {
+    return SERVICE_CATEGORIES.filter((c) => flagshipIds.includes(c.id));
+  }, []);
+
+  // Categories for Ecosystem level
+  const ecosystemCategories = useMemo(() => {
+    return SERVICE_CATEGORIES.filter((c) => !flagshipIds.includes(c.id));
+  }, []);
+
+  // Filter ecosystem categories by filter buttons
+  const filteredEcosystemCategories = useMemo(() => {
+    if (activeFilter === 'all') return ecosystemCategories;
+    return ecosystemCategories.filter((c) => c.id === activeFilter);
+  }, [activeFilter, ecosystemCategories]);
+
+  // Global search matching across all categories, modules, and sub-services
   const searchResults = useMemo(() => {
     if (!searchQuery.trim()) return null;
 
@@ -195,7 +211,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, onOpenAu
             className="inline-flex items-center gap-2 text-xs font-bold text-neutral-700 hover:text-purple-700 transition-colors bg-white px-4 py-2 rounded-full border border-neutral-200/80 shadow-2xs"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Back to All 8 Pillars</span>
+            <span>Back to All Services</span>
           </button>
 
           <div className="flex items-center gap-2 font-mono text-xs text-neutral-500">
@@ -211,7 +227,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, onOpenAu
             <div className="space-y-3 max-w-3xl">
               <div className="inline-flex items-center gap-2 orixnal-badge text-xs font-bold px-3.5 py-1 rounded-full uppercase tracking-wider">
                 <Sparkles className="w-3.5 h-3.5 text-purple-700" />
-                <span>Dedicated Service Pillar</span>
+                <span>{flagshipIds.includes(selectedCategory.id) ? 'Flagship Product Section' : 'Integrated Service Pillar'}</span>
               </div>
               <h1 className="text-3xl sm:text-5xl font-extrabold text-neutral-900 tracking-tight leading-tight">
                 {selectedCategory.title}
@@ -227,19 +243,28 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, onOpenAu
             <div className="shrink-0 flex flex-col gap-3">
               <button
                 onClick={onOpenAudit}
-                className="orixnal-gradient-bg text-white font-bold text-sm px-6 py-3.5 rounded-2xl shadow-sm hover:opacity-95 transition-all inline-flex items-center justify-center gap-2"
+                className="orixnal-gradient-bg text-white font-bold text-sm px-6 py-3.5 rounded-2xl shadow-2xs hover:opacity-95 transition-all inline-flex items-center justify-center gap-2"
               >
                 <span>Initiate {selectedCategory.shortTitle} Audit</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
 
-              <a
-                href={COMPANY_DETAILS.phoneRaw}
-                className="bg-neutral-100 hover:bg-neutral-200 text-neutral-800 font-bold text-xs px-6 py-3 rounded-2xl transition-colors inline-flex items-center justify-center gap-2 text-center"
-              >
-                <Phone className="w-3.5 h-3.5 text-purple-700" />
-                <span>Call {COMPANY_DETAILS.phone}</span>
-              </a>
+              <div className="flex flex-col sm:flex-row gap-2">
+                <a
+                  href={COMPANY_DETAILS.phoneRaw}
+                  className="bg-white text-neutral-900 border border-neutral-300 font-bold text-xs px-4 py-2.5 rounded-xl hover:bg-neutral-50 transition-colors inline-flex items-center justify-center gap-1.5 shadow-2xs"
+                >
+                  <Phone className="w-3.5 h-3.5 text-purple-700" />
+                  <span>Call Us</span>
+                </a>
+                <a
+                  href={COMPANY_DETAILS.emailRaw}
+                  className="bg-white text-neutral-900 border border-neutral-300 font-bold text-xs px-4 py-2.5 rounded-xl hover:bg-neutral-50 transition-colors inline-flex items-center justify-center gap-1.5 shadow-2xs"
+                >
+                  <Mail className="w-3.5 h-3.5 text-purple-700" />
+                  <span>Email Us</span>
+                </a>
+              </div>
             </div>
           </div>
 
@@ -458,37 +483,44 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, onOpenAu
         <ServicesFAQ onOpenAudit={onOpenAudit} />
 
         {/* CTA Banner */}
-        <div className="bg-neutral-900 text-white rounded-3xl p-8 sm:p-12 text-center space-y-6 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
-
-          <div className="inline-flex items-center gap-2 bg-neutral-800 text-purple-300 text-xs font-bold px-3.5 py-1 rounded-full uppercase tracking-wider">
-            <Award className="w-3.5 h-3.5 text-purple-400" />
+        <div className="bg-white border border-neutral-200/90 rounded-3xl p-8 sm:p-12 text-center space-y-6 shadow-2xs relative overflow-hidden">
+          <div className="inline-flex items-center gap-2 orixnal-badge text-xs font-bold px-3.5 py-1 rounded-full uppercase tracking-wider">
+            <Award className="w-3.5 h-3.5 text-purple-700" />
             <span>Direct Founder-Led Execution</span>
           </div>
 
-          <h3 className="text-2xl sm:text-4xl font-extrabold tracking-tight max-w-2xl mx-auto leading-tight">
+          <h3 className="text-2xl sm:text-4xl font-extrabold text-neutral-900 tracking-tight max-w-2xl mx-auto leading-tight">
             Ready to build {selectedCategory.shortTitle} with complete strategic clarity?
           </h3>
 
-          <p className="text-sm sm:text-base text-neutral-300 max-w-xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base text-neutral-600 max-w-xl mx-auto leading-relaxed">
             Schedule a 1-on-1 discovery call directly with Founder Asim Khan. Zero sales pressure, purely strategic insight.
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
             <button
               onClick={onOpenAudit}
-              className="orixnal-gradient-bg text-white font-bold py-3.5 px-8 rounded-2xl text-sm shadow-sm hover:opacity-95 transition-all inline-flex items-center gap-2"
+              className="orixnal-gradient-bg text-white font-bold py-3.5 px-8 rounded-2xl text-sm shadow-2xs hover:opacity-95 transition-all inline-flex items-center gap-2"
             >
               <span>Schedule Strategy Call</span>
               <ArrowRight className="w-4 h-4" />
             </button>
 
-            <button
-              onClick={() => setSelectedCatId(null)}
-              className="bg-neutral-800 hover:bg-neutral-700 text-neutral-200 font-bold py-3.5 px-6 rounded-2xl text-sm transition-colors"
+            <a
+              href={COMPANY_DETAILS.phoneRaw}
+              className="bg-white text-neutral-900 border border-neutral-300 font-bold py-3.5 px-6 rounded-2xl text-sm hover:bg-neutral-50 transition-colors inline-flex items-center gap-2 shadow-2xs"
             >
-              Explore Other 7 Pillars
-            </button>
+              <Phone className="w-4 h-4 text-purple-700" />
+              <span>Call Us</span>
+            </a>
+
+            <a
+              href={COMPANY_DETAILS.emailRaw}
+              className="bg-white text-neutral-900 border border-neutral-300 font-bold py-3.5 px-6 rounded-2xl text-sm hover:bg-neutral-50 transition-colors inline-flex items-center gap-2 shadow-2xs"
+            >
+              <Mail className="w-4 h-4 text-purple-700" />
+              <span>Email Us</span>
+            </a>
           </div>
         </div>
 
@@ -532,7 +564,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, onOpenAu
                     setActiveSubServiceModal(null);
                     onOpenAudit();
                   }}
-                  className="orixnal-gradient-bg text-white font-bold text-xs py-3 px-6 rounded-2xl shadow-xs hover:opacity-95 transition-all flex-1 text-center inline-flex items-center justify-center gap-2"
+                  className="orixnal-gradient-bg text-white font-bold text-xs py-3 px-6 rounded-2xl shadow-2xs hover:opacity-95 transition-all flex-1 text-center inline-flex items-center justify-center gap-2"
                 >
                   <span>Request Scope for {activeSubServiceModal.subService}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -551,44 +583,45 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, onOpenAu
     );
   }
 
-  // MAIN SERVICES OVERVIEW PAGE (When selectedCategory is null)
+  // MAIN SERVICES OVERVIEW PAGE (Two-Level Architecture)
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
       {/* Header Banner */}
       <div className="bg-white border border-neutral-200/90 rounded-3xl p-8 sm:p-12 shadow-2xs space-y-8">
         <div className="space-y-4">
           <div className="flex flex-wrap items-center gap-3">
             <div className="inline-flex items-center gap-2 orixnal-badge text-xs font-bold px-3.5 py-1 rounded-full uppercase tracking-wider">
               <Sparkles className="w-3.5 h-3.5 text-purple-700" />
-              <span>8 Core Service Pillars</span>
+              <span>Two-Level Architecture</span>
             </div>
             <span className="text-xs font-mono font-bold bg-neutral-900 text-white px-3 py-1 rounded-full">
-              {totalSubServicesCount}+ Sub-Services Cataloged
+              3 Flagships • 5 Ecosystem Pillars
             </span>
             <span className="text-xs font-mono text-purple-700 font-bold bg-purple-50 px-3 py-1 rounded-full border border-purple-200/60">
-              Ministry of MSME Registered
+              {totalSubServicesCount}+ Sub-Services Cataloged
             </span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-extrabold text-neutral-900 tracking-tight leading-tight max-w-4xl">
-            Complete brand development from naming & legal IP armor to web engineering & GTM scale.
+            The ORIXNAL Brand Engineering System
           </h1>
 
           <p className="text-base sm:text-lg text-neutral-600 max-w-3xl leading-relaxed">
-            ORIXNAL provides 8 integrated service pillars divided into specialized sub-service modules. We don't sell generic hourly pixel tweaks — we architect complete, legally armored, revenue-engineered brand ecosystems.
+            We architect sovereign, legally armored, and revenue-scaled masterbrands. Our services operate on a two-level architecture: standalone immersive <strong>Flagship Products</strong> paired with an <strong>Integrated Service Ecosystem</strong>.
           </p>
         </div>
 
-        {/* Global Live Search Bar */}
-        <div className="space-y-3 pt-2 border-t border-neutral-100">
-          <div className="relative max-w-2xl">
+        {/* Header Action Buttons & Search */}
+        <div className="pt-2 border-t border-neutral-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          {/* Global Live Search Bar */}
+          <div className="relative max-w-xl w-full">
             <Search className="w-5 h-5 text-neutral-400 absolute left-4 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search across 500+ sub-services (e.g., 'Trademark', 'Shopify', 'GST', 'Billboard', 'Stage')..."
-              className="w-full bg-[#FAF9F6] border border-neutral-200 rounded-2xl pl-12 pr-10 py-3.5 text-xs sm:text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:border-purple-600 focus:bg-white transition-all shadow-2xs"
+              placeholder="Search 500+ sub-services (e.g., 'Trademark', 'Shopify', 'Billboard', 'Stage')..."
+              className="w-full bg-[#FAF9F6] border border-neutral-200 rounded-2xl pl-12 pr-10 py-3 text-xs sm:text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:border-purple-600 focus:bg-white transition-all shadow-2xs"
             />
             {searchQuery && (
               <button
@@ -600,37 +633,22 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, onOpenAu
             )}
           </div>
 
-          {/* Filter Pills */}
-          <div className="flex flex-wrap items-center gap-2 pt-1">
-            <button
-              onClick={() => {
-                setActiveFilter('all');
-                setSearchQuery('');
-              }}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
-                activeFilter === 'all' && !searchQuery
-                  ? 'bg-neutral-900 text-white shadow-sm'
-                  : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
-              }`}
+          {/* Direct Contact Buttons */}
+          <div className="flex flex-wrap items-center gap-2 shrink-0">
+            <a
+              href={COMPANY_DETAILS.phoneRaw}
+              className="orixnal-gradient-bg text-white font-bold px-4 py-2.5 rounded-xl text-xs flex items-center gap-1.5 shadow-2xs hover:opacity-95 transition-opacity"
             >
-              All 8 Pillars
-            </button>
-            {SERVICE_CATEGORIES.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => {
-                  setActiveFilter(cat.id);
-                  setSearchQuery('');
-                }}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
-                  activeFilter === cat.id && !searchQuery
-                    ? 'bg-neutral-900 text-white shadow-sm'
-                    : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
-                }`}
-              >
-                {cat.shortTitle}
-              </button>
-            ))}
+              <Phone className="w-3.5 h-3.5" />
+              <span>Call Us</span>
+            </a>
+            <a
+              href={COMPANY_DETAILS.emailRaw}
+              className="bg-white text-neutral-900 border border-neutral-300 font-bold px-4 py-2.5 rounded-xl text-xs flex items-center gap-1.5 shadow-2xs hover:bg-neutral-50 transition-colors"
+            >
+              <Mail className="w-3.5 h-3.5 text-purple-700" />
+              <span>Email Us</span>
+            </a>
           </div>
         </div>
       </div>
@@ -661,12 +679,21 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, onOpenAu
               <p className="text-xs text-neutral-500 max-w-md mx-auto">
                 We handle custom brand development engagements across all categories. Contact Founder Asim Khan directly to inquire about custom scope.
               </p>
-              <button
-                onClick={onOpenAudit}
-                className="orixnal-gradient-bg text-white font-bold text-xs px-6 py-3 rounded-2xl shadow-xs mt-2"
-              >
-                Request Custom Scope
-              </button>
+              <div className="flex flex-wrap justify-center gap-3 pt-2">
+                <button
+                  onClick={onOpenAudit}
+                  className="orixnal-gradient-bg text-white font-bold text-xs px-6 py-3 rounded-2xl shadow-2xs"
+                >
+                  Request Custom Scope
+                </button>
+                <a
+                  href={COMPANY_DETAILS.phoneRaw}
+                  className="bg-white text-neutral-900 border border-neutral-300 font-bold text-xs px-5 py-3 rounded-2xl shadow-2xs hover:bg-neutral-50 flex items-center gap-1.5"
+                >
+                  <Phone className="w-3.5 h-3.5 text-purple-700" />
+                  <span>Call Us</span>
+                </a>
+              </div>
             </div>
           ) : (
             <div className="space-y-8">
@@ -720,103 +747,285 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, onOpenAu
           )}
         </div>
       ) : (
-        /* MAIN 8 PILLARS GRID */
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {filteredCategories.map((category, idx) => {
-            const modules = SUB_SERVICE_MODULES[category.id] || [];
+        <>
+          {/* LEVEL 1: FLAGSHIP SERVICES (Immersive, Independent Product Sections) */}
+          <section className="space-y-8">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-neutral-200 pb-4">
+              <div className="space-y-1">
+                <div className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-purple-800 bg-purple-100/80 px-3 py-1 rounded-full w-fit">
+                  <Crown className="w-3.5 h-3.5 text-purple-700" />
+                  <span>Level 1: Flagship Services</span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-neutral-900">
+                  Immersive Product Sections
+                </h2>
+                <p className="text-xs sm:text-sm text-neutral-600">
+                  Sovereign brand assets engineered as distinct, high-impact product experiences.
+                </p>
+              </div>
 
-            return (
-              <div
-                key={category.id}
-                className="bg-white border border-neutral-200/90 rounded-3xl p-6 sm:p-8 shadow-2xs hover:border-purple-300 transition-all flex flex-col justify-between space-y-6 group orixnal-card-hover"
-              >
-                <div className="space-y-5">
-                  {/* Header Badges */}
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs font-bold text-purple-700 bg-purple-50 px-3 py-1 rounded-full border border-purple-200/60">
-                      Pillar 0{idx + 1}
-                    </span>
-                    <span className="text-xs font-mono text-neutral-500 font-semibold bg-neutral-100 px-2.5 py-1 rounded-lg">
-                      {modules.length} Sub-Modules ({category.services.length} Items)
-                    </span>
-                  </div>
+              <span className="text-xs font-mono text-purple-900 bg-purple-50 border border-purple-200 px-3.5 py-1.5 rounded-xl font-bold shrink-0">
+                3 Independent Products
+              </span>
+            </div>
 
-                  {/* Title & Purpose */}
-                  <div>
-                    <h2 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 group-hover:text-purple-900 transition-colors">
-                      {category.title}
-                    </h2>
-                    <p className="text-xs font-semibold text-purple-800 mt-1">
-                      {category.purpose}
-                    </p>
-                  </div>
+            {/* Render Each Flagship Section with Editorial Layout */}
+            <div className="space-y-10">
+              {flagshipCategories.map((category, idx) => {
+                const modules = SUB_SERVICE_MODULES[category.id] || [];
 
-                  {/* Description */}
-                  <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
-                    {category.description}
-                  </p>
-
-                  {/* Vector Graphic Thumbnail */}
-                  <div className="pt-1">
-                    <ServiceIllustration category={category.id} className="w-full h-40" />
-                  </div>
-
-                  {/* SUB-SERVICE MODULES PREVIEW */}
-                  <div className="space-y-3 pt-2">
-                    <div className="flex items-center justify-between border-b border-neutral-100 pb-2">
-                      <h4 className="text-[11px] font-bold uppercase tracking-wider text-neutral-500 font-mono">
-                        Sub-Service Modules Breakdown
-                      </h4>
-                      <span className="text-[10px] text-purple-700 font-mono font-bold">
-                        {modules.length} Modules
-                      </span>
+                return (
+                  <div
+                    key={category.id}
+                    className="bg-white border border-purple-200/90 rounded-3xl p-8 sm:p-12 shadow-2xs space-y-8 relative overflow-hidden group hover:border-purple-400 transition-all"
+                  >
+                    {/* Corner Accent Badge */}
+                    <div className="absolute top-0 right-0 bg-purple-900 text-white font-mono text-[10px] font-bold px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
+                      Flagship Product 0{idx + 1}
                     </div>
 
-                    <div className="space-y-2">
-                      {modules.map((mod) => (
-                        <div
-                          key={mod.id}
-                          className="p-3 rounded-2xl bg-[#FAF9F6] border border-neutral-200/80 hover:border-purple-200 transition-colors space-y-1.5"
-                        >
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2">
-                              <ModuleIcon name={mod.iconName} className="w-3.5 h-3.5 text-purple-700" />
-                              <h5 className="text-xs font-bold text-neutral-900">{mod.title}</h5>
-                            </div>
-                            <span className="text-[10px] font-mono font-semibold text-neutral-400">
-                              {mod.items.length} items
-                            </span>
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                      {/* Left Editorial Info */}
+                      <div className="lg:col-span-7 space-y-6">
+                        <div className="space-y-2">
+                          <div className="inline-flex items-center gap-2 font-mono text-xs font-bold text-purple-700 bg-purple-50 px-3 py-1 rounded-full border border-purple-200/60">
+                            <Sparkles className="w-3.5 h-3.5 text-purple-700" />
+                            <span>{category.shortTitle} Architecture</span>
                           </div>
-                          <p className="text-[11px] text-neutral-500 line-clamp-1">
-                            {mod.items.slice(0, 4).join(', ')}...
+
+                          <h3 className="text-3xl sm:text-4xl font-extrabold text-neutral-900 tracking-tight">
+                            {category.title}
+                          </h3>
+
+                          <p className="text-sm sm:text-base font-semibold text-purple-800 italic">
+                            "{category.tagline}"
                           </p>
                         </div>
-                      ))}
+
+                        <p className="text-sm text-neutral-600 leading-relaxed">
+                          {category.description}
+                        </p>
+
+                        {/* Deliverables Highlights Pill Grid */}
+                        <div className="space-y-2 pt-1">
+                          <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-400">
+                            Core Deliverables & Capabilities
+                          </span>
+                          <div className="flex flex-wrap gap-2">
+                            {category.services.slice(0, 6).map((service, sIdx) => (
+                              <span
+                                key={sIdx}
+                                className="text-xs font-medium bg-[#FAF9F6] border border-neutral-200 px-3 py-1.5 rounded-xl text-neutral-800 inline-flex items-center gap-1.5 shadow-2xs"
+                              >
+                                <CheckCircle2 className="w-3.5 h-3.5 text-purple-700 shrink-0" />
+                                <span>{service}</span>
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Witty Quote */}
+                        {category.wittyQuote && (
+                          <div className="p-4 rounded-2xl bg-purple-50/80 border border-purple-200 text-purple-950 text-xs leading-relaxed flex items-start gap-2.5">
+                            <Quote className="w-4 h-4 text-purple-700 shrink-0 mt-0.5" />
+                            <div>
+                              <strong className="font-bold text-purple-900">Founder's Axiom: </strong>
+                              <span>"{category.wittyQuote}"</span>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Action Buttons */}
+                        <div className="pt-2 flex flex-wrap items-center gap-3">
+                          <button
+                            onClick={() => setSelectedCatId(category.id)}
+                            className="orixnal-gradient-bg text-white font-bold text-xs px-6 py-3.5 rounded-2xl shadow-2xs hover:opacity-95 transition-all inline-flex items-center gap-2"
+                          >
+                            <span>Explore {category.title} Section</span>
+                            <ChevronRight className="w-4 h-4" />
+                          </button>
+
+                          <a
+                            href={COMPANY_DETAILS.phoneRaw}
+                            className="bg-white text-neutral-900 border border-neutral-300 font-bold text-xs px-4 py-3.5 rounded-2xl hover:bg-neutral-50 transition-colors inline-flex items-center gap-1.5 shadow-2xs"
+                          >
+                            <Phone className="w-3.5 h-3.5 text-purple-700" />
+                            <span>Call Us</span>
+                          </a>
+
+                          <a
+                            href={COMPANY_DETAILS.emailRaw}
+                            className="bg-white text-neutral-900 border border-neutral-300 font-bold text-xs px-4 py-3.5 rounded-2xl hover:bg-neutral-50 transition-colors inline-flex items-center gap-1.5 shadow-2xs"
+                          >
+                            <Mail className="w-3.5 h-3.5 text-purple-700" />
+                            <span>Email Us</span>
+                          </a>
+                        </div>
+                      </div>
+
+                      {/* Right Custom Vector Feature Showcase */}
+                      <div className="lg:col-span-5 space-y-4">
+                        <div className="bg-[#FAF8F5] p-2 rounded-3xl border border-neutral-200 shadow-2xs">
+                          <ServiceIllustration category={category.id} className="w-full h-64 sm:h-72" />
+                        </div>
+
+                        <div className="bg-white p-4 rounded-2xl border border-neutral-200 flex items-center justify-between text-xs text-neutral-600 font-mono">
+                          <span>{modules.length} Specialized Sub-Modules</span>
+                          <span className="text-purple-800 font-bold">100% Direct Founder Led</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                );
+              })}
+            </div>
+          </section>
 
-                {/* Actions */}
-                <div className="pt-4 border-t border-neutral-100 flex items-center justify-between gap-3">
-                  <button
-                    onClick={() => setSelectedCatId(category.id)}
-                    className="text-xs font-bold text-neutral-900 bg-neutral-100 hover:bg-neutral-200 px-4 py-2.5 rounded-xl transition-colors inline-flex items-center gap-1.5"
-                  >
-                    <span>Explore Pillar & Sub-Services</span>
-                    <ChevronRight className="w-3.5 h-3.5 text-purple-700" />
-                  </button>
-
-                  <button
-                    onClick={onOpenAudit}
-                    className="orixnal-gradient-bg text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-2xs hover:opacity-95 transition-all"
-                  >
-                    Enquire
-                  </button>
+          {/* LEVEL 2: INTEGRATED SERVICE ECOSYSTEM */}
+          <section className="space-y-8 pt-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-neutral-200 pb-4">
+              <div className="space-y-1">
+                <div className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-purple-800 bg-purple-100/80 px-3 py-1 rounded-full w-fit">
+                  <Layers2 className="w-3.5 h-3.5 text-purple-700" />
+                  <span>Level 2: Integrated Service Ecosystem</span>
                 </div>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-neutral-900">
+                  Ecosystem Pillars & Specialized Modules
+                </h2>
+                <p className="text-xs sm:text-sm text-neutral-600">
+                  Secondary integrated capabilities powering legal defense, custom web engineering, growth engines, and campaigns.
+                </p>
               </div>
-            );
-          })}
-        </div>
+
+              {/* Filter Pills */}
+              <div className="flex flex-wrap items-center gap-2 shrink-0">
+                <button
+                  onClick={() => setActiveFilter('all')}
+                  className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
+                    activeFilter === 'all'
+                      ? 'bg-neutral-900 text-white shadow-2xs'
+                      : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
+                  }`}
+                >
+                  All Ecosystem Pillars
+                </button>
+                {ecosystemCategories.map((cat) => (
+                  <button
+                    key={cat.id}
+                    onClick={() => setActiveFilter(cat.id)}
+                    className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
+                      activeFilter === cat.id
+                        ? 'bg-neutral-900 text-white shadow-2xs'
+                        : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
+                    }`}
+                  >
+                    {cat.shortTitle}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Ecosystem Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {filteredEcosystemCategories.map((category, idx) => {
+                const modules = SUB_SERVICE_MODULES[category.id] || [];
+
+                return (
+                  <div
+                    key={category.id}
+                    className="bg-white border border-neutral-200/90 rounded-3xl p-6 sm:p-8 shadow-2xs hover:border-purple-300 transition-all flex flex-col justify-between space-y-6 group orixnal-card-hover"
+                  >
+                    <div className="space-y-5">
+                      {/* Header Badges */}
+                      <div className="flex items-center justify-between">
+                        <span className="font-mono text-xs font-bold text-purple-700 bg-purple-50 px-3 py-1 rounded-full border border-purple-200/60">
+                          Ecosystem Pillar 0{idx + 1}
+                        </span>
+                        <span className="text-xs font-mono text-neutral-500 font-semibold bg-neutral-100 px-2.5 py-1 rounded-lg">
+                          {modules.length} Modules ({category.services.length} Items)
+                        </span>
+                      </div>
+
+                      {/* Title & Purpose */}
+                      <div>
+                        <h3 className="text-2xl font-extrabold text-neutral-900 group-hover:text-purple-900 transition-colors">
+                          {category.title}
+                        </h3>
+                        <p className="text-xs font-semibold text-purple-800 mt-1">
+                          {category.purpose}
+                        </p>
+                      </div>
+
+                      {/* Description */}
+                      <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
+                        {category.description}
+                      </p>
+
+                      {/* Vector Graphic Thumbnail */}
+                      <div className="pt-1">
+                        <ServiceIllustration category={category.id} className="w-full h-40" />
+                      </div>
+
+                      {/* SUB-SERVICE MODULES PREVIEW */}
+                      <div className="space-y-3 pt-2">
+                        <div className="flex items-center justify-between border-b border-neutral-100 pb-2">
+                          <h4 className="text-[11px] font-bold uppercase tracking-wider text-neutral-500 font-mono">
+                            Sub-Service Modules Breakdown
+                          </h4>
+                          <span className="text-[10px] text-purple-700 font-mono font-bold">
+                            {modules.length} Modules
+                          </span>
+                        </div>
+
+                        <div className="space-y-2">
+                          {modules.map((mod) => (
+                            <div
+                              key={mod.id}
+                              className="p-3 rounded-2xl bg-[#FAF9F6] border border-neutral-200/80 hover:border-purple-200 transition-colors space-y-1.5"
+                            >
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-2">
+                                  <ModuleIcon name={mod.iconName} className="w-3.5 h-3.5 text-purple-700" />
+                                  <h5 className="text-xs font-bold text-neutral-900">{mod.title}</h5>
+                                </div>
+                                <span className="text-[10px] font-mono font-semibold text-neutral-400">
+                                  {mod.items.length} items
+                                </span>
+                              </div>
+                              <p className="text-[11px] text-neutral-500 line-clamp-1">
+                                {mod.items.slice(0, 4).join(', ')}...
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Actions */}
+                    <div className="pt-4 border-t border-neutral-100 flex items-center justify-between gap-3">
+                      <button
+                        onClick={() => setSelectedCatId(category.id)}
+                        className="text-xs font-bold text-neutral-900 bg-neutral-100 hover:bg-neutral-200 px-4 py-2.5 rounded-xl transition-colors inline-flex items-center gap-1.5"
+                      >
+                        <span>Explore Pillar</span>
+                        <ChevronRight className="w-3.5 h-3.5 text-purple-700" />
+                      </button>
+
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          onClick={onOpenAudit}
+                          className="orixnal-gradient-bg text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-2xs hover:opacity-95 transition-all"
+                        >
+                          Enquire Scope
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        </>
       )}
 
       {/* Visual Brand Development Roadmap Component */}
@@ -829,7 +1038,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, onOpenAu
             The ORIXNAL Distinction
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-neutral-900">
-            Why Our 8 Pillars & Sub-Modules Live Under One Roof
+            Why Our Two-Level System Lives Under One Roof
           </h2>
           <p className="text-sm text-neutral-600 leading-relaxed">
             Hiring separate vendors for naming, legal trademarking, web coding, and ad management creates fragmented messaging and costly handoff friction. ORIXNAL unifies strategy, legal defense, design dialects, and custom code under direct founder leadership.
@@ -837,7 +1046,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, onOpenAu
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
-          <div className="bg-white p-5 rounded-2xl border border-neutral-200 space-y-2">
+          <div className="bg-white p-5 rounded-2xl border border-neutral-200 space-y-2 shadow-2xs">
             <ShieldCheck className="w-5 h-5 text-purple-700" />
             <h4 className="text-sm font-bold text-neutral-900">Integrated Legal Defense</h4>
             <p className="text-xs text-neutral-600 leading-relaxed">
@@ -845,7 +1054,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, onOpenAu
             </p>
           </div>
 
-          <div className="bg-white p-5 rounded-2xl border border-neutral-200 space-y-2">
+          <div className="bg-white p-5 rounded-2xl border border-neutral-200 space-y-2 shadow-2xs">
             <Zap className="w-5 h-5 text-purple-700" />
             <h4 className="text-sm font-bold text-neutral-900">Bespoke React Code</h4>
             <p className="text-xs text-neutral-600 leading-relaxed">
@@ -853,7 +1062,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, onOpenAu
             </p>
           </div>
 
-          <div className="bg-white p-5 rounded-2xl border border-neutral-200 space-y-2">
+          <div className="bg-white p-5 rounded-2xl border border-neutral-200 space-y-2 shadow-2xs">
             <Award className="w-5 h-5 text-amber-600" />
             <h4 className="text-sm font-bold text-neutral-900">Direct Founder Oversight</h4>
             <p className="text-xs text-neutral-600 leading-relaxed">
@@ -877,17 +1086,24 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, onOpenAu
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
           <button
             onClick={onOpenAudit}
-            className="orixnal-gradient-bg text-white font-bold py-3.5 px-8 rounded-2xl text-sm shadow-sm hover:opacity-95 transition-all inline-flex items-center gap-2"
+            className="orixnal-gradient-bg text-white font-bold py-3.5 px-8 rounded-2xl text-sm shadow-2xs hover:opacity-95 transition-all inline-flex items-center gap-2"
           >
             <span>Request Brand Discovery Audit</span>
             <ArrowRight className="w-4 h-4" />
           </button>
           <a
             href={COMPANY_DETAILS.phoneRaw}
-            className="bg-neutral-100 hover:bg-neutral-200 text-neutral-900 font-bold py-3.5 px-6 rounded-2xl text-sm transition-colors inline-flex items-center gap-2"
+            className="bg-white text-neutral-900 border border-neutral-300 font-bold py-3.5 px-6 rounded-2xl text-sm hover:bg-neutral-50 transition-colors inline-flex items-center gap-2 shadow-2xs"
           >
             <Phone className="w-4 h-4 text-purple-700" />
-            <span>Call {COMPANY_DETAILS.phone}</span>
+            <span>Call Us</span>
+          </a>
+          <a
+            href={COMPANY_DETAILS.emailRaw}
+            className="bg-white text-neutral-900 border border-neutral-300 font-bold py-3.5 px-6 rounded-2xl text-sm hover:bg-neutral-50 transition-colors inline-flex items-center gap-2 shadow-2xs"
+          >
+            <Mail className="w-4 h-4 text-purple-700" />
+            <span>Email Us</span>
           </a>
         </div>
       </div>
@@ -932,7 +1148,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, onOpenAu
                   setActiveSubServiceModal(null);
                   onOpenAudit();
                 }}
-                className="orixnal-gradient-bg text-white font-bold text-xs py-3 px-6 rounded-2xl shadow-xs hover:opacity-95 transition-all flex-1 text-center inline-flex items-center justify-center gap-2"
+                className="orixnal-gradient-bg text-white font-bold text-xs py-3 px-6 rounded-2xl shadow-2xs hover:opacity-95 transition-all flex-1 text-center inline-flex items-center justify-center gap-2"
               >
                 <span>Request Scope for {activeSubServiceModal.subService}</span>
                 <ArrowRight className="w-3.5 h-3.5" />

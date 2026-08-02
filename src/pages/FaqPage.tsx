@@ -62,17 +62,17 @@ export const FaqPage: React.FC<FaqPageProps> = ({ onNavigate, onOpenAudit }) => 
           </button>
           <a
             href={COMPANY_DETAILS.phoneRaw}
-            className="bg-white text-neutral-800 font-bold py-3 px-6 rounded-xl flex items-center gap-2 text-sm border border-neutral-200 hover:bg-neutral-50 transition-colors"
+            className="bg-white text-neutral-800 font-bold py-3 px-6 rounded-xl flex items-center gap-2 text-sm border border-neutral-200 hover:bg-neutral-50 transition-colors shadow-2xs"
           >
             <Phone className="w-4 h-4 text-purple-700" />
-            <span>Call +91 8447561650</span>
+            <span>Call Us</span>
           </a>
           <a
             href={COMPANY_DETAILS.emailRaw}
-            className="bg-neutral-900 text-white font-bold py-3 px-6 rounded-xl flex items-center gap-2 text-sm hover:bg-neutral-800 transition-colors"
+            className="bg-white text-neutral-900 font-bold py-3 px-6 rounded-xl flex items-center gap-2 text-sm border border-neutral-300 hover:bg-neutral-50 transition-colors shadow-2xs"
           >
-            <Mail className="w-4 h-4" />
-            <span>Email hello@orixnal.com</span>
+            <Mail className="w-4 h-4 text-purple-700" />
+            <span>Email Us</span>
           </a>
         </div>
       </div>

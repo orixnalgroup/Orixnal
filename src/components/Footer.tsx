@@ -35,15 +35,15 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAudit }) => {
               className="orixnal-gradient-bg text-white font-bold px-6 py-4 rounded-2xl flex items-center justify-center gap-2.5 shadow-md hover:opacity-95 transition-opacity text-sm"
             >
               <Phone className="w-4 h-4" />
-              <span>Call +91 8447561650</span>
+              <span>Call Us</span>
             </a>
 
             <a
               href={COMPANY_DETAILS.emailRaw}
-              className="bg-neutral-900 text-white font-bold px-6 py-4 rounded-2xl flex items-center justify-center gap-2.5 hover:bg-neutral-800 transition-colors text-sm shadow-sm"
+              className="bg-white text-neutral-900 border border-neutral-300 font-bold px-6 py-4 rounded-2xl flex items-center justify-center gap-2.5 hover:bg-neutral-50 transition-colors text-sm shadow-2xs"
             >
-              <Mail className="w-4 h-4" />
-              <span>Email hello@orixnal.com</span>
+              <Mail className="w-4 h-4 text-purple-700" />
+              <span>Email Us</span>
             </a>
           </div>
         </div>
@@ -155,6 +155,12 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAudit }) => {
                 </button>
               </li>
               <li>
+                <button onClick={() => onNavigate('events')} className="hover:text-purple-700 transition-colors flex items-center gap-1.5 font-bold text-purple-900">
+                  <span>ORIXNAL EVENT™ Summits</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-purple-600 animate-pulse" />
+                </button>
+              </li>
+              <li>
                 <button onClick={() => onNavigate('foooz')} className="hover:text-purple-700 transition-colors flex items-center gap-1.5 font-bold text-amber-800">
                   <span>Foooz® Sub-Brand</span>
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
@@ -168,43 +174,47 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAudit }) => {
             </ul>
           </div>
 
-          {/* Registered Addresses & Contact */}
+          {/* Headquarters & Contact */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-900 mb-4 font-mono">
-              Locations & Direct Contact
+              Headquarters & Contact
             </h4>
 
             <div className="space-y-3.5 text-xs text-neutral-600">
               <div className="flex items-start gap-2">
                 <Building className="w-4 h-4 text-purple-700 shrink-0 mt-0.5" />
                 <div>
-                  <strong className="text-neutral-900 block">Headquarters:</strong>
+                  <strong className="text-neutral-900 block">Digital Headquarters:</strong>
                   <span>{COMPANY_DETAILS.headquarters}</span>
+                  <span className="block text-[11px] text-purple-800 font-medium italic mt-1 bg-purple-50 px-2 py-0.5 rounded border border-purple-100">
+                    {COMPANY_DETAILS.appointmentNote}
+                  </span>
                 </div>
               </div>
 
-              <div className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-purple-700 shrink-0 mt-0.5" />
-                <div>
-                  <strong className="text-neutral-900 block">Registered Office:</strong>
-                  <span>{COMPANY_DETAILS.registeredAddress}</span>
-                </div>
+              <div className="pt-2 border-t border-neutral-200/60 space-y-1">
+                <span className="text-[11px] font-mono font-bold text-neutral-500 uppercase tracking-wider block">
+                  Expanding Presence
+                </span>
+                <span className="text-xs text-neutral-700 font-semibold block">
+                  Dubai • London • New York • Singapore
+                </span>
               </div>
 
-              <div className="pt-2 border-t border-neutral-200/60 space-y-1.5">
+              <div className="pt-2 border-t border-neutral-200/60 flex flex-col gap-2">
                 <a
                   href={COMPANY_DETAILS.phoneRaw}
-                  className="flex items-center gap-2 font-bold text-neutral-900 hover:text-purple-700 transition-colors"
+                  className="inline-flex items-center gap-2 font-bold text-xs text-white orixnal-gradient-bg px-3 py-2 rounded-xl shadow-2xs hover:opacity-95 transition-opacity"
                 >
-                  <Phone className="w-3.5 h-3.5 text-purple-700" />
-                  <span>+91 8447561650 (Dialer)</span>
+                  <Phone className="w-3.5 h-3.5" />
+                  <span>Call Us</span>
                 </a>
                 <a
                   href={COMPANY_DETAILS.emailRaw}
-                  className="flex items-center gap-2 font-bold text-neutral-900 hover:text-purple-700 transition-colors"
+                  className="inline-flex items-center gap-2 font-bold text-xs text-neutral-900 bg-white border border-neutral-300 px-3 py-2 rounded-xl shadow-2xs hover:bg-neutral-50 transition-colors"
                 >
                   <Mail className="w-3.5 h-3.5 text-purple-700" />
-                  <span>hello@orixnal.com (Mail)</span>
+                  <span>Email Us</span>
                 </a>
               </div>
             </div>
