@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { PageRoute } from '../types';
 import { OFFICIAL_ASSETS, COMPANY_DETAILS, FOUNDER_INFO } from '../data/brandData';
 import { AudioPlayer } from '../components/AudioPlayer';
+import { ContactButtonGroup } from '../components/ContactButtonGroup';
 import { Sparkles, Phone, Mail, Award, CheckCircle2, ArrowRight } from 'lucide-react';
 
 interface FounderPageProps {
@@ -83,24 +84,14 @@ export const FounderPage: React.FC<FounderPageProps> = ({ onNavigate, onOpenAudi
               />
             </div>
 
-            {/* Direct Contact Buttons */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
-              <a
-                href={COMPANY_DETAILS.phoneRaw}
-                className="orixnal-gradient-bg text-white font-bold py-3.5 px-6 rounded-2xl flex items-center justify-center gap-2 shadow-md text-sm hover:opacity-95"
-              >
-                <Phone className="w-4 h-4" />
-                <span>Call Us</span>
-              </a>
-
-              <a
-                href={COMPANY_DETAILS.emailRaw}
-                className="bg-white text-neutral-900 border border-neutral-300 font-bold py-3.5 px-6 rounded-2xl flex items-center justify-center gap-2 text-sm shadow-2xs hover:bg-neutral-50 transition-colors"
-              >
-                <Mail className="w-4 h-4 text-purple-700" />
-                <span>Email Us</span>
-              </a>
-            </div>
+            {/* Direct Contact & Consultation Buttons */}
+            <ContactButtonGroup
+              onOpenConsultation={onOpenAudit}
+              consultationText="Brand Discovery Consultation"
+              size="md"
+              align="left"
+              className="pt-2"
+            />
 
           </div>
 

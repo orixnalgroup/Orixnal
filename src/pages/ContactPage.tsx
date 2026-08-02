@@ -3,6 +3,7 @@ import { PageRoute } from '../types';
 import { COMPANY_DETAILS, FOUNDER_INFO } from '../data/brandData';
 import { GlobalPresenceMap } from '../components/GlobalPresenceMap';
 import { CalendlyScheduler, CALENDLY_URL } from '../components/CalendlyScheduler';
+import { ContactButtonGroup } from '../components/ContactButtonGroup';
 import { Sparkles, Phone, Mail, MapPin, Building, ShieldCheck, Globe, Clock, ArrowRight, Calendar, Video, CheckCircle2 } from 'lucide-react';
 
 interface ContactPageProps {
@@ -39,34 +40,33 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate, onOpenAudi
             </p>
           </div>
 
-          <button
-            onClick={scrollToScheduler}
-            className="orixnal-gradient-bg text-white font-black text-sm px-7 py-4 rounded-2xl shadow-lg hover:opacity-95 transition-all shrink-0 flex items-center justify-center gap-2.5 group"
-          >
-            <Calendar className="w-5 h-5 text-amber-300" />
-            <span>Book Discovery Consultation</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </button>
+          <ContactButtonGroup
+            onOpenConsultation={scrollToScheduler}
+            consultationText="Brand Discovery Consultation"
+            size="md"
+            align="right"
+            className="shrink-0"
+          />
         </div>
       </div>
 
       {/* Primary Action Grid (Call, Email, & Calendly Quick Card) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Calendly Booking Hero Card */}
-        <div className="bg-neutral-950 text-white rounded-3xl p-8 space-y-6 shadow-xl relative overflow-hidden flex flex-col justify-between border border-neutral-800">
+        <div className="orixnal-gradient-bg text-white rounded-3xl p-8 space-y-6 shadow-xl relative overflow-hidden flex flex-col justify-between border border-transparent">
           <div className="space-y-3 relative z-10">
-            <div className="inline-flex items-center gap-1.5 bg-purple-900/80 text-amber-300 border border-purple-700/60 px-3 py-1 rounded-full text-[11px] font-mono font-bold uppercase">
-              <Calendar className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center gap-1.5 bg-white/20 text-white border border-white/30 px-3 py-1 rounded-full text-[11px] font-mono font-bold uppercase backdrop-blur-sm">
+              <Calendar className="w-3.5 h-3.5 text-white" />
               <span>Calendly Integration</span>
             </div>
             <h2 className="text-2xl font-extrabold text-white">Book Discovery Session</h2>
-            <p className="text-neutral-300 text-xs leading-relaxed">
+            <p className="text-purple-100 text-xs leading-relaxed font-medium">
               Select an available time slot directly with Founder Asim Khan for 1-on-1 strategic consultation.
             </p>
 
-            <ul className="space-y-2 pt-2 text-xs text-neutral-300">
+            <ul className="space-y-2 pt-2 text-xs text-purple-100 font-medium">
               <li className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-emerald-300 shrink-0" />
                 <span>30-minute confidential video session</span>
               </li>
               <li className="flex items-center gap-2">

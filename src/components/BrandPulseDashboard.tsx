@@ -156,7 +156,7 @@ export const BrandPulseDashboard: React.FC<BrandPulseDashboardProps> = ({ onOpen
               onClick={() => setSelectedSector(sector.id)}
               className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
                 selectedSector === sector.id
-                  ? 'bg-neutral-900 text-white shadow-2xs'
+                  ? 'orixnal-gradient-bg text-white shadow-xs'
                   : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-200/60'
               }`}
             >

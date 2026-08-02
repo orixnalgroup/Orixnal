@@ -59,21 +59,21 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
       }`}
     >
       {/* Top Registration Bar */}
-      <div className="bg-neutral-950 text-white text-[11px] sm:text-xs py-1.5 px-4 border-b border-neutral-800">
+      <div className="bg-purple-50/90 text-purple-950 text-[11px] sm:text-xs py-1.5 px-4 border-b border-purple-200/80">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 truncate">
-            <span className="inline-flex items-center gap-1 bg-purple-500/20 text-purple-300 font-mono font-bold text-[10px] sm:text-[11px] px-2.5 py-0.5 rounded-full border border-purple-500/30 shrink-0">
-              <ShieldCheck className="w-3.5 h-3.5 text-purple-400" />
+            <span className="inline-flex items-center gap-1 bg-purple-200/80 text-purple-900 font-mono font-bold text-[10px] sm:text-[11px] px-2.5 py-0.5 rounded-full border border-purple-300 shrink-0">
+              <ShieldCheck className="w-3.5 h-3.5 text-purple-700" />
               MINISTRY OF MSME
             </span>
-            <span className="text-neutral-300 font-medium truncate">
-              Registered under <strong className="text-white font-bold">Ministry of Micro, Small and Medium Enterprises</strong>
+            <span className="text-purple-900 font-medium truncate">
+              Registered under <strong className="text-purple-950 font-bold">Ministry of Micro, Small and Medium Enterprises</strong>
             </span>
           </div>
 
           <div className="flex items-center gap-2 shrink-0 font-mono text-[11px]">
-            <span className="hidden sm:inline-block text-neutral-400 font-semibold">Reg No:</span>
-            <span className="bg-emerald-500/15 text-emerald-300 font-extrabold px-2.5 py-0.5 rounded-md border border-emerald-500/30 tracking-wider shadow-2xs">
+            <span className="hidden sm:inline-block text-purple-800 font-semibold">Reg No:</span>
+            <span className="bg-emerald-100 text-emerald-800 font-extrabold px-2.5 py-0.5 rounded-md border border-emerald-300 tracking-wider shadow-2xs">
               {COMPANY_DETAILS.udyamNumber}
             </span>
           </div>
@@ -101,7 +101,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
                   onClick={() => handleNavClick(link.route)}
                   className={`px-3 py-1.5 rounded-full text-xs font-semibold tracking-tight transition-all ${
                     active
-                      ? 'bg-neutral-900 text-white shadow-sm'
+                      ? 'orixnal-gradient-bg text-white shadow-xs font-bold'
                       : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100'
                   }`}
                 >
@@ -209,7 +209,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
                 onClick={() => handleNavClick(link.route)}
                 className={`flex items-center justify-between px-4 py-3 rounded-2xl text-sm font-bold text-left transition-all ${
                   currentRoute === link.route
-                    ? 'bg-neutral-900 text-white'
+                    ? 'orixnal-gradient-bg text-white shadow-sm'
                     : 'bg-white text-neutral-800 border border-neutral-200/60 hover:bg-neutral-100'
                 }`}
               >

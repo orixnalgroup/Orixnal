@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { PageRoute, CaseStudy } from '../types';
 import { CASE_STUDIES, COMPANY_DETAILS } from '../data/brandData';
 import { ClientTrustCarousel } from '../components/ClientTrustCarousel';
+import { ContactButtonGroup } from '../components/ContactButtonGroup';
 import { Sparkles, ArrowRight, CheckCircle2, Phone, Mail, ChevronRight } from 'lucide-react';
 
 interface CaseStudiesPageProps {
@@ -151,22 +152,13 @@ export const CaseStudiesPage: React.FC<CaseStudiesPageProps> = ({ onNavigate, on
         <p className="text-sm text-neutral-600 max-w-xl mx-auto">
           Contact Founder Asim Khan to initiate your brand audit and strategic roadmap.
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-          <a
-            href={COMPANY_DETAILS.phoneRaw}
-            className="orixnal-gradient-bg text-white font-bold py-3 px-6 rounded-xl flex items-center gap-2 text-sm hover:opacity-95 transition-opacity"
-          >
-            <Phone className="w-4 h-4" />
-            <span>Call Us</span>
-          </a>
-          <a
-            href={COMPANY_DETAILS.emailRaw}
-            className="bg-white text-neutral-900 border border-neutral-300 font-bold py-3 px-6 rounded-xl flex items-center gap-2 text-sm hover:bg-neutral-50 transition-colors shadow-2xs"
-          >
-            <Mail className="w-4 h-4 text-purple-700" />
-            <span>Email Us</span>
-          </a>
-        </div>
+        <ContactButtonGroup
+          onOpenConsultation={onOpenAudit}
+          consultationText="Brand Discovery Consultation"
+          size="md"
+          align="center"
+          className="pt-2"
+        />
       </div>
 
     </div>

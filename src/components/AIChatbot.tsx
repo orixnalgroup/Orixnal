@@ -325,11 +325,11 @@ How can I assist your business or brand development today?
         }`}
       >
         {/* Header Bar */}
-        <div className="bg-neutral-900 text-white p-4 sm:p-5 flex items-center justify-between border-b border-neutral-800 shrink-0">
+        <div className="orixnal-gradient-bg text-white p-4 sm:p-5 flex items-center justify-between shadow-md shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl orixnal-gradient-bg p-0.5 flex items-center justify-center shadow-2xs">
-              <div className="w-full h-full bg-neutral-900 rounded-[14px] flex items-center justify-center">
-                <Bot className="w-5 h-5 text-purple-400" />
+            <div className="w-10 h-10 rounded-2xl bg-white/20 p-0.5 flex items-center justify-center shadow-2xs">
+              <div className="w-full h-full bg-white text-purple-700 rounded-[14px] flex items-center justify-center">
+                <Bot className="w-5 h-5 text-purple-700" />
               </div>
             </div>
             <div>
@@ -337,12 +337,12 @@ How can I assist your business or brand development today?
                 <h3 className="font-extrabold text-sm sm:text-base text-white tracking-tight">
                   ORIXNAL AI Strategic Advisor
                 </h3>
-                <span className="inline-flex items-center gap-1 bg-emerald-500/20 text-emerald-400 text-[10px] font-mono px-2 py-0.5 rounded-full border border-emerald-500/30">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="inline-flex items-center gap-1 bg-white/20 text-white text-[10px] font-mono px-2 py-0.5 rounded-full border border-white/30 backdrop-blur-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-300 animate-pulse" />
                   Gemini 3.6
                 </span>
               </div>
-              <p className="text-[11px] text-neutral-400">
+              <p className="text-[11px] text-purple-100">
                 24/7 AI Guidance with Instant CTA Execution
               </p>
             </div>
@@ -352,21 +352,21 @@ How can I assist your business or brand development today?
             <button
               onClick={handleResetChat}
               title="Reset Chat History"
-              className="p-2 text-neutral-400 hover:text-white hover:bg-neutral-800 rounded-xl transition-colors"
+              className="p-2 text-purple-100 hover:text-white hover:bg-white/20 rounded-xl transition-colors"
             >
               <RotateCcw className="w-4 h-4" />
             </button>
             <button
               onClick={() => setIsExpanded(!isExpanded)}
               title={isExpanded ? 'Minimize Window' : 'Expand Window'}
-              className="p-2 text-neutral-400 hover:text-white hover:bg-neutral-800 rounded-xl transition-colors hidden sm:block"
+              className="p-2 text-purple-100 hover:text-white hover:bg-white/20 rounded-xl transition-colors hidden sm:block"
             >
               {isExpanded ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
             </button>
             <button
               onClick={onClose}
               title="Close Chat"
-              className="p-2 text-neutral-400 hover:text-white hover:bg-neutral-800 rounded-xl transition-colors"
+              className="p-2 text-purple-100 hover:text-white hover:bg-white/20 rounded-xl transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -385,11 +385,11 @@ How can I assist your business or brand development today?
                 onClick={() => setBrandTone('professional')}
                 className={`px-3 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 ${
                   brandTone === 'professional'
-                    ? 'bg-neutral-900 text-white shadow-2xs'
+                    ? 'orixnal-gradient-bg text-white shadow-2xs'
                     : 'text-neutral-600 hover:text-neutral-900'
                 }`}
               >
-                <Briefcase className={`w-3.5 h-3.5 ${brandTone === 'professional' ? 'text-purple-300' : 'text-neutral-500'}`} />
+                <Briefcase className={`w-3.5 h-3.5 ${brandTone === 'professional' ? 'text-white' : 'text-neutral-500'}`} />
                 <span>Professional</span>
               </button>
 
@@ -461,11 +461,11 @@ How can I assist your business or brand development today?
               <div
                 className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 shadow-2xs text-xs font-bold ${
                   msg.role === 'user'
-                    ? 'bg-neutral-900 text-white'
-                    : 'orixnal-gradient-bg text-white'
+                    ? 'orixnal-gradient-bg text-white'
+                    : 'bg-purple-100 text-purple-800 border border-purple-200'
                 }`}
               >
-                {msg.role === 'user' ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
+                {msg.role === 'user' ? <User className="w-4 h-4 text-white" /> : <Bot className="w-4 h-4 text-purple-700" />}
               </div>
 
               {/* Message Content Bubble */}
@@ -482,7 +482,7 @@ How can I assist your business or brand development today?
                 <div
                   className={`p-4 rounded-2xl text-xs sm:text-sm border shadow-2xs ${
                     msg.role === 'user'
-                      ? 'bg-neutral-900 text-white border-neutral-800 rounded-tr-xs'
+                      ? 'orixnal-gradient-bg text-white border-transparent rounded-tr-xs'
                       : 'bg-white text-neutral-900 border-neutral-200/90 rounded-tl-xs space-y-3'
                   }`}
                 >

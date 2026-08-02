@@ -470,7 +470,7 @@ export const GlobalPresenceMap: React.FC<GlobalPresenceMapProps> = ({
             <span>{showArcs ? 'HQ Connections Active' : 'Show HQ Arcs'}</span>
           </button>
 
-          <span className="text-xs font-mono font-bold bg-neutral-900 text-white px-3.5 py-2 rounded-xl">
+          <span className="text-xs font-mono font-bold orixnal-gradient-bg text-white px-3.5 py-2 rounded-xl shadow-2xs">
             6 Global Hubs
           </span>
         </div>
@@ -509,20 +509,20 @@ export const GlobalPresenceMap: React.FC<GlobalPresenceMapProps> = ({
         {/* Hover Floating Tooltip */}
         {hoveredHub && tooltipPos && (
           <div
-            className="absolute z-30 pointer-events-none bg-neutral-950 text-white p-3 rounded-xl shadow-xl border border-purple-800/60 text-xs space-y-1 animate-in fade-in duration-150"
+            className="absolute z-30 pointer-events-none bg-white text-neutral-900 p-3.5 rounded-2xl shadow-xl border border-purple-200 text-xs space-y-1 animate-in fade-in duration-150"
             style={{
               left: `${tooltipPos.x + 12}px`,
               top: `${tooltipPos.y - 45}px`
             }}
           >
-            <div className="font-extrabold text-purple-300 flex items-center gap-1.5">
-              <MapPin className="w-3.5 h-3.5 text-rose-400" />
+            <div className="font-extrabold text-purple-900 flex items-center gap-1.5">
+              <MapPin className="w-3.5 h-3.5 text-rose-600" />
               <span>{hoveredHub.country} ({hoveredHub.countryCode})</span>
             </div>
-            <div className="text-[11px] text-neutral-300 font-mono">
+            <div className="text-[11px] text-neutral-600 font-mono">
               {hoveredHub.city}
             </div>
-            <div className="text-[10px] text-amber-300 font-semibold bg-neutral-900 px-2 py-0.5 rounded border border-neutral-800">
+            <div className="text-[10px] text-purple-900 font-bold bg-purple-100 px-2 py-0.5 rounded-lg border border-purple-200">
               {hoveredHub.badge}
             </div>
           </div>

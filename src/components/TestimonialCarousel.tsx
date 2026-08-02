@@ -166,7 +166,7 @@ export const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({ onNavi
               onClick={() => setSelectedCategory(cat)}
               className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
                 selectedCategory === cat
-                  ? 'bg-neutral-900 text-white shadow-2xs'
+                  ? 'orixnal-gradient-bg text-white shadow-2xs'
                   : 'bg-[#FAF9F6] border border-neutral-200 text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100'
               }`}
             >
@@ -263,10 +263,10 @@ export const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({ onNavi
               <div className="pt-4 border-t border-neutral-100 space-y-3">
                 <button
                   onClick={() => setExpandedTestimonial(current)}
-                  className="w-full py-2.5 px-4 rounded-xl bg-neutral-900 text-white font-bold text-xs hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2"
+                  className="w-full py-2.5 px-4 rounded-xl orixnal-gradient-bg text-white font-bold text-xs hover:opacity-95 transition-opacity flex items-center justify-center gap-2 shadow-2xs"
                 >
                   <span>Read Full Client Review</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-rose-400" />
+                  <ArrowRight className="w-3.5 h-3.5 text-amber-300" />
                 </button>
 
                 {onOpenAudit && (
@@ -325,7 +325,7 @@ export const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({ onNavi
 
       {/* Modal View for Full Review */}
       {expandedTestimonial && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-neutral-950/60 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-fadeIn">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-neutral-900/40 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-fadeIn">
           <div className="relative w-full max-w-xl bg-white border border-neutral-200 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
             
             <div className="flex items-center justify-between border-b border-neutral-100 pb-4">
@@ -383,7 +383,7 @@ export const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({ onNavi
               </span>
               <button
                 onClick={() => setExpandedTestimonial(null)}
-                className="px-4 py-2 rounded-xl bg-neutral-900 text-white font-bold text-xs"
+                className="px-4 py-2 rounded-xl orixnal-gradient-bg text-white font-bold text-xs hover:opacity-95 transition-opacity shadow-2xs"
               >
                 Close Review
               </button>

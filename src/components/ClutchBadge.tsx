@@ -18,7 +18,7 @@ export const ClutchHeroBadge: React.FC<{ className?: string }> = ({ className = 
       href={CLUTCH_PROFILE_URL}
       target="_blank"
       rel="noopener noreferrer"
-      className={`bg-white/95 backdrop-blur-md px-3.5 py-2 rounded-2xl border border-neutral-200/90 shadow-md hover:shadow-lg transition-all flex items-center gap-2.5 group cursor-pointer hover:bg-neutral-900 hover:text-white ${className}`}
+      className={`bg-white/95 backdrop-blur-md px-3.5 py-2 rounded-2xl border border-neutral-200/90 shadow-md hover:shadow-lg transition-all flex items-center gap-2.5 group cursor-pointer hover:bg-purple-50 hover:border-purple-200 ${className}`}
       title="View verified client reviews on Clutch"
     >
       <div className="w-7 h-7 rounded-xl bg-[#FF4A1C]/10 text-[#FF4A1C] flex items-center justify-center shrink-0 group-hover:bg-[#FF4A1C] group-hover:text-white transition-colors">
@@ -71,20 +71,20 @@ export const ClutchTrustPill: React.FC = () => {
  */
 export const ClutchTrustBanner: React.FC = () => {
   return (
-    <div className="bg-gradient-to-r from-neutral-900 via-[#1F1428] to-neutral-900 text-white rounded-3xl p-6 sm:p-8 border border-neutral-800 shadow-xl relative overflow-hidden my-10">
-      <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-radial from-[#FF4A1C]/15 to-transparent pointer-events-none" />
+    <div className="orixnal-gradient-bg text-white rounded-3xl p-6 sm:p-8 border border-purple-400/30 shadow-xl relative overflow-hidden my-10">
+      <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-radial from-white/10 to-transparent pointer-events-none" />
 
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
         
         {/* Left info block */}
         <div className="space-y-3 max-w-2xl">
           <div className="flex items-center gap-2.5 flex-wrap">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF4A1C]/20 border border-[#FF4A1C]/40 text-[#FF4A1C] text-xs font-mono font-bold uppercase tracking-wider">
-              <ClutchIcon className="w-3.5 h-3.5" />
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 border border-white/30 text-white text-xs font-mono font-bold uppercase tracking-wider backdrop-blur-md">
+              <ClutchIcon className="w-3.5 h-3.5 text-white" />
               <span>Official Recognition</span>
             </span>
 
-            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-400/20 border border-amber-400/30 text-amber-300 text-xs font-bold font-mono">
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-400/25 border border-amber-300/40 text-amber-200 text-xs font-bold font-mono">
               <Star className="w-3 h-3 fill-amber-300 text-amber-300" />
               <span>5.0 / 5.0 Rating on Clutch</span>
             </span>
@@ -94,7 +94,7 @@ export const ClutchTrustBanner: React.FC = () => {
             Recognized as a Top Brand Development Agency on Clutch
           </h3>
 
-          <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed font-normal">
+          <p className="text-xs sm:text-sm text-purple-100 leading-relaxed font-normal">
             Clutch evaluates B2B leaders through direct client interviews, market presence, and verified project outcomes. ORIXNAL Group maintains an exceptional 5.0-star rating for strategic brand naming, legal IP protection, and web engineering.
           </p>
         </div>
@@ -105,11 +105,11 @@ export const ClutchTrustBanner: React.FC = () => {
             href={CLUTCH_PROFILE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto bg-[#FF4A1C] hover:bg-[#e03f15] text-white font-extrabold text-xs sm:text-sm px-6 py-3.5 rounded-2xl shadow-lg transition-all inline-flex items-center justify-center gap-2 group"
+            className="w-full sm:w-auto bg-white hover:bg-purple-50 text-purple-950 font-extrabold text-xs sm:text-sm px-6 py-3.5 rounded-2xl shadow-lg transition-all inline-flex items-center justify-center gap-2 group"
           >
-            <ClutchIcon className="w-4 h-4" />
+            <ClutchIcon className="w-4 h-4 text-[#FF4A1C]" />
             <span>View Verified Clutch Profile</span>
-            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            <ArrowUpRight className="w-4 h-4 text-purple-900 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </a>
         </div>
 
@@ -128,11 +128,11 @@ export const ClutchFloatingBadge: React.FC = () => {
 
   return (
     <div className="fixed bottom-5 right-5 z-40 max-w-xs animate-fade-in transition-all">
-      <div className="relative group bg-neutral-900/95 backdrop-blur-xl text-white p-3.5 rounded-2xl border border-neutral-700/80 shadow-2xl hover:border-[#FF4A1C]/60 transition-all">
+      <div className="relative group bg-white/95 backdrop-blur-xl text-neutral-900 p-3.5 rounded-2xl border border-neutral-200/90 shadow-2xl hover:border-purple-300 transition-all">
         {/* Dismiss Button */}
         <button
           onClick={() => setIsVisible(false)}
-          className="absolute -top-2 -right-2 bg-neutral-800 text-neutral-400 hover:text-white hover:bg-neutral-700 p-1 rounded-full border border-neutral-600 shadow-sm transition-colors z-10"
+          className="absolute -top-2 -right-2 bg-neutral-100 text-neutral-500 hover:text-neutral-900 hover:bg-neutral-200 p-1 rounded-full border border-neutral-200 shadow-xs transition-colors z-10"
           title="Dismiss Clutch badge"
         >
           <X className="w-3 h-3" />
@@ -151,21 +151,21 @@ export const ClutchFloatingBadge: React.FC = () => {
             </div>
             <span className="absolute -bottom-1 -right-1 flex h-3 w-3">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500 border border-neutral-900"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500 border border-white"></span>
             </span>
           </div>
 
           <div className="space-y-0.5 text-left flex-1 min-w-0">
             <div className="flex items-center gap-1.5 flex-wrap">
-              <span className="text-xs font-black uppercase tracking-wider font-mono text-white">
+              <span className="text-xs font-black uppercase tracking-wider font-mono text-neutral-950">
                 Clutch Recognition
               </span>
-              <span className="inline-flex items-center gap-0.5 text-[10px] font-black text-amber-300 bg-amber-400/20 border border-amber-400/40 px-1.5 py-0.2 rounded font-mono">
-                5.0 <Star className="w-2.5 h-2.5 fill-amber-300 text-amber-300 inline" />
+              <span className="inline-flex items-center gap-0.5 text-[10px] font-black text-amber-700 bg-amber-100 border border-amber-200 px-1.5 py-0.2 rounded font-mono">
+                5.0 <Star className="w-2.5 h-2.5 fill-amber-500 text-amber-500 inline" />
               </span>
             </div>
 
-            <p className="text-[11px] text-neutral-300 truncate font-medium">
+            <p className="text-[11px] text-neutral-600 truncate font-medium">
               Top Brand Development Agency
             </p>
 

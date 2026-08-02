@@ -146,12 +146,12 @@ export const SocialLinks: React.FC = () => {
   return (
     <div className="my-12 pt-10 border-t border-neutral-200/90 space-y-8">
       {/* Social CTA Banner */}
-      <div className="bg-gradient-to-r from-neutral-950 via-purple-950 to-neutral-950 text-white rounded-3xl p-6 sm:p-8 border border-purple-800/40 shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden group">
-        <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-radial from-purple-500/10 to-transparent pointer-events-none" />
+      <div className="orixnal-gradient-bg text-white rounded-3xl p-6 sm:p-8 border border-purple-400/30 shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden group">
+        <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-radial from-white/10 to-transparent pointer-events-none" />
 
         <div className="space-y-2 max-w-xl relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-900/80 border border-purple-700/80 text-purple-200 text-xs font-mono font-bold uppercase tracking-wider">
-            <Users className="w-3.5 h-3.5 text-purple-400" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 border border-white/30 text-white text-xs font-mono font-bold uppercase tracking-wider backdrop-blur-md">
+            <Users className="w-3.5 h-3.5 text-amber-300" />
             <span>Join Our Global Network</span>
           </div>
 
@@ -159,8 +159,8 @@ export const SocialLinks: React.FC = () => {
             Follow ORIXNAL Across All Platforms
           </h3>
 
-          <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed font-normal">
-            Official Handle: <strong className="text-purple-300 font-mono text-sm">@orixnalgroup</strong> — Join our community of 10,000+ brand leaders, founders, and creators for daily insights and design breakdowns.
+          <p className="text-xs sm:text-sm text-purple-100 leading-relaxed font-normal">
+            Official Handle: <strong className="text-amber-300 font-mono text-sm">@orixnalgroup</strong> — Join our community of 10,000+ brand leaders, founders, and creators for daily insights and design breakdowns.
           </p>
         </div>
 
@@ -170,10 +170,10 @@ export const SocialLinks: React.FC = () => {
             href="https://www.linkedin.com/company/orixnalgroup"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto orixnal-gradient-bg text-white font-bold text-xs sm:text-sm px-6 py-3.5 rounded-2xl shadow-md hover:opacity-95 transition-all inline-flex items-center justify-center gap-2 group-hover:scale-[1.02]"
+            className="w-full sm:w-auto bg-white hover:bg-purple-50 text-purple-950 font-extrabold text-xs sm:text-sm px-6 py-3.5 rounded-2xl shadow-md transition-all inline-flex items-center justify-center gap-2 group-hover:scale-[1.02]"
           >
             <span>Join us on LinkedIn</span>
-            <ArrowUpRight className="w-4 h-4" />
+            <ArrowUpRight className="w-4 h-4 text-purple-900" />
           </a>
         </div>
       </div>

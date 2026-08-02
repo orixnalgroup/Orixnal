@@ -5,6 +5,7 @@ import { SUB_SERVICE_MODULES, SubServiceModule } from '../data/subServiceModules
 import { ServiceIllustration } from '../components/ServiceIllustrations';
 import { ServicesFAQ } from '../components/ServicesFAQ';
 import { ServiceRoadmap } from '../components/ServiceRoadmap';
+import { ContactButtonGroup } from '../components/ContactButtonGroup';
 import {
   Sparkles,
   Phone,
@@ -240,31 +241,13 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, onOpenAu
               </p>
             </div>
 
-            <div className="shrink-0 flex flex-col gap-3">
-              <button
-                onClick={onOpenAudit}
-                className="orixnal-gradient-bg text-white font-bold text-sm px-6 py-3.5 rounded-2xl shadow-2xs hover:opacity-95 transition-all inline-flex items-center justify-center gap-2"
-              >
-                <span>Initiate {selectedCategory.shortTitle} Audit</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-
-              <div className="flex flex-col sm:flex-row gap-2">
-                <a
-                  href={COMPANY_DETAILS.phoneRaw}
-                  className="bg-white text-neutral-900 border border-neutral-300 font-bold text-xs px-4 py-2.5 rounded-xl hover:bg-neutral-50 transition-colors inline-flex items-center justify-center gap-1.5 shadow-2xs"
-                >
-                  <Phone className="w-3.5 h-3.5 text-purple-700" />
-                  <span>Call Us</span>
-                </a>
-                <a
-                  href={COMPANY_DETAILS.emailRaw}
-                  className="bg-white text-neutral-900 border border-neutral-300 font-bold text-xs px-4 py-2.5 rounded-xl hover:bg-neutral-50 transition-colors inline-flex items-center justify-center gap-1.5 shadow-2xs"
-                >
-                  <Mail className="w-3.5 h-3.5 text-purple-700" />
-                  <span>Email Us</span>
-                </a>
-              </div>
+            <div className="shrink-0 pt-2 sm:pt-0">
+              <ContactButtonGroup
+                onOpenConsultation={onOpenAudit}
+                consultationText={`Initiate ${selectedCategory.shortTitle} Audit`}
+                size="md"
+                align="left"
+              />
             </div>
           </div>
 
@@ -343,10 +326,10 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, onOpenAu
             </div>
 
             <div className="flex items-center gap-2 shrink-0">
-              <span className="text-xs font-mono bg-neutral-900 text-white px-4 py-2 rounded-xl font-bold">
+              <span className="text-xs font-mono orixnal-gradient-bg text-white px-4 py-2 rounded-xl font-bold shadow-xs">
                 {modules.length} Specialized Modules
               </span>
-              <span className="text-xs font-mono bg-purple-100 text-purple-900 px-4 py-2 rounded-xl font-bold">
+              <span className="text-xs font-mono bg-purple-100 text-purple-900 px-4 py-2 rounded-xl font-bold border border-purple-200">
                 {selectedCategory.services.length} Total Deliverables
               </span>
             </div>
@@ -441,7 +424,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, onOpenAu
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {selectedCategory.whoNeedsThis.map((scenario, idx) => (
                 <div key={idx} className="bg-white p-6 rounded-2xl border border-neutral-200/90 space-y-3">
-                  <div className="w-8 h-8 rounded-xl bg-neutral-900 text-white font-mono font-bold text-xs flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-xl orixnal-gradient-bg text-white font-mono font-bold text-xs flex items-center justify-center shadow-xs">
                     S0{idx + 1}
                   </div>
                   <p className="text-xs sm:text-sm text-neutral-700 leading-relaxed font-medium">
@@ -497,31 +480,13 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, onOpenAu
             Schedule a 1-on-1 discovery call directly with Founder Asim Khan. Zero sales pressure, purely strategic insight.
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-            <button
-              onClick={onOpenAudit}
-              className="orixnal-gradient-bg text-white font-bold py-3.5 px-8 rounded-2xl text-sm shadow-2xs hover:opacity-95 transition-all inline-flex items-center gap-2"
-            >
-              <span>Schedule Strategy Call</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-
-            <a
-              href={COMPANY_DETAILS.phoneRaw}
-              className="bg-white text-neutral-900 border border-neutral-300 font-bold py-3.5 px-6 rounded-2xl text-sm hover:bg-neutral-50 transition-colors inline-flex items-center gap-2 shadow-2xs"
-            >
-              <Phone className="w-4 h-4 text-purple-700" />
-              <span>Call Us</span>
-            </a>
-
-            <a
-              href={COMPANY_DETAILS.emailRaw}
-              className="bg-white text-neutral-900 border border-neutral-300 font-bold py-3.5 px-6 rounded-2xl text-sm hover:bg-neutral-50 transition-colors inline-flex items-center gap-2 shadow-2xs"
-            >
-              <Mail className="w-4 h-4 text-purple-700" />
-              <span>Email Us</span>
-            </a>
-          </div>
+          <ContactButtonGroup
+            onOpenConsultation={onOpenAudit}
+            consultationText="Brand Discovery Consultation"
+            size="md"
+            align="center"
+            className="pt-2"
+          />
         </div>
 
         {/* SUB-SERVICE INQUIRY MODAL */}
@@ -594,7 +559,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, onOpenAu
               <Sparkles className="w-3.5 h-3.5 text-purple-700" />
               <span>Two-Level Architecture</span>
             </div>
-            <span className="text-xs font-mono font-bold bg-neutral-900 text-white px-3 py-1 rounded-full">
+            <span className="text-xs font-mono font-bold orixnal-gradient-bg text-white px-3.5 py-1 rounded-full shadow-xs">
               3 Flagships • 5 Ecosystem Pillars
             </span>
             <span className="text-xs font-mono text-purple-700 font-bold bg-purple-50 px-3 py-1 rounded-full border border-purple-200/60">
@@ -903,7 +868,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, onOpenAu
                   onClick={() => setActiveFilter('all')}
                   className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
                     activeFilter === 'all'
-                      ? 'bg-neutral-900 text-white shadow-2xs'
+                      ? 'orixnal-gradient-bg text-white shadow-xs'
                       : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
                   }`}
                 >
@@ -915,7 +880,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, onOpenAu
                     onClick={() => setActiveFilter(cat.id)}
                     className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
                       activeFilter === cat.id
-                        ? 'bg-neutral-900 text-white shadow-2xs'
+                        ? 'orixnal-gradient-bg text-white shadow-xs'
                         : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
                     }`}
                   >
@@ -1083,29 +1048,13 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate, onOpenAu
         <p className="text-sm sm:text-base text-neutral-600 max-w-xl mx-auto leading-relaxed">
           Speak with Founder Asim Khan directly to architect a bespoke brand development retainer or masterbrand launch scope.
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-          <button
-            onClick={onOpenAudit}
-            className="orixnal-gradient-bg text-white font-bold py-3.5 px-8 rounded-2xl text-sm shadow-2xs hover:opacity-95 transition-all inline-flex items-center gap-2"
-          >
-            <span>Request Brand Discovery Audit</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
-          <a
-            href={COMPANY_DETAILS.phoneRaw}
-            className="bg-white text-neutral-900 border border-neutral-300 font-bold py-3.5 px-6 rounded-2xl text-sm hover:bg-neutral-50 transition-colors inline-flex items-center gap-2 shadow-2xs"
-          >
-            <Phone className="w-4 h-4 text-purple-700" />
-            <span>Call Us</span>
-          </a>
-          <a
-            href={COMPANY_DETAILS.emailRaw}
-            className="bg-white text-neutral-900 border border-neutral-300 font-bold py-3.5 px-6 rounded-2xl text-sm hover:bg-neutral-50 transition-colors inline-flex items-center gap-2 shadow-2xs"
-          >
-            <Mail className="w-4 h-4 text-purple-700" />
-            <span>Email Us</span>
-          </a>
-        </div>
+        <ContactButtonGroup
+          onOpenConsultation={onOpenAudit}
+          consultationText="Brand Discovery Consultation"
+          size="lg"
+          align="center"
+          className="pt-2"
+        />
       </div>
 
       {/* SUB-SERVICE INQUIRY MODAL */}

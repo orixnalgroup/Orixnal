@@ -154,8 +154,8 @@ const OUTCOMES_DATA: CaseStudyData[] = [
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-neutral-950 border border-purple-900/60 text-white rounded-2xl p-4 shadow-2xl text-xs space-y-2 min-w-[220px]">
-        <p className="font-mono font-bold text-purple-300 border-b border-neutral-800 pb-1.5 flex items-center justify-between">
+      <div className="bg-white border border-purple-200 text-neutral-900 rounded-2xl p-4 shadow-2xl text-xs space-y-2 min-w-[220px]">
+        <p className="font-mono font-bold text-purple-900 border-b border-neutral-100 pb-1.5 flex items-center justify-between">
           <span>{label}</span>
           <span className="text-[10px] uppercase text-neutral-400">ORIXNAL Metric</span>
         </p>
@@ -165,14 +165,14 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
           return (
             <div key={`item-${index}`} className="flex items-center justify-between gap-4 font-semibold">
-              <span className="flex items-center gap-2 text-neutral-300">
+              <span className="flex items-center gap-2 text-neutral-700">
                 <span
                   className="w-2.5 h-2.5 rounded-full inline-block shrink-0"
                   style={{ backgroundColor: entry.color }}
                 />
                 {entry.name}:
               </span>
-              <span className="font-mono font-bold text-white bg-neutral-900 px-2 py-0.5 rounded border border-neutral-800">
+              <span className="font-mono font-bold text-purple-950 bg-purple-100 px-2 py-0.5 rounded border border-purple-200">
                 {formattedVal}
               </span>
             </div>
@@ -257,33 +257,33 @@ export const CaseStudyOutcomes: React.FC<CaseStudyOutcomesProps> = ({
               onClick={() => setViewMetricType('chart')}
               className={`px-3 py-1.5 rounded-lg transition-all inline-flex items-center gap-1.5 ${
                 viewMetricType === 'chart'
-                  ? 'bg-neutral-900 text-white shadow-2xs'
+                  ? 'orixnal-gradient-bg text-white shadow-2xs'
                   : 'text-neutral-600 hover:text-neutral-900'
               }`}
             >
-              <BarChart3 className="w-3.5 h-3.5 text-purple-400" />
+              <BarChart3 className={`w-3.5 h-3.5 ${viewMetricType === 'chart' ? 'text-amber-300' : 'text-purple-600'}`} />
               <span>Interactive Recharts</span>
             </button>
             <button
               onClick={() => setViewMetricType('growth')}
               className={`px-3 py-1.5 rounded-lg transition-all inline-flex items-center gap-1.5 ${
                 viewMetricType === 'growth'
-                  ? 'bg-neutral-900 text-white shadow-2xs'
+                  ? 'orixnal-gradient-bg text-white shadow-2xs'
                   : 'text-neutral-600 hover:text-neutral-900'
               }`}
             >
-              <Zap className="w-3.5 h-3.5 text-amber-400" />
+              <Zap className={`w-3.5 h-3.5 ${viewMetricType === 'growth' ? 'text-amber-300' : 'text-amber-600'}`} />
               <span>Growth Metrics</span>
             </button>
             <button
               onClick={() => setViewMetricType('phases')}
               className={`px-3 py-1.5 rounded-lg transition-all inline-flex items-center gap-1.5 ${
                 viewMetricType === 'phases'
-                  ? 'bg-neutral-900 text-white shadow-2xs'
+                  ? 'orixnal-gradient-bg text-white shadow-2xs'
                   : 'text-neutral-600 hover:text-neutral-900'
               }`}
             >
-              <Layers className="w-3.5 h-3.5 text-purple-400" />
+              <Layers className={`w-3.5 h-3.5 ${viewMetricType === 'phases' ? 'text-amber-300' : 'text-purple-600'}`} />
               <span>Strategic Drivers</span>
             </button>
           </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { CLIENTS_PARTNERS_LIST, SUCCESS_PROJECTS_LIST, ClientPartner, SuccessProject } from '../data/clientsData';
+import { BrandLogoImage } from './BrandLogoImage';
 import {
   ShieldCheck,
   Award,
@@ -164,47 +165,54 @@ export const ClientTrustCarousel: React.FC<ClientTrustCarouselProps> = ({ onOpen
           </div>
 
           {/* Marquee Wrapper */}
-          <div className="relative w-full overflow-hidden rounded-3xl bg-neutral-950 p-6 sm:p-8 border border-neutral-800 shadow-xl group">
+          <div className="relative w-full overflow-hidden rounded-3xl bg-white p-6 sm:p-8 border border-neutral-200/90 shadow-sm group">
             {/* Gradient Fades on Left & Right */}
-            <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r from-neutral-950 to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l from-neutral-950 to-transparent z-10 pointer-events-none" />
+            <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
 
             {/* Marquee Track */}
             <div className="flex gap-4 sm:gap-6 w-max animate-marquee group-hover:[animation-play-state:paused]">
               {tickerClients.map((client, idx) => (
                 <div
                   key={`${client.id}-${idx}`}
-                  className="bg-neutral-900/90 border border-neutral-800 hover:border-purple-500/50 rounded-2xl p-4 sm:p-5 w-64 sm:w-72 shrink-0 transition-all hover:scale-[1.02] shadow-sm flex flex-col justify-between space-y-3 cursor-pointer"
+                  className="bg-white border border-neutral-200 hover:border-purple-400 rounded-2xl p-4 sm:p-5 w-64 sm:w-72 shrink-0 transition-all hover:scale-[1.03] shadow-2xs hover:shadow-md flex flex-col justify-between space-y-3 cursor-pointer group/card"
                   onClick={() => setSearchQuery(client.name)}
                 >
                   <div className="flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-2">
-                      <div className="p-2 bg-neutral-800 rounded-xl border border-neutral-700 shrink-0">
-                        {CATEGORY_ICONS[client.category] || <Briefcase className="w-4 h-4 text-purple-400" />}
-                      </div>
-                      <span className="text-[10px] font-mono uppercase font-bold text-neutral-400 truncate max-w-[120px]">
+                    <div className="flex items-center gap-2.5">
+                      <BrandLogoImage
+                        logoUrl={client.logo}
+                        name={client.name}
+                        category={client.category}
+                        className="w-10 h-10 bg-neutral-50 border-neutral-200"
+                        showMotion={true}
+                      />
+                      <span className="text-[10px] font-mono uppercase font-bold text-neutral-500 truncate max-w-[100px]">
                         {client.category}
                       </span>
                     </div>
                     {client.badge && (
-                      <span className="text-[9px] font-black uppercase tracking-wider bg-purple-950 text-purple-300 border border-purple-800/80 px-2 py-0.5 rounded-full shrink-0">
+                      <span className="text-[9px] font-black uppercase tracking-wider bg-purple-100 text-purple-900 border border-purple-200 px-2 py-0.5 rounded-full shrink-0">
                         {client.badge}
                       </span>
                     )}
                   </div>
 
                   <div>
-                    <h4 className="text-base font-black text-white group-hover:text-purple-300 transition-colors">
-                      {client.name}
+                    <h4 className="text-base font-black text-neutral-900 group-hover/card:text-purple-700 transition-colors flex items-center justify-between">
+                      <span>{client.name}</span>
                     </h4>
-                    <p className="text-xs text-neutral-400 line-clamp-1 mt-0.5">
+                    <p className="text-xs text-neutral-600 line-clamp-1 mt-0.5 font-medium">
                       {client.tagline}
                     </p>
                   </div>
 
-                  <div className="pt-2 border-t border-neutral-800/80 flex items-center justify-between text-[11px] font-bold text-purple-400">
-                    <span>Verified Associate</span>
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                  <div className="pt-2 border-t border-neutral-100 flex items-center justify-between text-[11px] font-bold text-purple-700">
+                    <span className="flex items-center gap-1">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                      Official Brand Client
+                    </span>
+                    <ExternalLink className="w-3 h-3 text-neutral-400 group-hover/card:text-purple-600 transition-colors" />
                   </div>
                 </div>
               ))}
@@ -221,7 +229,7 @@ export const ClientTrustCarousel: React.FC<ClientTrustCarouselProps> = ({ onOpen
                 onClick={() => setActiveTab('All')}
                 className={`px-4 py-2 rounded-2xl text-xs font-bold whitespace-nowrap transition-all ${
                   activeTab === 'All'
-                    ? 'bg-neutral-950 text-white shadow-xs'
+                    ? 'orixnal-gradient-bg text-white shadow-xs'
                     : 'bg-white text-neutral-700 hover:bg-neutral-100 border border-neutral-200'
                 }`}
               >
@@ -231,7 +239,7 @@ export const ClientTrustCarousel: React.FC<ClientTrustCarouselProps> = ({ onOpen
                 onClick={() => setActiveTab('Projects')}
                 className={`px-4 py-2 rounded-2xl text-xs font-bold whitespace-nowrap transition-all ${
                   activeTab === 'Projects'
-                    ? 'bg-neutral-950 text-white shadow-xs'
+                    ? 'orixnal-gradient-bg text-white shadow-xs'
                     : 'bg-white text-neutral-700 hover:bg-neutral-100 border border-neutral-200'
                 }`}
               >
@@ -241,7 +249,7 @@ export const ClientTrustCarousel: React.FC<ClientTrustCarouselProps> = ({ onOpen
                 onClick={() => setActiveTab('Clients')}
                 className={`px-4 py-2 rounded-2xl text-xs font-bold whitespace-nowrap transition-all ${
                   activeTab === 'Clients'
-                    ? 'bg-neutral-950 text-white shadow-xs'
+                    ? 'orixnal-gradient-bg text-white shadow-xs'
                     : 'bg-white text-neutral-700 hover:bg-neutral-100 border border-neutral-200'
                 }`}
               >
@@ -298,7 +306,7 @@ export const ClientTrustCarousel: React.FC<ClientTrustCarouselProps> = ({ onOpen
                     onClick={() => setSelectedCategory(cat.id)}
                     className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl text-xs font-bold whitespace-nowrap transition-all border ${
                       isSelected
-                        ? 'bg-purple-950 text-white border-purple-800 shadow-md ring-2 ring-purple-500/30'
+                        ? 'orixnal-gradient-bg text-white border-transparent shadow-md ring-2 ring-purple-500/20'
                         : 'bg-white text-neutral-700 border-neutral-200 hover:bg-neutral-100 hover:border-neutral-300'
                     }`}
                   >
@@ -353,7 +361,7 @@ export const ClientTrustCarousel: React.FC<ClientTrustCarouselProps> = ({ onOpen
               </div>
               <button
                 onClick={resetFilters}
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-neutral-950 text-white font-bold text-xs hover:bg-neutral-800 transition-colors"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl orixnal-gradient-bg text-white font-bold text-xs hover:opacity-95 transition-all shadow-2xs"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 <span>Reset All Filters</span>
@@ -389,15 +397,24 @@ export const ClientTrustCarousel: React.FC<ClientTrustCarouselProps> = ({ onOpen
                     className="bg-[#FAF9F6] border border-neutral-200 rounded-3xl p-6 hover:shadow-md hover:border-purple-300 transition-all flex flex-col justify-between group space-y-4"
                   >
                     <div className="space-y-3">
-                      <div className="flex flex-wrap items-center justify-between gap-2">
-                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider bg-purple-100 text-purple-900 px-2.5 py-0.5 rounded-full border border-purple-200">
-                          {project.category}
-                        </span>
-                        {project.associatedWith && (
-                          <span className="text-[10px] font-bold text-amber-800 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">
-                            w/ {project.associatedWith}
+                      <div className="flex items-center justify-between gap-2">
+                        <BrandLogoImage
+                          logoUrl={project.logo}
+                          name={project.title}
+                          category={project.category}
+                          className="w-11 h-11 bg-white"
+                          showMotion={true}
+                        />
+                        <div className="flex flex-col items-end gap-1">
+                          <span className="text-[10px] font-mono font-bold uppercase tracking-wider bg-purple-100 text-purple-900 px-2.5 py-0.5 rounded-full border border-purple-200">
+                            {project.category}
                           </span>
-                        )}
+                          {project.associatedWith && (
+                            <span className="text-[10px] font-bold text-amber-800 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">
+                              w/ {project.associatedWith}
+                            </span>
+                          )}
+                        </div>
                       </div>
 
                       <h4 className="text-lg font-extrabold text-neutral-950 group-hover:text-purple-700 transition-colors leading-snug">
@@ -469,13 +486,18 @@ export const ClientTrustCarousel: React.FC<ClientTrustCarouselProps> = ({ onOpen
                     layout
                     initial={{ opacity: 0, scale: 0.98 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="bg-white p-4 rounded-2xl border border-neutral-200 shadow-2xs hover:border-purple-400 hover:shadow-sm transition-all flex flex-col justify-between space-y-2 group"
+                    className="bg-white p-4 rounded-2xl border border-neutral-200 shadow-2xs hover:border-purple-400 hover:shadow-md transition-all flex flex-col justify-between space-y-3 group cursor-pointer"
+                    onClick={() => setSearchQuery(client.name)}
                   >
                     <div className="flex items-center justify-between gap-2">
-                      <div className="p-1.5 bg-neutral-100 rounded-lg">
-                        {CATEGORY_ICONS[client.category] || <Briefcase className="w-3.5 h-3.5 text-neutral-600" />}
-                      </div>
-                      <span className="text-[9px] font-bold text-neutral-500 bg-neutral-100 px-2 py-0.5 rounded-full uppercase">
+                      <BrandLogoImage
+                        logoUrl={client.logo}
+                        name={client.name}
+                        category={client.category}
+                        className="w-10 h-10 bg-white"
+                        showMotion={true}
+                      />
+                      <span className="text-[9px] font-bold text-neutral-600 bg-neutral-100 border border-neutral-200 px-2 py-0.5 rounded-full uppercase">
                         {client.badge || 'Partner'}
                       </span>
                     </div>
@@ -484,14 +506,14 @@ export const ClientTrustCarousel: React.FC<ClientTrustCarouselProps> = ({ onOpen
                       <h4 className="text-sm font-extrabold text-neutral-950 group-hover:text-purple-700 transition-colors">
                         {client.name}
                       </h4>
-                      <p className="text-[11px] text-neutral-500 line-clamp-2 mt-0.5">
+                      <p className="text-[11px] text-neutral-500 line-clamp-2 mt-0.5 font-medium">
                         {client.tagline}
                       </p>
                     </div>
 
                     <div className="pt-2 border-t border-neutral-100 text-[10px] font-mono font-bold text-purple-700 flex items-center justify-between">
-                      <span>{client.category}</span>
-                      <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                      <span className="truncate max-w-[100px]">{client.category}</span>
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                     </div>
                   </motion.div>
                 ))}
@@ -500,16 +522,18 @@ export const ClientTrustCarousel: React.FC<ClientTrustCarouselProps> = ({ onOpen
           )}
 
           {/* CTA Box */}
-          <div className="bg-gradient-to-r from-neutral-950 via-purple-950 to-neutral-950 text-white p-8 rounded-3xl border border-purple-900/50 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
-            <div className="space-y-2 text-center md:text-left">
-              <div className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase text-purple-300">
-                <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+          <div className="orixnal-gradient-bg text-white p-8 rounded-3xl border border-purple-400/30 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl relative overflow-hidden">
+            <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-radial from-white/10 to-transparent pointer-events-none" />
+
+            <div className="space-y-2 text-center md:text-left relative z-10">
+              <div className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase text-purple-200 bg-white/15 px-3 py-1 rounded-full border border-white/20 backdrop-blur-md">
+                <Sparkles className="w-3.5 h-3.5 text-amber-300" />
                 <span>ELEVATE YOUR BRAND ARCHITECTURE</span>
               </div>
               <h3 className="text-2xl sm:text-3xl font-black text-white">
                 Ready to Join Our Success Roster?
               </h3>
-              <p className="text-xs sm:text-sm text-neutral-300 max-w-xl">
+              <p className="text-xs sm:text-sm text-purple-100 max-w-xl">
                 Schedule a confidential 1-on-1 strategic brand audit directly with Founder Asim Khan.
               </p>
             </div>
@@ -517,10 +541,10 @@ export const ClientTrustCarousel: React.FC<ClientTrustCarouselProps> = ({ onOpen
             {onOpenAudit && (
               <button
                 onClick={onOpenAudit}
-                className="orixnal-gradient-bg text-white font-bold text-xs sm:text-sm px-6 py-3.5 rounded-2xl shadow-lg hover:opacity-95 transition-opacity shrink-0 flex items-center gap-2"
+                className="bg-white hover:bg-purple-50 text-purple-950 font-extrabold text-xs sm:text-sm px-6 py-3.5 rounded-2xl shadow-lg transition-all shrink-0 flex items-center gap-2 relative z-10"
               >
                 <span>Request Brand Audit</span>
-                <ChevronRight className="w-4 h-4" />
+                <ChevronRight className="w-4 h-4 text-purple-900" />
               </button>
             )}
           </div>
@@ -530,7 +554,7 @@ export const ClientTrustCarousel: React.FC<ClientTrustCarouselProps> = ({ onOpen
       {/* PROJECT DETAIL MODAL */}
       <AnimatePresence>
         {activeProject && (
-          <div className="fixed inset-0 z-50 bg-neutral-950/70 backdrop-blur-md flex items-center justify-center p-4 animate-fadeIn">
+          <div className="fixed inset-0 z-50 bg-neutral-900/40 backdrop-blur-md flex items-center justify-center p-4 animate-fadeIn">
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -574,7 +598,7 @@ export const ClientTrustCarousel: React.FC<ClientTrustCarouselProps> = ({ onOpen
 
               <button
                 onClick={() => setActiveProject(null)}
-                className="w-full bg-neutral-950 text-white font-bold py-3 rounded-xl text-xs hover:bg-neutral-800 transition-colors"
+                className="w-full orixnal-gradient-bg text-white font-bold py-3 rounded-xl text-xs hover:opacity-95 transition-opacity shadow-2xs"
               >
                 Close Project Summary
               </button>

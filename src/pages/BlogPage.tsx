@@ -390,23 +390,23 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenAudit }) =
       
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed top-24 right-5 z-50 bg-neutral-900 text-white px-5 py-3 rounded-2xl shadow-2xl border border-purple-500/50 flex items-center gap-3 animate-bounce">
-          <Sparkles className="w-5 h-5 text-amber-400" />
+        <div className="fixed top-24 right-5 z-50 orixnal-gradient-bg text-white px-5 py-3 rounded-2xl shadow-2xl border border-purple-300 flex items-center gap-3 animate-bounce">
+          <Sparkles className="w-5 h-5 text-amber-300" />
           <span className="text-xs font-extrabold">{toastMessage}</span>
         </div>
       )}
 
       {/* ADMIN TOP STATUS TOOLBAR */}
       {isAdminLoggedIn && (
-        <div className="bg-neutral-950 text-white px-4 sm:px-8 py-2.5 border-b border-purple-800/60 shadow-inner flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div className="bg-purple-900 text-white px-4 sm:px-8 py-2.5 border-b border-purple-800 shadow-md flex flex-wrap items-center justify-between gap-3 text-xs">
           <div className="flex flex-wrap items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <ShieldCheck className="w-4 h-4 text-purple-400" />
-            <span className="font-bold text-neutral-200">Blog Admin Dashboard Active:</span>
-            <span className="font-mono font-extrabold text-amber-300 bg-neutral-900 px-2 py-0.5 rounded border border-neutral-800">{BLOG_ADMIN_EMAIL}</span>
+            <ShieldCheck className="w-4 h-4 text-purple-300" />
+            <span className="font-bold text-purple-100">Blog Admin Dashboard Active:</span>
+            <span className="font-mono font-extrabold text-amber-300 bg-purple-950 px-2 py-0.5 rounded border border-purple-800">{BLOG_ADMIN_EMAIL}</span>
             {isUsingBlogTempPassword() && (
-              <span className="bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-mono px-2 py-0.5 rounded-md flex items-center gap-1">
-                <AlertCircle className="w-3 h-3 text-amber-400" />
+              <span className="bg-amber-400/20 text-amber-300 border border-amber-400/40 text-[10px] font-mono px-2 py-0.5 rounded-md flex items-center gap-1">
+                <AlertCircle className="w-3 h-3 text-amber-300" />
                 Default Temp Password
               </span>
             )}
@@ -454,7 +454,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenAudit }) =
             <div className="flex items-center gap-2">
               <button
                 onClick={(e) => handleEditBlogClick(activeBlog, e)}
-                className="inline-flex items-center gap-1.5 text-xs font-bold bg-neutral-900 text-white hover:bg-purple-700 px-3.5 py-2 rounded-xl shadow-xs transition-all"
+                className="inline-flex items-center gap-1.5 text-xs font-bold orixnal-gradient-bg text-white hover:opacity-95 px-3.5 py-2 rounded-xl shadow-xs transition-all"
               >
                 <Edit3 className="w-3.5 h-3.5" />
                 <span>Edit Post</span>
@@ -472,20 +472,20 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenAudit }) =
           {/* Article Header Card */}
           <div className="bg-white border border-neutral-200 rounded-3xl overflow-hidden shadow-xs">
             {/* Cover Banner Image */}
-            <div className="relative h-72 sm:h-96 w-full bg-neutral-900 overflow-hidden">
+            <div className="relative h-72 sm:h-96 w-full bg-purple-50 overflow-hidden">
               <img
                 src={activeBlog.coverImage}
                 alt={activeBlog.title}
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-neutral-950/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-purple-950/60 via-purple-950/10 to-transparent" />
               
               <div className="absolute top-4 left-4 flex flex-wrap items-center gap-2">
-                <span className="bg-purple-600 text-white text-[11px] font-mono font-bold uppercase px-3 py-1 rounded-full shadow-sm">
+                <span className="orixnal-gradient-bg text-white text-[11px] font-mono font-bold uppercase px-3 py-1 rounded-full shadow-sm">
                   {activeBlog.category}
                 </span>
-                <span className="bg-neutral-900/80 backdrop-blur-md text-amber-300 border border-neutral-700 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full">
+                <span className="bg-white/90 backdrop-blur-md text-purple-900 border border-neutral-200 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full shadow-xs">
                   {activeBlog.readTime}
                 </span>
               </div>
@@ -715,8 +715,8 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenAudit }) =
                   <span>Write New Blog Post (Dashboard)</span>
                 </button>
 
-                <div className="text-xs text-neutral-400 font-mono flex items-center gap-1.5 bg-neutral-900/80 px-3.5 py-2 rounded-xl border border-neutral-800">
-                  <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+                <div className="text-xs text-purple-900 font-mono flex items-center gap-1.5 bg-purple-100 px-3.5 py-2 rounded-xl border border-purple-200">
+                  <Sparkles className="w-3.5 h-3.5 text-purple-700" />
                   <span>{blogs.length} Total Posts Stored</span>
                 </div>
               </div>
@@ -753,7 +753,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenAudit }) =
                   onClick={() => setSelectedCategory(cat)}
                   className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
                     selectedCategory === cat
-                      ? 'bg-purple-800 text-white shadow-xs'
+                      ? 'orixnal-gradient-bg text-white shadow-xs'
                       : 'bg-[#FAF9F6] text-neutral-700 hover:bg-neutral-100 border border-neutral-200'
                   }`}
                 >
@@ -769,7 +769,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenAudit }) =
               onClick={() => setActiveBlog(featuredBlog)}
               className="bg-white border border-neutral-200 rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-all cursor-pointer group grid grid-cols-1 lg:grid-cols-12"
             >
-              <div className="lg:col-span-6 relative h-64 lg:h-auto overflow-hidden bg-neutral-900">
+              <div className="lg:col-span-6 relative h-64 lg:h-auto overflow-hidden bg-purple-50">
                 <img
                   src={featuredBlog.coverImage}
                   alt={featuredBlog.title}
@@ -851,7 +851,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenAudit }) =
                   >
                     <div>
                       {/* Cover Banner */}
-                      <div className="relative h-48 w-full bg-neutral-900 overflow-hidden">
+                      <div className="relative h-48 w-full bg-neutral-100 overflow-hidden">
                         <img
                           src={post.coverImage}
                           alt={post.title}
@@ -859,7 +859,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenAudit }) =
                           referrerPolicy="no-referrer"
                         />
                         <div className="absolute top-3 left-3 flex items-center gap-1.5">
-                          <span className="text-[10px] font-mono font-bold uppercase px-2.5 py-0.5 rounded-full bg-purple-900/90 text-purple-100 backdrop-blur-md border border-purple-700/50">
+                          <span className="text-[10px] font-mono font-bold uppercase px-2.5 py-0.5 rounded-full orixnal-gradient-bg text-white shadow-2xs">
                             {post.category}
                           </span>
                         </div>
@@ -928,26 +928,26 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenAudit }) =
 
       {/* 3. EDITOR DASHBOARD MODAL */}
       {showEditorModal && (
-        <div className="fixed inset-0 z-50 bg-neutral-950/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+        <div className="fixed inset-0 z-50 bg-neutral-900/40 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
           <div className="bg-white border border-neutral-200 rounded-3xl w-full max-w-4xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden my-auto animate-scale-up">
             
             {/* Modal Header */}
-            <div className="p-5 sm:p-6 bg-neutral-950 text-white flex items-center justify-between border-b border-neutral-800">
+            <div className="p-5 sm:p-6 orixnal-gradient-bg text-white flex items-center justify-between border-b border-purple-800">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center font-bold">
-                  <Edit3 className="w-5 h-5" />
+                <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md text-white flex items-center justify-center font-bold">
+                  <Edit3 className="w-5 h-5 text-amber-300" />
                 </div>
                 <div>
                   <h2 className="text-base sm:text-lg font-black text-white">
                     {editingBlogId ? 'Edit Blog Publication' : 'Create New Blog Article'}
                   </h2>
-                  <p className="text-xs text-neutral-400">Configure cover image, main article text, styling, author profile, and attachments.</p>
+                  <p className="text-xs text-purple-100">Configure cover image, main article text, styling, author profile, and attachments.</p>
                 </div>
               </div>
 
               <button
                 onClick={() => setShowEditorModal(false)}
-                className="text-neutral-400 hover:text-white p-2 rounded-xl hover:bg-neutral-800 transition-colors"
+                className="text-purple-200 hover:text-white p-2 rounded-xl hover:bg-white/10 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -1089,14 +1089,14 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenAudit }) =
 
                     {/* Banner Image Preview */}
                     {formCoverImage && (
-                      <div className="mt-2 h-36 w-full rounded-xl overflow-hidden border border-neutral-300 bg-neutral-900 relative">
+                      <div className="mt-2 h-36 w-full rounded-xl overflow-hidden border border-neutral-300 bg-neutral-100 relative">
                         <img
                           src={formCoverImage}
                           alt="Cover Preview"
                           className="w-full h-full object-cover"
                           referrerPolicy="no-referrer"
                         />
-                        <span className="absolute bottom-2 left-2 bg-neutral-950/80 text-white text-[10px] px-2 py-0.5 rounded font-mono">
+                        <span className="absolute bottom-2 left-2 bg-purple-950/90 text-white text-[10px] px-2 py-0.5 rounded font-mono">
                           Banner Preview
                         </span>
                       </div>
@@ -1176,19 +1176,19 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenAudit }) =
                 <div className="space-y-6">
                   
                   {/* Style Toolbar */}
-                  <div className="bg-neutral-900 text-white p-4 rounded-2xl space-y-3">
-                    <div className="text-xs font-mono font-bold uppercase text-purple-300 flex items-center gap-2">
-                      <Palette className="w-3.5 h-3.5 text-purple-400" />
+                  <div className="bg-purple-50/80 text-neutral-900 p-4 rounded-2xl border border-purple-200/80 space-y-3 shadow-2xs">
+                    <div className="text-xs font-mono font-bold uppercase text-purple-900 flex items-center gap-2">
+                      <Palette className="w-3.5 h-3.5 text-purple-700" />
                       <span>Typography & Formatting Style Toolbar</span>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                       <div>
-                        <label className="text-[10px] font-mono text-neutral-400 uppercase">Font Family</label>
+                        <label className="text-[10px] font-mono text-neutral-600 uppercase">Font Family</label>
                         <select
                           value={formFontFamily}
                           onChange={(e) => setFormFontFamily(e.target.value as any)}
-                          className="w-full mt-1 px-3 py-1.5 text-xs bg-neutral-800 text-white border border-neutral-700 rounded-lg"
+                          className="w-full mt-1 px-3 py-1.5 text-xs bg-white text-neutral-900 border border-neutral-300 rounded-lg shadow-2xs"
                         >
                           <option value="sans">Sans-Serif (Modern)</option>
                           <option value="serif">Serif (Editorial / Classic)</option>
@@ -1198,11 +1198,11 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenAudit }) =
                       </div>
 
                       <div>
-                        <label className="text-[10px] font-mono text-neutral-400 uppercase">Font Size</label>
+                        <label className="text-[10px] font-mono text-neutral-600 uppercase">Font Size</label>
                         <select
                           value={formFontSize}
                           onChange={(e) => setFormFontSize(e.target.value as any)}
-                          className="w-full mt-1 px-3 py-1.5 text-xs bg-neutral-800 text-white border border-neutral-700 rounded-lg"
+                          className="w-full mt-1 px-3 py-1.5 text-xs bg-white text-neutral-900 border border-neutral-300 rounded-lg shadow-2xs"
                         >
                           <option value="sm">Small (Compact)</option>
                           <option value="base">Base Standard</option>
@@ -1499,7 +1499,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenAudit }) =
                     <p className="text-sm text-neutral-600 italic mt-1">{formShortDesc || 'No description provided yet.'}</p>
                   </div>
 
-                  <div className="relative h-48 rounded-xl overflow-hidden bg-neutral-900">
+                  <div className="relative h-48 rounded-xl overflow-hidden bg-neutral-100 border border-neutral-200">
                     <img src={formCoverImage} alt="Cover" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                   </div>
 
@@ -1548,16 +1548,16 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenAudit }) =
 
       {/* ADMIN LOGIN MODAL */}
       {showLoginModal && (
-        <div className="fixed inset-0 z-50 bg-neutral-950/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-neutral-900/40 backdrop-blur-md flex items-center justify-center p-4">
           <div className="bg-white border border-neutral-200 rounded-3xl w-full max-w-md shadow-2xl overflow-hidden my-auto animate-scale-up">
-            <div className="p-6 bg-neutral-950 text-white flex items-center justify-between border-b border-neutral-800">
+            <div className="p-6 orixnal-gradient-bg text-white flex items-center justify-between border-b border-purple-800">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center font-bold">
+                <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md text-white flex items-center justify-center font-bold">
                   <Lock className="w-5 h-5 text-amber-300" />
                 </div>
                 <div>
                   <h2 className="text-base font-extrabold text-white">Blog Admin Authentication</h2>
-                  <p className="text-xs text-neutral-400">Login to access Blog Dashboard & Editor</p>
+                  <p className="text-xs text-purple-100">Login to access Blog Dashboard & Editor</p>
                 </div>
               </div>
               <button
@@ -1565,7 +1565,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenAudit }) =
                   setShowLoginModal(false);
                   setLoginError(null);
                 }}
-                className="text-neutral-400 hover:text-white p-2 rounded-xl hover:bg-neutral-800"
+                className="text-purple-200 hover:text-white p-2 rounded-xl hover:bg-white/10"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -1632,21 +1632,21 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenAudit }) =
 
       {/* CHANGE PASSWORD MODAL */}
       {showChangePasswordModal && (
-        <div className="fixed inset-0 z-50 bg-neutral-950/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-neutral-900/40 backdrop-blur-md flex items-center justify-center p-4">
           <div className="bg-white border border-neutral-200 rounded-3xl w-full max-w-md shadow-2xl overflow-hidden my-auto animate-scale-up">
-            <div className="p-6 bg-neutral-950 text-white flex items-center justify-between border-b border-neutral-800">
+            <div className="p-6 orixnal-gradient-bg text-white flex items-center justify-between border-b border-purple-800">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center font-bold">
+                <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md text-white flex items-center justify-center font-bold">
                   <KeyRound className="w-5 h-5 text-amber-300" />
                 </div>
                 <div>
                   <h2 className="text-base font-extrabold text-white">Change Admin Password</h2>
-                  <p className="text-xs text-neutral-400">Update password for blog@orixnal.com</p>
+                  <p className="text-xs text-purple-100">Update password for blog@orixnal.com</p>
                 </div>
               </div>
               <button
                 onClick={() => setShowChangePasswordModal(false)}
-                className="text-neutral-400 hover:text-white p-2 rounded-xl hover:bg-neutral-800"
+                className="text-purple-200 hover:text-white p-2 rounded-xl hover:bg-white/10"
               >
                 <X className="w-5 h-5" />
               </button>

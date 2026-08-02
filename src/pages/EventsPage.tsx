@@ -311,7 +311,7 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
             </span>
             <button
               onClick={() => setShowChangePasswordModal(true)}
-              className="ml-auto bg-neutral-950 text-white hover:bg-neutral-800 px-3 py-1 rounded-lg text-xs font-bold transition-all shrink-0"
+              className="ml-auto orixnal-gradient-bg text-white hover:opacity-95 px-3 py-1 rounded-lg text-xs font-bold transition-all shrink-0"
             >
               Update Password Now
             </button>
@@ -374,9 +374,9 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
               ) : (
                 <button
                   onClick={() => setShowLoginModal(true)}
-                  className="inline-flex items-center gap-2 bg-neutral-900 hover:bg-neutral-800 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-2xs"
+                  className="inline-flex items-center gap-2 orixnal-gradient-bg text-white hover:opacity-95 px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-2xs"
                 >
-                  <Lock className="w-3.5 h-3.5 text-purple-400" />
+                  <Lock className="w-3.5 h-3.5 text-amber-300" />
                   <span>Admin Panel Login</span>
                 </button>
               )}
@@ -429,7 +429,7 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
                 onClick={() => setActiveTab(tab.value as any)}
                 className={`px-4 py-2 rounded-2xl text-xs font-bold whitespace-nowrap transition-all flex items-center gap-2 ${
                   activeTab === tab.value
-                    ? 'bg-neutral-950 text-white shadow-sm'
+                    ? 'orixnal-gradient-bg text-white shadow-sm'
                     : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
                 }`}
               >
@@ -437,7 +437,7 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
                 <span
                   className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono font-bold ${
                     activeTab === tab.value
-                      ? 'bg-neutral-800 text-neutral-200'
+                      ? 'bg-white/20 text-white'
                       : 'bg-neutral-200 text-neutral-700'
                   }`}
                 >
@@ -497,7 +497,7 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
                 className="bg-white rounded-3xl border border-neutral-200/90 shadow-2xs hover:shadow-md transition-all overflow-hidden flex flex-col group"
               >
                 {/* Banner & Status Badge */}
-                <div className="relative h-52 sm:h-60 w-full overflow-hidden bg-neutral-900">
+                <div className="relative h-52 sm:h-60 w-full overflow-hidden bg-purple-50">
                   <img
                     src={evt.bannerImage}
                     alt={evt.name}
@@ -507,24 +507,24 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
                       (e.target as HTMLImageElement).src = PRESET_BANNERS[0].url;
                     }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-neutral-950/20 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-purple-950/70 via-purple-950/10 to-transparent" />
 
                   {/* Status Badge */}
                   <div className="absolute top-4 left-4 flex items-center gap-2">
                     {evt.status === 'Current' && (
-                      <span className="inline-flex items-center gap-1.5 bg-emerald-500 text-neutral-950 font-black text-[11px] px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
-                        <span className="w-2 h-2 rounded-full bg-neutral-950 animate-ping" />
+                      <span className="inline-flex items-center gap-1.5 bg-emerald-500 text-white font-black text-[11px] px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
+                        <span className="w-2 h-2 rounded-full bg-white animate-ping" />
                         Current Event
                       </span>
                     )}
                     {evt.status === 'Upcoming' && (
-                      <span className="inline-flex items-center gap-1.5 bg-purple-600 text-white font-black text-[11px] px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
-                        <Calendar className="w-3 h-3" />
+                      <span className="inline-flex items-center gap-1.5 orixnal-gradient-bg text-white font-black text-[11px] px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
+                        <Calendar className="w-3 h-3 text-amber-300" />
                         Upcoming
                       </span>
                     )}
                     {evt.status === 'Past' && (
-                      <span className="inline-flex items-center gap-1.5 bg-neutral-800 text-neutral-300 font-bold text-[11px] px-3 py-1 rounded-full uppercase tracking-wider">
+                      <span className="inline-flex items-center gap-1.5 bg-neutral-200 text-neutral-800 font-bold text-[11px] px-3 py-1 rounded-full uppercase tracking-wider">
                         Past Event
                       </span>
                     )}
@@ -538,17 +538,17 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
 
                   {/* Admin Direct Actions on Card */}
                   {isAdminLoggedIn && (
-                    <div className="absolute top-4 right-4 flex items-center gap-1.5 bg-neutral-950/80 backdrop-blur-md p-1.5 rounded-2xl border border-white/20">
+                    <div className="absolute top-4 right-4 flex items-center gap-1.5 bg-white/90 backdrop-blur-md p-1.5 rounded-2xl border border-neutral-200 shadow-sm">
                       <button
                         onClick={() => handleOpenEditModal(evt)}
-                        className="p-2 text-white hover:bg-white/20 rounded-xl transition-all"
+                        className="p-2 text-neutral-800 hover:bg-neutral-100 rounded-xl transition-all"
                         title="Edit Event"
                       >
-                        <Edit2 className="w-3.5 h-3.5" />
+                        <Edit2 className="w-3.5 h-3.5 text-purple-700" />
                       </button>
                       <button
                         onClick={() => handleDeleteEvent(evt.id, evt.name)}
-                        className="p-2 text-rose-400 hover:bg-rose-500/20 rounded-xl transition-all"
+                        className="p-2 text-rose-600 hover:bg-rose-50 rounded-xl transition-all"
                         title="Delete Event"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -558,13 +558,13 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
 
                   {/* Date & Location overlay */}
                   <div className="absolute bottom-4 left-4 right-4 text-white space-y-1">
-                    <div className="flex flex-wrap items-center gap-3 text-xs font-bold text-purple-200">
-                      <span className="flex items-center gap-1 bg-neutral-950/60 backdrop-blur-sm px-2.5 py-1 rounded-lg border border-white/10">
-                        <Calendar className="w-3.5 h-3.5 text-purple-400" />
+                    <div className="flex flex-wrap items-center gap-3 text-xs font-bold text-white">
+                      <span className="flex items-center gap-1 bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-lg border border-white/20">
+                        <Calendar className="w-3.5 h-3.5 text-amber-300" />
                         {evt.startDate} {evt.endDate !== evt.startDate ? `to ${evt.endDate}` : ''}
                       </span>
-                      <span className="flex items-center gap-1 bg-neutral-950/60 backdrop-blur-sm px-2.5 py-1 rounded-lg border border-white/10">
-                        <Clock className="w-3.5 h-3.5 text-amber-400" />
+                      <span className="flex items-center gap-1 bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-lg border border-white/20">
+                        <Clock className="w-3.5 h-3.5 text-amber-300" />
                         {evt.startTime} - {evt.endTime}
                       </span>
                     </div>
@@ -642,7 +642,7 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
       {/* EVENT DETAIL MODAL */}
       <AnimatePresence>
         {selectedEvent && (
-          <div className="fixed inset-0 z-50 overflow-y-auto bg-neutral-950/70 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-fadeIn">
+          <div className="fixed inset-0 z-50 overflow-y-auto bg-neutral-900/40 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-fadeIn">
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -652,20 +652,20 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
               {/* Close Button */}
               <button
                 onClick={() => setSelectedEvent(null)}
-                className="absolute top-4 right-4 z-20 bg-neutral-950/70 hover:bg-neutral-950 text-white p-2 rounded-full backdrop-blur-md transition-colors"
+                className="absolute top-4 right-4 z-20 bg-white/20 hover:bg-white/40 text-white p-2 rounded-full backdrop-blur-md transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
 
               {/* Modal Header Banner */}
-              <div className="relative h-64 sm:h-72 w-full bg-neutral-900 shrink-0">
+              <div className="relative h-64 sm:h-72 w-full bg-purple-50 shrink-0">
                 <img
                   src={selectedEvent.bannerImage}
                   alt={selectedEvent.name}
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-purple-950 via-purple-950/40 to-transparent" />
                 
                 <div className="absolute bottom-6 left-6 right-6 text-white space-y-2">
                   <div className="flex flex-wrap items-center gap-2">
@@ -748,13 +748,13 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
                 )}
 
                 {/* Ticket & Booking CTA */}
-                <div className="bg-purple-950 text-white p-5 rounded-2xl space-y-3">
+                <div className="orixnal-gradient-bg text-white p-6 rounded-2xl space-y-3 shadow-lg">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div>
-                      <div className="text-xs text-purple-300 font-mono font-bold uppercase">
+                      <div className="text-xs text-purple-200 font-mono font-bold uppercase">
                         Ticket Pricing
                       </div>
-                      <div className="text-lg font-black text-white mt-0.5">
+                      <div className="text-xl font-black text-white mt-0.5">
                         {selectedEvent.ticket.price}
                       </div>
                       {selectedEvent.ticket.notes && (
@@ -795,7 +795,7 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
                         <button
                           key={i}
                           onClick={() => setActiveGalleryImage(img)}
-                          className="h-24 rounded-xl overflow-hidden bg-neutral-900 border border-neutral-200 group relative focus:outline-none"
+                          className="h-24 rounded-xl overflow-hidden bg-neutral-100 border border-neutral-200 group relative focus:outline-none"
                         >
                           <img
                             src={img}
@@ -806,7 +806,7 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
                               (e.target as HTMLImageElement).src = PRESET_BANNERS[0].url;
                             }}
                           />
-                          <div className="absolute inset-0 bg-neutral-950/20 group-hover:bg-transparent transition-colors" />
+                          <div className="absolute inset-0 bg-neutral-900/10 group-hover:bg-transparent transition-colors" />
                         </button>
                       ))}
                     </div>
@@ -822,7 +822,7 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
       <AnimatePresence>
         {activeGalleryImage && (
           <div
-            className="fixed inset-0 z-50 bg-neutral-950/90 backdrop-blur-lg flex items-center justify-center p-4 animate-fadeIn"
+            className="fixed inset-0 z-50 bg-neutral-900/80 backdrop-blur-md flex items-center justify-center p-4 animate-fadeIn"
             onClick={() => setActiveGalleryImage(null)}
           >
             <div className="relative max-w-4xl max-h-[90vh] overflow-hidden rounded-2xl">
@@ -833,7 +833,7 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
               />
               <button
                 onClick={() => setActiveGalleryImage(null)}
-                className="absolute top-4 right-4 bg-neutral-950/80 text-white p-2 rounded-full border border-white/20"
+                className="absolute top-4 right-4 bg-purple-950/80 text-white p-2 rounded-full border border-purple-700/60"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -845,7 +845,7 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
       {/* ADMIN LOGIN MODAL */}
       <AnimatePresence>
         {showLoginModal && (
-          <div className="fixed inset-0 z-50 bg-neutral-950/70 backdrop-blur-md flex items-center justify-center p-4 animate-fadeIn">
+          <div className="fixed inset-0 z-50 bg-neutral-900/40 backdrop-blur-md flex items-center justify-center p-4 animate-fadeIn">
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -920,7 +920,7 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
       {/* CHANGE PASSWORD MODAL */}
       <AnimatePresence>
         {showChangePasswordModal && (
-          <div className="fixed inset-0 z-50 bg-neutral-950/70 backdrop-blur-md flex items-center justify-center p-4 animate-fadeIn">
+          <div className="fixed inset-0 z-50 bg-neutral-900/40 backdrop-blur-md flex items-center justify-center p-4 animate-fadeIn">
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -1003,7 +1003,7 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
 
                 <button
                   type="submit"
-                  className="w-full bg-neutral-950 text-white font-bold py-3 px-4 rounded-xl text-sm shadow-md hover:bg-neutral-800 transition-colors"
+                  className="w-full orixnal-gradient-bg text-white font-bold py-3 px-4 rounded-xl text-sm shadow-md hover:opacity-95 transition-all"
                 >
                   Save New Password
                 </button>
@@ -1016,7 +1016,7 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
       {/* CREATE / EDIT EVENT FORM MODAL */}
       <AnimatePresence>
         {showEventFormModal && (
-          <div className="fixed inset-0 z-50 bg-neutral-950/70 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-fadeIn">
+          <div className="fixed inset-0 z-50 bg-neutral-900/40 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-fadeIn">
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -1097,7 +1097,7 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
                   </div>
 
                   {formData.bannerImage && (
-                    <div className="h-32 rounded-xl overflow-hidden bg-neutral-900 border border-neutral-200 mt-2">
+                    <div className="h-32 rounded-xl overflow-hidden bg-purple-50 border border-neutral-200 mt-2">
                       <img
                         src={formData.bannerImage}
                         alt="Banner Preview"
@@ -1340,7 +1340,7 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
                           setNewGalleryUrl('');
                         }
                       }}
-                      className="bg-neutral-900 text-white text-xs font-bold px-3 py-2 rounded-xl"
+                      className="orixnal-gradient-bg text-white text-xs font-bold px-3 py-2 rounded-xl shadow-xs"
                     >
                       Add Photo
                     </button>
@@ -1348,7 +1348,7 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
 
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
                     {formData.gallery.map((url, idx) => (
-                      <div key={idx} className="relative h-20 rounded-xl overflow-hidden bg-neutral-900 border border-neutral-200 group">
+                      <div key={idx} className="relative h-20 rounded-xl overflow-hidden bg-neutral-100 border border-neutral-200 group">
                         <img src={url} alt={`Photo ${idx}`} className="w-full h-full object-cover" />
                         <button
                           type="button"

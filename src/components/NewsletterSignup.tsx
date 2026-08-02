@@ -146,7 +146,7 @@ export const NewsletterSignup: React.FC = () => {
                       onClick={() => setSelectedInterest(topic)}
                       className={`px-2.5 py-1 rounded-full text-[11px] font-semibold transition-all ${
                         selectedInterest === topic
-                          ? 'bg-neutral-900 text-white shadow-2xs'
+                          ? 'orixnal-gradient-bg text-white shadow-xs'
                           : 'bg-white border border-neutral-200 text-neutral-600 hover:bg-neutral-100'
                       }`}
                     >

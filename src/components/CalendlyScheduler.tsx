@@ -164,7 +164,7 @@ export const CalendlyScheduler: React.FC<CalendlySchedulerProps> = ({
 
   if (mode === 'modal') {
     return (
-      <div className="fixed inset-0 z-50 bg-neutral-950/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+      <div className="fixed inset-0 z-50 bg-neutral-900/40 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
         <div className="bg-white border border-neutral-200 rounded-3xl w-full max-w-4xl max-h-[92vh] overflow-y-auto shadow-2xl p-6 sm:p-8 relative animate-scale-up my-auto">
           <button
             onClick={onCloseModal}

@@ -2,6 +2,7 @@ import React from 'react';
 import { PageRoute } from '../types';
 import { COMPANY_DETAILS, FOUNDER_INFO, ORIXNAL_METHOD, OFFICIAL_ASSETS } from '../data/brandData';
 import { GlobalPresenceMap } from '../components/GlobalPresenceMap';
+import { ContactButtonGroup } from '../components/ContactButtonGroup';
 import {
   Sparkles,
   ShieldCheck,
@@ -91,11 +92,11 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate, onOpenAudit })
 
       {/* Founder's Manifesto: Why ORIXNAL Exists */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-        <div className="lg:col-span-5 bg-neutral-900 text-white p-8 sm:p-10 rounded-3xl flex flex-col justify-between space-y-8 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-48 h-48 bg-rose-600/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="lg:col-span-5 orixnal-gradient-bg text-white p-8 sm:p-10 rounded-3xl flex flex-col justify-between space-y-8 relative overflow-hidden shadow-lg border border-transparent">
+          <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full blur-2xl pointer-events-none" />
 
           <div className="space-y-4 relative z-10">
-            <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-rose-500/40 shadow-md">
+            <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-white/40 shadow-md bg-white">
               <img
                 src={OFFICIAL_ASSETS.founderPhoto}
                 alt="Asim Khan - Founder & Chief Strategist"
@@ -107,15 +108,15 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate, onOpenAudit })
             </div>
             <div>
               <h3 className="text-xl font-extrabold text-white">{FOUNDER_INFO.name}</h3>
-              <p className="text-xs font-mono text-rose-400 mt-0.5">{FOUNDER_INFO.title}</p>
+              <p className="text-xs font-mono text-amber-300 mt-0.5 font-bold">{FOUNDER_INFO.title}</p>
             </div>
 
-            <div className="pt-2 text-xs text-neutral-300 leading-relaxed italic border-t border-neutral-800">
+            <div className="pt-2 text-xs text-purple-100 leading-relaxed italic border-t border-white/20 font-medium">
               "{FOUNDER_INFO.quote}"
             </div>
           </div>
 
-          <div className="space-y-2 relative z-10 pt-4 border-t border-neutral-800 text-xs text-neutral-400 font-mono">
+          <div className="space-y-2 relative z-10 pt-4 border-t border-white/20 text-xs text-purple-100 font-mono">
             <div>• Background: Inside Sales & Business Strategy</div>
             <div>• Specialized in Legal IP & Masterbrand Architecture</div>
             <div>• Headquarters in Noida & Ghaziabad, UP, India</div>
@@ -689,42 +690,24 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate, onOpenAudit })
       </div>
 
       {/* CTA Banner */}
-      <div className="bg-neutral-900 text-white rounded-3xl p-8 sm:p-12 text-center space-y-6 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-rose-600/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="orixnal-gradient-bg text-white rounded-3xl p-8 sm:p-12 text-center space-y-6 relative overflow-hidden shadow-xl">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl pointer-events-none" />
 
-        <h3 className="text-2xl sm:text-4xl font-extrabold tracking-tight max-w-2xl mx-auto leading-tight">
+        <h3 className="text-2xl sm:text-4xl font-extrabold tracking-tight max-w-2xl mx-auto leading-tight text-white">
           Stop settling for fragmented agency retainers. Architect your masterbrand today.
         </h3>
 
-        <p className="text-sm sm:text-base text-neutral-300 max-w-xl mx-auto leading-relaxed">
+        <p className="text-sm sm:text-base text-purple-100 max-w-xl mx-auto leading-relaxed font-medium">
           Connect directly with Founder Asim Khan for a confidential Brand Strategy Discovery Session.
         </p>
 
-        <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
-          <button
-            onClick={onOpenAudit}
-            className="orixnal-gradient-bg text-white font-bold py-3.5 px-8 rounded-2xl text-sm shadow-sm hover:opacity-95 transition-all inline-flex items-center gap-2"
-          >
-            <span>Book Brand Discovery Audit</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
-
-          <a
-            href={COMPANY_DETAILS.phoneRaw}
-            className="bg-white text-neutral-900 border border-neutral-300 font-bold py-3.5 px-6 rounded-2xl text-sm hover:bg-neutral-50 transition-colors inline-flex items-center gap-2 shadow-2xs"
-          >
-            <Phone className="w-4 h-4 text-purple-700" />
-            <span>Call Us</span>
-          </a>
-
-          <a
-            href={COMPANY_DETAILS.emailRaw}
-            className="bg-white text-neutral-900 border border-neutral-300 font-bold py-3.5 px-6 rounded-2xl text-sm hover:bg-neutral-50 transition-colors inline-flex items-center gap-2 shadow-2xs"
-          >
-            <Mail className="w-4 h-4 text-purple-700" />
-            <span>Email Us</span>
-          </a>
-        </div>
+        <ContactButtonGroup
+          onOpenConsultation={onOpenAudit}
+          consultationText="Brand Discovery Consultation"
+          size="lg"
+          align="center"
+          className="pt-2"
+        />
       </div>
 
     </div>

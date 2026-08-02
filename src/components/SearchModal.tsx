@@ -187,7 +187,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, onNav
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-neutral-950/60 backdrop-blur-md flex items-start justify-center p-4 sm:p-6 md:p-10 animate-fadeIn">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-neutral-900/40 backdrop-blur-md flex items-start justify-center p-4 sm:p-6 md:p-10 animate-fadeIn">
       <div className="relative w-full max-w-2xl bg-white border border-neutral-200/90 rounded-3xl shadow-2xl overflow-hidden mt-12 sm:mt-20">
         
         {/* Search Header */}
@@ -239,7 +239,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, onNav
               }}
               className={`px-3 py-1 rounded-full text-[11px] font-bold whitespace-nowrap transition-all ${
                 selectedCategory === cat.id
-                  ? 'bg-neutral-900 text-white shadow-2xs'
+                  ? 'orixnal-gradient-bg text-white shadow-2xs'
                   : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
               }`}
             >

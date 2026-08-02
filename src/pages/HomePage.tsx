@@ -5,6 +5,7 @@ import { AudioPlayer } from '../components/AudioPlayer';
 import { TestimonialCarousel } from '../components/TestimonialCarousel';
 import { ClientTrustCarousel } from '../components/ClientTrustCarousel';
 import { CalendlyScheduler } from '../components/CalendlyScheduler';
+import { ContactButtonGroup } from '../components/ContactButtonGroup';
 import {
   OFFICIAL_ASSETS,
   COMPANY_DETAILS,
@@ -30,6 +31,7 @@ import { getEvents } from '../data/eventsData';
 import { getStoredBlogs } from '../data/blogData';
 import { ClutchHeroBadge, ClutchTrustPill, ClutchTrustBanner, ClutchFloatingBadge } from '../components/ClutchBadge';
 import { ClientImpactMetrics } from '../components/ClientImpactMetrics';
+import { ClientLogoGrid } from '../components/ClientLogoGrid';
 import {
   Sparkles,
   Phone,
@@ -101,32 +103,13 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenAudit }) =
               </p>
 
               {/* Direct Action Buttons */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
-                <button
-                  onClick={scrollToCalendly}
-                  className="orixnal-gradient-bg text-white font-extrabold py-4 px-7 rounded-2xl flex items-center justify-center gap-2.5 hover:opacity-95 transition-all shadow-md text-sm group"
-                >
-                  <Calendar className="w-4 h-4 text-amber-300" />
-                  <span>Book Discovery Consultation</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </button>
-
-                <a
-                  href={COMPANY_DETAILS.phoneRaw}
-                  className="bg-neutral-900 text-white font-bold py-4 px-6 rounded-2xl flex items-center justify-center gap-2.5 hover:bg-neutral-800 transition-all shadow-2xs text-sm"
-                >
-                  <Phone className="w-4 h-4 text-amber-400" />
-                  <span>Call Us</span>
-                </a>
-
-                <a
-                  href={COMPANY_DETAILS.emailRaw}
-                  className="bg-white text-neutral-900 border border-neutral-300 font-bold py-4 px-6 rounded-2xl flex items-center justify-center gap-2 hover:bg-neutral-50 transition-colors text-sm shadow-2xs"
-                >
-                  <Mail className="w-4 h-4 text-purple-700" />
-                  <span>Email Us</span>
-                </a>
-              </div>
+              <ContactButtonGroup
+                onOpenConsultation={scrollToCalendly}
+                consultationText="Brand Discovery Consultation"
+                size="md"
+                align="left"
+                className="pt-2"
+              />
 
               {/* Verified Enterprise Credentials */}
               <div className="pt-4 flex flex-wrap items-center gap-3.5 text-xs font-semibold text-neutral-500 border-t border-neutral-100">
@@ -159,7 +142,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenAudit }) =
                     <img
                       src={OFFICIAL_ASSETS.founderPhoto}
                       alt="Asim Khan — Founder & Chief Strategist of ORIXNAL"
-                      className="w-full h-full object-cover object-top filter grayscale group-hover:grayscale-0 transition-all duration-700"
+                      className="w-full h-full object-cover object-top transition-all duration-700"
                       referrerPolicy="no-referrer"
                       onError={() => setFounderImgError(true)}
                     />
@@ -245,6 +228,11 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenAudit }) =
       {/* DATA-DRIVEN CLIENT IMPACT & GROWTH METRICS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ClientImpactMetrics onNavigate={onNavigate} />
+      </section>
+
+      {/* OFFICIAL CLIENT & PARTNER LOGO GRID */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <ClientLogoGrid onNavigate={onNavigate} />
       </section>
 
       {/* 3. CORE SERVICE ARCHITECTURE (8 PILLARS) */}
@@ -486,28 +474,28 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenAudit }) =
             return (
               <>
                 {latestEvent && (
-                  <div className="relative bg-gradient-to-br from-neutral-950 via-purple-950 to-neutral-900 rounded-2xl overflow-hidden text-white border border-purple-800/40 shadow-xl group">
+                  <div className="relative bg-white rounded-2xl overflow-hidden text-neutral-900 border border-neutral-200/90 shadow-md group">
                     <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
                       
                       {/* Left Column: Event Cover Banner */}
-                      <div className="lg:col-span-5 relative h-64 lg:h-auto min-h-[260px] overflow-hidden bg-neutral-900">
+                      <div className="lg:col-span-5 relative h-64 lg:h-auto min-h-[260px] overflow-hidden bg-neutral-100">
                         <img
                           src={latestEvent.bannerImage}
                           alt={latestEvent.name}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                           referrerPolicy="no-referrer"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/20 to-transparent lg:hidden" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/40 via-transparent to-transparent lg:hidden" />
                         
                         {/* Badges Overlay */}
                         <div className="absolute top-4 left-4 flex flex-wrap items-center gap-2 z-10">
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-black bg-gradient-to-r from-amber-500 via-rose-500 to-purple-600 text-white shadow-md uppercase tracking-wider">
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-black orixnal-gradient-bg text-white shadow-md uppercase tracking-wider">
                             <Sparkles className="w-3.5 h-3.5 text-amber-200 animate-pulse" />
                             <span>LATEST POSTED EVENT</span>
                           </span>
                           <span className={`text-[10px] font-black uppercase px-2.5 py-1 rounded-full border ${
-                            latestEvent.status === 'Current' ? 'bg-emerald-500 text-neutral-950 border-emerald-400' :
-                            latestEvent.status === 'Upcoming' ? 'bg-purple-600 text-white border-purple-400' : 'bg-neutral-800 text-neutral-300 border-neutral-700'
+                            latestEvent.status === 'Current' ? 'bg-emerald-500 text-white border-emerald-400' :
+                            latestEvent.status === 'Upcoming' ? 'bg-purple-600 text-white border-purple-400' : 'bg-neutral-100 text-neutral-700 border-neutral-300'
                           }`}>
                             {latestEvent.status}
                           </span>
@@ -517,24 +505,24 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenAudit }) =
                       {/* Right Column: Details & Call-to-action */}
                       <div className="lg:col-span-7 p-6 sm:p-8 space-y-4 flex flex-col justify-between">
                         <div className="space-y-3">
-                          <div className="flex flex-wrap items-center gap-2.5 text-xs font-semibold text-purple-200/90">
-                            <span className="flex items-center gap-1.5 bg-purple-900/60 border border-purple-700/50 px-3 py-1 rounded-full">
-                              <Calendar className="w-3.5 h-3.5 text-purple-400" />
+                          <div className="flex flex-wrap items-center gap-2.5 text-xs font-semibold text-purple-900">
+                            <span className="flex items-center gap-1.5 bg-purple-50 border border-purple-200 px-3 py-1 rounded-full">
+                              <Calendar className="w-3.5 h-3.5 text-purple-700" />
                               <span>{latestEvent.startDate} {latestEvent.startTime && `• ${latestEvent.startTime}`}</span>
                             </span>
                             {latestEvent.location && (
-                              <span className="flex items-center gap-1.5 bg-neutral-900/80 border border-neutral-700/80 px-3 py-1 rounded-full text-neutral-300">
-                                <MapPin className="w-3.5 h-3.5 text-rose-400 shrink-0" />
+                              <span className="flex items-center gap-1.5 bg-neutral-100 border border-neutral-200 px-3 py-1 rounded-full text-neutral-700">
+                                <MapPin className="w-3.5 h-3.5 text-rose-600 shrink-0" />
                                 <span className="truncate max-w-[220px]">{latestEvent.location}</span>
                               </span>
                             )}
                           </div>
 
-                          <h3 className="text-xl sm:text-2xl font-black text-white leading-snug group-hover:text-amber-300 transition-colors">
+                          <h3 className="text-xl sm:text-2xl font-black text-neutral-950 leading-snug group-hover:text-purple-700 transition-colors">
                             {latestEvent.name}
                           </h3>
 
-                          <p className="text-xs sm:text-sm text-neutral-300 line-clamp-3 leading-relaxed">
+                          <p className="text-xs sm:text-sm text-neutral-600 line-clamp-3 leading-relaxed">
                             {latestEvent.description}
                           </p>
 
@@ -542,12 +530,12 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenAudit }) =
                           {latestEvent.activities && latestEvent.activities.length > 0 && (
                             <div className="pt-1 flex flex-wrap items-center gap-1.5">
                               {latestEvent.activities.slice(0, 3).map((act, idx) => (
-                                <span key={idx} className="text-[10px] font-mono font-medium bg-purple-900/40 text-purple-200 border border-purple-700/40 px-2.5 py-0.5 rounded-md">
+                                <span key={idx} className="text-[10px] font-mono font-medium bg-purple-50 text-purple-900 border border-purple-200 px-2.5 py-0.5 rounded-md">
                                   ✓ {act}
                                 </span>
                               ))}
                               {latestEvent.activities.length > 3 && (
-                                <span className="text-[10px] font-mono text-neutral-400">
+                                <span className="text-[10px] font-mono text-neutral-500">
                                   +{latestEvent.activities.length - 3} more
                                 </span>
                               )}
@@ -556,10 +544,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenAudit }) =
                         </div>
 
                         {/* Footer Bar */}
-                        <div className="pt-4 border-t border-purple-900/60 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div className="pt-4 border-t border-neutral-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                           <div className="flex items-center gap-2">
-                            <Ticket className="w-4 h-4 text-amber-400" />
-                            <span className="text-xs font-bold text-amber-300">
+                            <Ticket className="w-4 h-4 text-purple-700" />
+                            <span className="text-xs font-bold text-purple-900">
                               {latestEvent.ticket?.price || 'Free RSVP'}
                             </span>
                             {latestEvent.ticket?.availability && (
@@ -607,7 +595,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenAudit }) =
                           className="bg-[#FAF9F6] border border-neutral-200/90 rounded-2xl overflow-hidden shadow-2xs hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between"
                         >
                           <div>
-                            <div className="relative h-40 w-full bg-neutral-900 overflow-hidden">
+                            <div className="relative h-40 w-full bg-neutral-100 overflow-hidden">
                               <img
                                 src={evt.bannerImage}
                                 alt={evt.name}
@@ -616,8 +604,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenAudit }) =
                               />
                               <div className="absolute top-3 left-3 flex items-center gap-1.5">
                                 <span className={`text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full ${
-                                  evt.status === 'Current' ? 'bg-emerald-500 text-neutral-950' :
-                                  evt.status === 'Upcoming' ? 'bg-purple-600 text-white' : 'bg-neutral-800 text-neutral-300'
+                                  evt.status === 'Current' ? 'bg-emerald-500 text-white' :
+                                  evt.status === 'Upcoming' ? 'bg-purple-600 text-white' : 'bg-neutral-200 text-neutral-800'
                                 }`}>
                                   {evt.status}
                                 </span>
@@ -705,7 +693,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenAudit }) =
                   >
                     <div>
                       {/* Cover Banner */}
-                      <div className="relative h-44 w-full bg-neutral-900 overflow-hidden">
+                      <div className="relative h-44 w-full bg-neutral-100 overflow-hidden">
                         <img
                           src={blog.coverImage}
                           alt={blog.title}
@@ -713,7 +701,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenAudit }) =
                           referrerPolicy="no-referrer"
                         />
                         <div className="absolute top-3 left-3 flex items-center gap-1.5">
-                          <span className="text-[10px] font-mono font-bold uppercase px-2.5 py-0.5 rounded-full bg-purple-900/90 text-purple-100 backdrop-blur-md border border-purple-700/50">
+                          <span className="text-[10px] font-mono font-bold uppercase px-2.5 py-0.5 rounded-full orixnal-gradient-bg text-white backdrop-blur-md shadow-2xs">
                             {blog.category}
                           </span>
                         </div>
@@ -793,10 +781,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenAudit }) =
           <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
             <button
               onClick={() => onNavigate('foooz')}
-              className="bg-neutral-900 text-white font-bold py-3.5 px-6 rounded-2xl hover:bg-neutral-800 transition-colors text-sm shadow-md flex items-center gap-2"
+              className="orixnal-gradient-bg text-white font-bold py-3.5 px-6 rounded-2xl hover:opacity-95 transition-all text-sm shadow-md flex items-center gap-2"
             >
               <span>Explore Foooz Venture</span>
-              <ArrowRight className="w-4 h-4 text-amber-400" />
+              <ArrowRight className="w-4 h-4 text-amber-300" />
             </button>
           </div>
         </div>
@@ -874,32 +862,13 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenAudit }) =
               Schedule a 1-on-1 Brand Discovery Consultation via Calendly above, or reach out directly to Founder Asim Khan.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
-              <button
-                onClick={scrollToCalendly}
-                className="w-full sm:w-auto orixnal-gradient-bg text-white font-extrabold py-4 px-8 rounded-2xl flex items-center justify-center gap-2.5 shadow-md hover:opacity-95 transition-all text-sm group"
-              >
-                <Calendar className="w-4 h-4 text-amber-300" />
-                <span>Book Discovery Consultation</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-
-              <a
-                href={COMPANY_DETAILS.phoneRaw}
-                className="w-full sm:w-auto bg-neutral-900 text-white font-bold py-4 px-6 rounded-2xl flex items-center justify-center gap-2.5 hover:bg-neutral-800 transition-colors text-sm shadow-2xs"
-              >
-                <Phone className="w-4 h-4 text-amber-400" />
-                <span>Call Us</span>
-              </a>
-
-              <a
-                href={COMPANY_DETAILS.emailRaw}
-                className="w-full sm:w-auto bg-white border border-neutral-300 text-neutral-900 font-bold py-4 px-6 rounded-2xl flex items-center justify-center gap-2 hover:bg-neutral-50 transition-colors text-sm shadow-2xs"
-              >
-                <Mail className="w-4 h-4 text-purple-700" />
-                <span>Email Us</span>
-              </a>
-            </div>
+            <ContactButtonGroup
+              onOpenConsultation={scrollToCalendly}
+              consultationText="Brand Discovery Consultation"
+              size="lg"
+              align="center"
+              className="pt-2"
+            />
           </div>
         </div>
       </section>

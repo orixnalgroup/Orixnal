@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { PageRoute, PortfolioProject } from '../types';
 import { PORTFOLIO_PROJECTS, COMPANY_DETAILS } from '../data/brandData';
 import { CaseStudyOutcomes } from '../components/CaseStudyOutcomes';
+import { ContactButtonGroup } from '../components/ContactButtonGroup';
 import { Sparkles, Phone, Mail, CheckCircle2, ArrowRight } from 'lucide-react';
 
 interface PortfolioPageProps {
@@ -184,22 +185,13 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({ onNavigate, onOpen
         <p className="text-sm text-neutral-600 max-w-xl mx-auto">
           Reach out to Founder Asim Khan for a strategic discussion.
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-          <a
-            href={COMPANY_DETAILS.phoneRaw}
-            className="orixnal-gradient-bg text-white font-bold py-3 px-6 rounded-xl flex items-center gap-2 text-sm hover:opacity-95 transition-opacity"
-          >
-            <Phone className="w-4 h-4" />
-            <span>Call Us</span>
-          </a>
-          <a
-            href={COMPANY_DETAILS.emailRaw}
-            className="bg-white text-neutral-900 border border-neutral-300 font-bold py-3 px-6 rounded-xl flex items-center gap-2 text-sm hover:bg-neutral-50 transition-colors shadow-2xs"
-          >
-            <Mail className="w-4 h-4 text-purple-700" />
-            <span>Email Us</span>
-          </a>
-        </div>
+        <ContactButtonGroup
+          onOpenConsultation={onOpenAudit}
+          consultationText="Brand Discovery Consultation"
+          size="md"
+          align="center"
+          className="pt-2"
+        />
       </motion.div>
 
     </motion.div>

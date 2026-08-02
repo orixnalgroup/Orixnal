@@ -245,7 +245,7 @@ export const ServicesFAQ: React.FC<ServicesFAQProps> = ({ onOpenAudit, className
             onClick={() => setActiveCategory('all')}
             className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
               activeCategory === 'all'
-                ? 'bg-neutral-900 text-white shadow-2xs'
+                ? 'orixnal-gradient-bg text-white shadow-2xs'
                 : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200/80'
             }`}
           >
@@ -255,44 +255,44 @@ export const ServicesFAQ: React.FC<ServicesFAQProps> = ({ onOpenAudit, className
             onClick={() => setActiveCategory('methodology')}
             className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all inline-flex items-center gap-1.5 ${
               activeCategory === 'methodology'
-                ? 'bg-neutral-900 text-white shadow-2xs'
+                ? 'orixnal-gradient-bg text-white shadow-2xs'
                 : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200/80'
             }`}
           >
-            <Compass className="w-3.5 h-3.5 text-rose-500" />
+            <Compass className={`w-3.5 h-3.5 ${activeCategory === 'methodology' ? 'text-amber-300' : 'text-purple-600'}`} />
             <span>Methodology</span>
           </button>
           <button
             onClick={() => setActiveCategory('legal')}
             className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all inline-flex items-center gap-1.5 ${
               activeCategory === 'legal'
-                ? 'bg-neutral-900 text-white shadow-2xs'
+                ? 'orixnal-gradient-bg text-white shadow-2xs'
                 : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200/80'
             }`}
           >
-            <ShieldCheck className="w-3.5 h-3.5 text-purple-500" />
+            <ShieldCheck className={`w-3.5 h-3.5 ${activeCategory === 'legal' ? 'text-amber-300' : 'text-purple-600'}`} />
             <span>Legal & IP Security</span>
           </button>
           <button
             onClick={() => setActiveCategory('process')}
             className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all inline-flex items-center gap-1.5 ${
               activeCategory === 'process'
-                ? 'bg-neutral-900 text-white shadow-2xs'
+                ? 'orixnal-gradient-bg text-white shadow-2xs'
                 : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200/80'
             }`}
           >
-            <Clock className="w-3.5 h-3.5 text-blue-500" />
+            <Clock className={`w-3.5 h-3.5 ${activeCategory === 'process' ? 'text-amber-300' : 'text-purple-600'}`} />
             <span>Process & Timelines</span>
           </button>
           <button
             onClick={() => setActiveCategory('engagement')}
             className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all inline-flex items-center gap-1.5 ${
               activeCategory === 'engagement'
-                ? 'bg-neutral-900 text-white shadow-2xs'
+                ? 'orixnal-gradient-bg text-white shadow-2xs'
                 : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200/80'
             }`}
           >
-            <Briefcase className="w-3.5 h-3.5 text-amber-500" />
+            <Briefcase className={`w-3.5 h-3.5 ${activeCategory === 'engagement' ? 'text-amber-300' : 'text-purple-600'}`} />
             <span>Engagement & Investment</span>
           </button>
         </div>
