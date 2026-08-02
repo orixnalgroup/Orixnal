@@ -57,7 +57,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate, onOpenAudit })
           </h1>
 
           <p className="text-base sm:text-xl text-neutral-600 leading-relaxed font-normal pt-2">
-            ORIXNAL is India’s premier founder-led brand development company. We bridge the critical gap between executive business strategy, legal IP defense, visual design dialects, and custom web engineering under one roof.
+            ORIXNAL is India’s premier Brand Development Company. We bridge the critical gap between executive business strategy, legal IP defense, visual design dialects, and custom web engineering under one roof.
           </p>
         </div>
 
@@ -545,8 +545,8 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate, onOpenAudit })
                 phase: 'PHASE 04: MASTERBRAND EQUITY ERA',
                 status: 'ACTIVE ERA',
                 statusBg: 'bg-rose-600 text-white border-rose-600 font-bold',
-                title: 'Full-Spectrum Founder-Led Brand Group',
-                description: 'Consolidated position as India’s premier founder-led brand development company, managing end-to-end masterbrand launches, legal IP armor, and digital platforms under direct founder leadership.',
+                title: 'Full-Spectrum Brand Group',
+                description: 'Consolidated position as India’s premier Brand Development Company, managing end-to-end masterbrand launches, legal IP armor, and digital platforms under direct founder leadership.',
                 achievements: [
                   'Standardized 5-step ORIXNAL Brand Equation framework',
                   'Expanded direct founder strategy call booking platform',

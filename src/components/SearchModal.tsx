@@ -47,7 +47,8 @@ const PAGE_ITEMS: SearchResultItem[] = [
   { id: 'p-insights', title: 'Insights & Publications', subtitle: 'Brand strategy essays, audio summaries & market trends', category: 'Page', route: 'insights', badge: 'Research', icon: <BookOpen className="w-4 h-4 text-rose-600" /> },
   { id: 'p-industries', title: 'Industry Solutions', subtitle: 'SaaS, D2C, Fintech, Healthcare & Gaming specialization', category: 'Page', route: 'industries', badge: 'Sectors', icon: <Layout className="w-4 h-4 text-rose-600" /> },
   { id: 'p-foooz', title: 'FOOOZ™ Ecosystem', subtitle: 'Sovereign esports, gaming & food lifestyle venture', category: 'Page', route: 'foooz', badge: 'Ecosystem', icon: <Sparkles className="w-4 h-4 text-amber-600" /> },
-  { id: 'p-events', title: 'ORIXNAL EVENT™ Summits', subtitle: 'Global strategic summits, IP workshops & admin panel', category: 'Page', route: 'events', badge: 'Events', icon: <Calendar className="w-4 h-4 text-purple-600" /> },
+  { id: 'p-events', title: 'Orixnal Event', subtitle: 'Global strategic summits, IP workshops & admin panel', category: 'Page', route: 'events', badge: 'Events', icon: <Calendar className="w-4 h-4 text-purple-600" /> },
+  { id: 'p-blog', title: 'Blog & Publication Dashboard', subtitle: 'Write, publish, and manage strategic articles and PDF attachments', category: 'Page', route: 'blog', badge: 'Editor', icon: <BookOpen className="w-4 h-4 text-purple-600" /> },
   { id: 'p-faq', title: 'Frequently Asked Questions', subtitle: 'Pricing, deliverables, timelines & trademark process', category: 'Page', route: 'faq', badge: 'Support', icon: <HelpCircle className="w-4 h-4 text-neutral-600" /> },
   { id: 'p-contact', title: 'Contact & Advisory Booking', subtitle: 'Schedule direct strategy call with Founder Asim Khan', category: 'Page', route: 'contact', badge: 'Direct', icon: <Layout className="w-4 h-4 text-rose-600" /> },
 ];

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PageRoute, CaseStudy } from '../types';
 import { CASE_STUDIES, COMPANY_DETAILS } from '../data/brandData';
+import { ClientTrustCarousel } from '../components/ClientTrustCarousel';
 import { Sparkles, ArrowRight, CheckCircle2, Phone, Mail, ChevronRight } from 'lucide-react';
 
 interface CaseStudiesPageProps {
@@ -140,6 +141,9 @@ export const CaseStudiesPage: React.FC<CaseStudiesPageProps> = ({ onNavigate, on
           ))}
         </div>
       )}
+
+      {/* Client Trust Carousel */}
+      <ClientTrustCarousel onOpenAudit={onOpenAudit} />
 
       {/* CTA Box */}
       <div className="bg-[#FAF8F5] border border-neutral-200 rounded-3xl p-8 text-center space-y-4">

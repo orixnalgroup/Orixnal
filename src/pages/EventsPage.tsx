@@ -307,7 +307,7 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
           <div className="flex items-center gap-2 max-w-7xl mx-auto w-full">
             <AlertTriangle className="w-4 h-4 shrink-0 text-neutral-950" />
             <span>
-              <strong>Security Alert:</strong> You are currently logged in with the default temporary password (<code>{DEFAULT_TEMP_PASSWORD}</code>). Please update it.
+              <strong>Security Alert:</strong> You are currently logged in with the default temporary password. Please update it to secure your account.
             </span>
             <button
               onClick={() => setShowChangePasswordModal(true)}
@@ -326,7 +326,7 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
             <div>
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 text-purple-900 border border-purple-200 text-xs font-bold tracking-tight mb-3">
                 <Sparkles className="w-3.5 h-3.5 text-purple-700" />
-                <span>ORIXNAL EVENT™ ACADEMY & SUMMITS</span>
+                <span>Orixnal Event</span>
               </div>
               <h1 className="text-3xl sm:text-5xl font-black text-neutral-950 tracking-tight leading-tight">
                 Global Strategic Gatherings, <br />
@@ -892,14 +892,9 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
                 </div>
 
                 <div className="space-y-1">
-                  <div className="flex items-center justify-between">
-                    <label className="text-xs font-bold text-neutral-700 uppercase">
-                      Password
-                    </label>
-                    <span className="text-[10px] text-purple-700 font-mono">
-                      Temp Pass: <strong>{DEFAULT_TEMP_PASSWORD}</strong>
-                    </span>
-                  </div>
+                  <label className="text-xs font-bold text-neutral-700 uppercase">
+                    Password
+                  </label>
                   <input
                     type="password"
                     value={loginPassword}
@@ -908,13 +903,6 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
                     placeholder="Enter password..."
                     className="w-full bg-neutral-50 border border-neutral-300 text-neutral-900 text-sm rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-600 font-medium"
                   />
-                </div>
-
-                <div className="p-3 bg-purple-50 rounded-xl border border-purple-200/60 text-[11px] text-purple-900 flex items-start gap-2">
-                  <Info className="w-4 h-4 text-purple-700 shrink-0 mt-0.5" />
-                  <span>
-                    Initial credentials provided: <strong>{ADMIN_EMAIL}</strong> with temporary password <strong>{DEFAULT_TEMP_PASSWORD}</strong>. You can change this password after logging in.
-                  </span>
                 </div>
 
                 <button

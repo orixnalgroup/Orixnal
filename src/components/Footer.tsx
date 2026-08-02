@@ -2,8 +2,9 @@ import React from 'react';
 import { PageRoute } from '../types';
 import { Logo } from './Logo';
 import { NewsletterSignup } from './NewsletterSignup';
+import { SocialLinks } from './SocialLinks';
 import { COMPANY_DETAILS, FOUNDER_INFO } from '../data/brandData';
-import { Phone, Mail, MapPin, Building, ShieldCheck, ArrowUpRight, Sparkles } from 'lucide-react';
+import { Phone, Mail, MapPin, Building, ShieldCheck, ArrowUpRight, Sparkles, Globe } from 'lucide-react';
 
 interface FooterProps {
   onNavigate: (route: PageRoute) => void;
@@ -58,7 +59,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAudit }) => {
           <div className="lg:col-span-2 space-y-4">
             <Logo variant="full" size="lg" />
             <p className="text-sm text-neutral-600 max-w-sm leading-relaxed mt-3">
-              ORIXNAL is India's founder-led brand development company helping ambitious businesses transform ideas into clear, meaningful, and scalable global brands.
+              ORIXNAL is India's Brand Development Company helping ambitious businesses transform ideas into clear, meaningful, and scalable global brands.
             </p>
 
             {/* Official Udyam Registration Badge */}
@@ -156,8 +157,14 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAudit }) => {
               </li>
               <li>
                 <button onClick={() => onNavigate('events')} className="hover:text-purple-700 transition-colors flex items-center gap-1.5 font-bold text-purple-900">
-                  <span>ORIXNAL EVENT™ Summits</span>
+                  <span>Orixnal Event</span>
                   <span className="w-1.5 h-1.5 rounded-full bg-purple-600 animate-pulse" />
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('blog')} className="hover:text-purple-700 transition-colors flex items-center gap-1.5 font-bold text-purple-900">
+                  <span>Blog & Editor</span>
+                  <span className="bg-purple-100 text-purple-800 text-[9px] font-mono font-bold px-1.5 py-0.2 rounded uppercase">New</span>
                 </button>
               </li>
               <li>
@@ -174,19 +181,39 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAudit }) => {
             </ul>
           </div>
 
-          {/* Headquarters & Contact */}
+          {/* Contact Us */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-900 mb-4 font-mono">
-              Headquarters & Contact
+              Contact Us
             </h4>
 
             <div className="space-y-3.5 text-xs text-neutral-600">
               <div className="flex items-start gap-2">
                 <Building className="w-4 h-4 text-purple-700 shrink-0 mt-0.5" />
                 <div>
-                  <strong className="text-neutral-900 block">Digital Headquarters:</strong>
                   <span>{COMPANY_DETAILS.headquarters}</span>
-                  <span className="block text-[11px] text-purple-800 font-medium italic mt-1 bg-purple-50 px-2 py-0.5 rounded border border-purple-100">
+                  
+                  {/* Email & Website below office address and above prior appointment note */}
+                  <div className="mt-2.5 pt-2 border-t border-neutral-200/60 space-y-1.5 font-medium text-neutral-800">
+                    <a
+                      href="mailto:contact@orixnal.com"
+                      className="flex items-center gap-1.5 hover:text-purple-700 transition-colors"
+                    >
+                      <Mail className="w-3.5 h-3.5 text-purple-700 shrink-0" />
+                      <span>contact@orixnal.com</span>
+                    </a>
+                    <a
+                      href="https://www.orixnal.com"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center gap-1.5 hover:text-purple-700 transition-colors"
+                    >
+                      <Globe className="w-3.5 h-3.5 text-purple-700 shrink-0" />
+                      <span>www.orixnal.com</span>
+                    </a>
+                  </div>
+
+                  <span className="block text-[11px] text-purple-800 font-medium italic mt-2 bg-purple-50 px-2 py-0.5 rounded border border-purple-100">
                     {COMPANY_DETAILS.appointmentNote}
                   </span>
                 </div>
@@ -221,6 +248,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAudit }) => {
           </div>
 
         </div>
+
+        {/* Social Connectivity & Brand Links */}
+        <SocialLinks />
 
         {/* Bottom Legal & Copyright Bar */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-neutral-500 font-medium">

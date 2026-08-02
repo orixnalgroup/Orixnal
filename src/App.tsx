@@ -17,6 +17,7 @@ import { ServicesPage } from './pages/ServicesPage';
 import { CaseStudiesPage } from './pages/CaseStudiesPage';
 import { PortfolioPage } from './pages/PortfolioPage';
 import { InsightsPage } from './pages/InsightsPage';
+import { BlogPage } from './pages/BlogPage';
 import { IndustriesPage } from './pages/IndustriesPage';
 import { FooozPage } from './pages/FooozPage';
 import { EventsPage } from './pages/EventsPage';
@@ -26,8 +27,43 @@ import { ContactPage } from './pages/ContactPage';
 import { PrivacyPage } from './pages/PrivacyPage';
 import { TermsPage } from './pages/TermsPage';
 
+const ROUTE_ORDER: PageRoute[] = [
+  'home',
+  'about',
+  'founder',
+  'services',
+  'events',
+  'blog',
+  'case-studies',
+  'portfolio',
+  'insights',
+  'industries',
+  'foooz',
+  'careers',
+  'faq',
+  'contact',
+  'privacy',
+  'terms'
+];
+
+const pageVariants = {
+  enter: (dir: number) => ({
+    x: dir > 0 ? '100%' : '-100%',
+    opacity: 0
+  }),
+  center: {
+    x: '0%',
+    opacity: 1
+  },
+  exit: (dir: number) => ({
+    x: dir < 0 ? '100%' : '-100%',
+    opacity: 0
+  })
+};
+
 export default function App() {
   const [currentRoute, setCurrentRoute] = useState<PageRoute>('home');
+  const [direction, setDirection] = useState<number>(1);
   const [auditModalOpen, setAuditModalOpen] = useState(false);
   const [searchModalOpen, setSearchModalOpen] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
@@ -48,21 +84,26 @@ export default function App() {
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#/', '').replace('#', '') as PageRoute;
-      if (hash && [
-        'home', 'about', 'founder', 'services', 'case-studies',
-        'portfolio', 'insights', 'industries', 'foooz', 'events',
-        'careers', 'faq', 'contact', 'privacy', 'terms'
-      ].includes(hash)) {
-        setCurrentRoute(hash);
+      if (hash && ROUTE_ORDER.includes(hash)) {
+        if (hash !== currentRoute) {
+          const prevIndex = ROUTE_ORDER.indexOf(currentRoute);
+          const nextIndex = ROUTE_ORDER.indexOf(hash);
+          setDirection(nextIndex >= prevIndex ? 1 : -1);
+          setCurrentRoute(hash);
+        }
       }
     };
 
     handleHashChange();
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
+  }, [currentRoute]);
 
   const navigateTo = (route: PageRoute) => {
+    if (route === currentRoute) return;
+    const prevIndex = ROUTE_ORDER.indexOf(currentRoute);
+    const nextIndex = ROUTE_ORDER.indexOf(route);
+    setDirection(nextIndex >= prevIndex ? 1 : -1);
     setCurrentRoute(route);
     window.location.hash = `#/${route === 'home' ? '' : route}`;
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -90,6 +131,9 @@ export default function App() {
         return <FooozPage onNavigate={navigateTo} onOpenAudit={() => setAuditModalOpen(true)} />;
       case 'events':
         return <EventsPage onNavigate={navigateTo} onOpenAudit={() => setAuditModalOpen(true)} />;
+      case 'blog':
+      case 'blog-detail':
+        return <BlogPage onNavigate={navigateTo} onOpenAudit={() => setAuditModalOpen(true)} />;
       case 'careers':
         return <CareersPage onNavigate={navigateTo} onOpenAudit={() => setAuditModalOpen(true)} />;
       case 'faq':
@@ -118,14 +162,20 @@ export default function App() {
         onOpenChat={() => setChatOpen(true)}
       />
 
-      <main className="flex-1 pt-28 sm:pt-32 overflow-x-hidden">
-        <AnimatePresence mode="wait">
+      <main className="flex-1 pt-28 sm:pt-32 overflow-x-hidden relative w-full">
+        <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={currentRoute}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            custom={direction}
+            variants={pageVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{
+              x: { type: 'spring', stiffness: 280, damping: 30 },
+              opacity: { duration: 0.28, ease: 'easeInOut' }
+            }}
+            className="w-full min-h-[60vh]"
           >
             {renderCurrentPage()}
           </motion.div>

@@ -9,6 +9,8 @@ export type PageRoute =
   | 'portfolio'
   | 'insights'
   | 'insight-detail'
+  | 'blog'
+  | 'blog-detail'
   | 'industries'
   | 'foooz'
   | 'events'
@@ -121,4 +123,53 @@ export interface Testimonial {
   avatarInitial: string;
   category: 'SaaS & B2B' | 'D2C & Retail' | 'Legal & IP' | 'Web Engineering';
 }
+
+export interface BlogAttachment {
+  id: string;
+  type: 'image' | 'pdf' | 'document';
+  name: string;
+  url: string;
+  fileSize?: string;
+  caption?: string;
+  description?: string;
+}
+
+export interface BlogContentSection {
+  id: string;
+  type: 'heading' | 'paragraph' | 'callout' | 'bullets';
+  headingText?: string;
+  text?: string;
+  bulletItems?: string[];
+}
+
+export interface BlogPost {
+  id: string;
+  slug: string;
+  title: string;
+  shortDescription: string;
+  category: string;
+  coverImage: string;
+  publishedBy: {
+    name: string;
+    role: string;
+    avatarUrl?: string;
+  };
+  publishedAt: string;
+  readTime: string;
+  tags: string[];
+  status: 'Published' | 'Draft';
+  contentStyle: {
+    fontFamily: 'sans' | 'serif' | 'mono' | 'display';
+    fontSize: 'sm' | 'base' | 'lg' | 'xl';
+    textColor: string;
+    accentColor: string;
+  };
+  mainContent: string;
+  sections: BlogContentSection[];
+  attachments: BlogAttachment[];
+  featured?: boolean;
+  viewsCount?: number;
+  likesCount?: number;
+}
+
 

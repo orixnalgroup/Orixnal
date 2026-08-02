@@ -34,6 +34,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
     { label: 'Founder', route: 'founder' },
     { label: 'Services', route: 'services' },
     { label: 'Events', route: 'events' },
+    { label: 'Blog', route: 'blog' },
     { label: 'Case Studies', route: 'case-studies' },
     { label: 'Portfolio', route: 'portfolio' },
     { label: 'Insights', route: 'insights' },

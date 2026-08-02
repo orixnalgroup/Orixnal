@@ -19,8 +19,8 @@ export const COMPANY_DETAILS = {
   founderName: 'Asim Khan',
   phone: '+91 8447561650',
   phoneRaw: 'tel:+918447561650',
-  email: 'hello@orixnal.com',
-  emailRaw: 'mailto:hello@orixnal.com',
+  email: 'contact@orixnal.com',
+  emailRaw: 'mailto:contact@orixnal.com',
   website: 'www.orixnal.com',
   headquarters: 'ESquare Building, Plot C-2, Sector 96, Noida, Uttar Pradesh – 201301, India',
   appointmentNote: 'Meetings are available strictly by prior appointment.',
@@ -832,7 +832,7 @@ export const INSIGHTS_ARTICLES: InsightArticle[] = [
     excerpt: 'As LLMs like Gemini, Claude, and ChatGPT become primary discovery engines, brands must structure entity data for semantic machine comprehension.',
     content: [
       `Traditional SEO taught us to optimize for keyphrase density and backlink volume. But AI search optimization requires something far deeper: Brand Entity Clarity.`,
-      `When a prospective client asks an AI model "Who is the top founder-led brand development company in India?", the LLM relies on verified Organization Schema, MSME Udyam credentials, structured thought leadership, and unambiguous entity references.`,
+      `When a prospective client asks an AI model "Who is the top brand development company in India?", the LLM relies on verified Organization Schema, MSME Udyam credentials, structured thought leadership, and unambiguous entity references.`,
       `If your brand messaging is vague or fragmented across web touchpoints, AI models cannot accurately categorize your firm. Modern brand development must engineer both human emotional resonance and LLM semantic clarity.`,
     ],
   },
@@ -858,7 +858,7 @@ export const FAQ_LIST: FAQItem[] = [
     id: 'faq-1',
     category: 'General',
     question: 'Is ORIXNAL a digital marketing agency or a design studio?',
-    answer: 'ORIXNAL is neither just a marketing agency nor just a design studio. We are a Founder-Led Brand Development Company. We help businesses engineer complete brand ecosystems — combining brand strategy, legal IP protection, visual identity systems, web development, and go-to-market execution.',
+    answer: 'ORIXNAL is neither just a marketing agency nor just a design studio. We are a Brand Development Company. We help businesses engineer complete brand ecosystems — combining brand strategy, legal IP protection, visual identity systems, web development, and go-to-market execution.',
   },
   {
     id: 'faq-2',
@@ -897,19 +897,19 @@ export const FAQ_LIST: FAQItem[] = [
    ========================================================================== */
 
 export const HERO_MANIFEST = {
-  badge: '✨ Founder-Led Brand Development Company',
+  badge: '✨ Brand Development Company',
   headlineLines: [
     'Original Thinking.',
     'Human Impact.',
   ],
-  subHeading: `ORIXNAL is India's founder-led Brand Development Company. We don't just design logos or build websites—we architect enduring masterbrands that people remember, businesses trust, and markets recognise.`,
+  subHeading: `ORIXNAL is India's Brand Development Company. We don't just design logos or build websites—we architect enduring masterbrands that people remember, businesses trust, and markets recognise.`,
   supportingParagraphs: [
     `Every successful business begins with an idea. But ideas alone don't build brands. Clarity does. Strategy does. Consistency does.`,
     `At ORIXNAL, we believe branding isn't about making your business look better. It's about making people understand why you exist, why they should trust you, and why they should remember you long after the first interaction.`,
     `Whether you're launching your first venture, redefining an established business, or preparing to scale globally, we help you create a brand that's built with intention—not assumption.`,
     `Because when your brand is clear, every decision becomes easier.`
   ],
-  primaryCTA: { label: 'Book a Brand Consultation', href: 'mailto:hello@orixnal.com' },
+  primaryCTA: { label: 'Book a Brand Consultation', href: 'mailto:contact@orixnal.com' },
   secondaryCTA: { label: "Let's Talk", href: 'tel:+918447561650' },
   founderCard: {
     name: 'ASIM KHAN',
@@ -917,7 +917,7 @@ export const HERO_MANIFEST = {
     quote: 'Building brands with clarity, strategy and purpose—one meaningful business at a time.'
   },
   trustIndicators: [
-    '✓ Founder-Led Consultancy',
+    '✓ Brand Development Consultancy',
     '✓ Registered Business in India',
     '✓ Registered under Ministry of MSME',
     '✓ Strategic Brand Development'
@@ -937,7 +937,7 @@ export const PHILOSOPHY_MANIFEST = {
   corePhilosophy: `At ORIXNAL, we believe branding is never about decoration. It's about direction. A logo can be designed in a day. A memorable brand is built through clarity, consistency and meaningful experiences. That's why we don't start with colours. We start with questions. Who are you? Why do you exist? Who are you serving? What should people remember after meeting your brand? Only when those answers become crystal clear do we begin building everything else. Because strategy should always lead creativity—not the other way around.`,
   ourBelief: `A beautiful brand without strategy becomes decoration. A powerful strategy without execution remains an idea. Great brands need both. That balance is where ORIXNAL creates its best work.`,
   mission: `To help businesses build clear, strategic and impactful brands that create lasting value for customers, teams and communities.`,
-  vision: `To become one of the world's most respected founder-led Brand Development Companies, helping ambitious businesses elevate meaningful ideas into globally recognised brands.`,
+  vision: `To become one of the world's most respected Brand Development Companies, helping ambitious businesses elevate meaningful ideas into globally recognised brands.`,
   values: [
     'Clarity before complexity.',
     'Strategy before execution.',
@@ -949,13 +949,13 @@ export const PHILOSOPHY_MANIFEST = {
   ],
   orixnalPromise: `We won't recommend something because it's trending. We'll recommend it because it's right for your brand. Every decision. Every design. Every campaign. Every experience. Built with intention.`,
   closingStatement: `Because brands aren't remembered by accident. They're remembered by design.`,
-  sectionCTA: { label: "Ready to build a brand people won't forget? Let's begin the conversation.", href: 'mailto:hello@orixnal.com' }
+  sectionCTA: { label: "Ready to build a brand people won't forget? Let's begin the conversation.", href: 'mailto:contact@orixnal.com' }
 };
 
 export const ABOUT_MANIFEST = {
   sectionLabel: 'Who We Are',
   mainHeadline: `We're not here to make your business look bigger. We're here to make your brand mean something.`,
-  openingCopy: `ORIXNAL was founded on a simple belief: Businesses don't struggle because they lack ambition. They struggle because the market doesn't clearly understand who they are, what they stand for, or why they deserve attention. That's the gap we exist to close. We're a Founder-Led Brand Development Company that combines strategic thinking, creative execution and business understanding to help ambitious brands grow with clarity and confidence.`,
+  openingCopy: `ORIXNAL was founded on a simple belief: Businesses don't struggle because they lack ambition. They struggle because the market doesn't clearly understand who they are, what they stand for, or why they deserve attention. That's the gap we exist to close. We're a Brand Development Company that combines strategic thinking, creative execution and business understanding to help ambitious brands grow with clarity and confidence.`,
   whoWeWorkWith: `Whether you're launching your first startup, building the next disruptive product, reimagining an established company or expanding into new markets, ORIXNAL helps turn ideas into brands that people recognise, trust and remember. Because growth isn't built on visibility alone. It's built on credibility.`,
   whatMakesDifferent: `Most agencies begin by asking, "What would you like us to design?" We begin with a different question. "What are you trying to become?" That single question changes everything. It helps us understand your ambition before we touch your identity. Your vision before your visuals. Your purpose before your promotion. Because the strongest brands are built from the inside out—not the outside in.`,
   capabilitiesPillars: [
@@ -1484,6 +1484,6 @@ export const FOOTER_MANIFEST = {
   socials: ['LinkedIn', 'Instagram', 'X', 'Facebook', 'YouTube', 'Behance', 'Dribbble'],
   founderNote: `Every successful business begins with an idea. Every remarkable brand begins with clarity. Thank you for visiting ORIXNAL. Whether we work together today or sometime in the future, I hope your journey leads to building something meaningful—something people trust, remember and proudly recommend. See you soon. — Asim Khan, Founder & Principal Brand Strategist`,
   legalLinks: ['Privacy Policy', 'Terms & Conditions', 'Cookie Policy', 'Accessibility', 'Disclaimer'],
-  copyright: '© 2026 ORIXNAL Group. All Rights Reserved. ORIXNAL is a Founder-Led Global Brand Development Company headquartered in Noida, India. Registered under the Ministry of Micro, Small and Medium Enterprises (UDYAM-UP-29-0079322). Built with Original Thinking. Designed for Human Impact.'
+  copyright: '© 2026 ORIXNAL Group. All Rights Reserved. ORIXNAL is a Global Brand Development Company headquartered in Noida, India. Registered under the Ministry of Micro, Small and Medium Enterprises (UDYAM-UP-29-0079322). Built with Original Thinking. Designed for Human Impact.'
 };
 

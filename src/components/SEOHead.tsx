@@ -12,7 +12,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ currentRoute, titleSuffix }) =
     // Dynamic page title
     const baseTitle = 'ORIXNAL® — Global Brand Development Company';
     const titles: Record<PageRoute, string> = {
-      home: 'ORIXNAL® — Founder-Led Global Brand Development Company',
+      home: 'ORIXNAL® — Global Brand Development Company',
       about: 'About ORIXNAL — Brand DNA, Philosophy & The ORIXNAL Method',
       founder: 'Asim Khan — Founder & Chief Brand Strategist | ORIXNAL',
       services: 'Brand Development Services — Naming, Legal IP, Design & Web | ORIXNAL',
@@ -22,9 +22,11 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ currentRoute, titleSuffix }) =
       portfolio: 'Concept & Demonstration Projects | ORIXNAL Portfolio',
       insights: 'Insights & Thought Leadership on Brand Building | ORIXNAL',
       'insight-detail': 'Strategic Brand Essay | ORIXNAL Insights',
+      blog: 'Blog & Editorial Dashboard — Strategic Articles & IP Guides | ORIXNAL',
+      'blog-detail': 'Strategic Blog Publication | ORIXNAL',
       industries: 'Industries We Serve — Startups, D2C, Enterprise | ORIXNAL',
       foooz: 'Foooz® — Everyday Food Brand Ecosystem | ORIXNAL Sub-Brand',
-      events: 'ORIXNAL EVENT™ — Global Strategic Summits, Gatherings & IP Workshops',
+      events: 'Orixnal Event — Global Strategic Gatherings & IP Workshops',
       careers: 'Careers at ORIXNAL — Join Our Brand Development Team',
       faq: 'Frequently Asked Questions — Brand Building & Advisory | ORIXNAL',
       contact: 'Contact ORIXNAL — Schedule Strategic Consultation | +91 8447561650',
@@ -46,7 +48,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ currentRoute, titleSuffix }) =
       image: 'https://lh3.googleusercontent.com/d/1PQ9-ihBp0XRHe9nmFEmrmqqrUyBIaZh7',
       telephone: COMPANY_DETAILS.phone,
       email: COMPANY_DETAILS.email,
-      description: 'Founder-led global brand development company helping businesses build clear, meaningful, and scalable brands through strategy, legal protection, visual identity, web engineering, and marketing.',
+      description: 'Brand development company helping businesses build clear, meaningful, and scalable brands through strategy, legal protection, visual identity, web engineering, and marketing.',
       founder: {
         '@type': 'Person',
         name: FOUNDER_INFO.name,
