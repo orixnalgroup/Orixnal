@@ -3,7 +3,6 @@ import { PageRoute } from '../types';
 import { Logo } from '../components/Logo';
 import { AudioPlayer } from '../components/AudioPlayer';
 import { TestimonialCarousel } from '../components/TestimonialCarousel';
-import { ClientTrustCarousel } from '../components/ClientTrustCarousel';
 import { CalendlyScheduler } from '../components/CalendlyScheduler';
 import { ContactButtonGroup } from '../components/ContactButtonGroup';
 import {
@@ -31,7 +30,6 @@ import { getEvents } from '../data/eventsData';
 import { getStoredBlogs } from '../data/blogData';
 import { ClutchHeroBadge, ClutchTrustPill, ClutchTrustBanner, ClutchFloatingBadge } from '../components/ClutchBadge';
 import { ClientImpactMetrics } from '../components/ClientImpactMetrics';
-import { ClientLogoGrid } from '../components/ClientLogoGrid';
 import {
   Sparkles,
   Phone,
@@ -220,19 +218,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenAudit }) =
         </div>
       </section>
 
-      {/* CLUTCH RECOGNITION & VERIFIED REVIEWS BANNER */}
+      {/* CLUTCH & THE MANIFEST VERIFIED ACHIEVEMENTS BANNER */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ClutchTrustBanner />
-      </section>
-
-      {/* DATA-DRIVEN CLIENT IMPACT & GROWTH METRICS */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <ClientImpactMetrics onNavigate={onNavigate} />
-      </section>
-
-      {/* OFFICIAL CLIENT & PARTNER LOGO GRID */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <ClientLogoGrid onNavigate={onNavigate} />
       </section>
 
       {/* 3. CORE SERVICE ARCHITECTURE (8 PILLARS) */}
@@ -759,9 +747,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenAudit }) =
         </div>
       </section>
 
-      {/* 7. CLIENT TRUST & CAROUSEL */}
-      <ClientTrustCarousel onOpenAudit={onOpenAudit} />
-
       {/* 8. SUB-BRAND SPOTLIGHT: FOOOZ */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-gradient-to-br from-amber-500/10 via-amber-100/40 to-amber-50 border border-amber-200 rounded-3xl p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-8">
@@ -819,18 +804,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenAudit }) =
               <span className="text-neutral-500 text-[11px]">Micro Enterprise (Services)</span>
             </div>
 
-            <div className="p-4 rounded-xl bg-[#FAF9F6] border border-neutral-200/80 space-y-2">
-              <span className="text-neutral-500 font-mono block text-xs">Direct Dial & Email</span>
-              <div className="flex flex-col gap-1.5 pt-0.5">
-                <a href={COMPANY_DETAILS.phoneRaw} className="inline-flex items-center gap-1.5 text-xs font-bold text-white orixnal-gradient-bg px-3 py-1.5 rounded-lg hover:opacity-95 shadow-2xs">
-                  <Phone className="w-3 h-3" />
-                  <span>Call Us</span>
-                </a>
-                <a href={COMPANY_DETAILS.emailRaw} className="inline-flex items-center gap-1.5 text-xs font-bold text-purple-900 bg-white border border-purple-200 px-3 py-1.5 rounded-lg hover:bg-purple-50 shadow-2xs">
-                  <Mail className="w-3 h-3 text-purple-700" />
-                  <span>Email Us</span>
-                </a>
-              </div>
+            <div className="p-4 rounded-xl bg-[#FAF9F6] border border-neutral-200/80 space-y-1">
+              <span className="text-neutral-500 font-mono block">Primary Corporate Hub</span>
+              <strong className="text-sm font-extrabold text-neutral-900 block">Noida & Ghaziabad, UP</strong>
+              <span className="text-purple-900 font-mono font-bold text-[11px] block">{COMPANY_DETAILS.email}</span>
             </div>
           </div>
         </div>

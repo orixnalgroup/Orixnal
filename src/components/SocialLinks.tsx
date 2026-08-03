@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { ArrowUpRight, Users, Sparkles, ExternalLink } from 'lucide-react';
+import { Sparkles, ExternalLink } from 'lucide-react';
 
 export interface SocialPlatform {
   name: string;
@@ -144,101 +144,46 @@ export const SOCIAL_PLATFORMS: SocialPlatform[] = [
 
 export const SocialLinks: React.FC = () => {
   return (
-    <div className="my-12 pt-10 border-t border-neutral-200/90 space-y-8">
-      {/* Social CTA Banner */}
-      <div className="orixnal-gradient-bg text-white rounded-3xl p-6 sm:p-8 border border-purple-400/30 shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden group">
-        <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-radial from-white/10 to-transparent pointer-events-none" />
-
-        <div className="space-y-2 max-w-xl relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 border border-white/30 text-white text-xs font-mono font-bold uppercase tracking-wider backdrop-blur-md">
-            <Users className="w-3.5 h-3.5 text-amber-300" />
-            <span>Join Our Global Network</span>
-          </div>
-
-          <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight">
-            Follow ORIXNAL Across All Platforms
-          </h3>
-
-          <p className="text-xs sm:text-sm text-purple-100 leading-relaxed font-normal">
-            Official Handle: <strong className="text-amber-300 font-mono text-sm">@orixnalgroup</strong> — Join our community of 10,000+ brand leaders, founders, and creators for daily insights and design breakdowns.
-          </p>
-        </div>
-
-        {/* Master CTA Button */}
-        <div className="flex items-center gap-3 w-full sm:w-auto relative z-10 shrink-0">
-          <a
-            href="https://www.linkedin.com/company/orixnalgroup"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full sm:w-auto bg-white hover:bg-purple-50 text-purple-950 font-extrabold text-xs sm:text-sm px-6 py-3.5 rounded-2xl shadow-md transition-all inline-flex items-center justify-center gap-2 group-hover:scale-[1.02]"
-          >
-            <span>Join us on LinkedIn</span>
-            <ArrowUpRight className="w-4 h-4 text-purple-900" />
-          </a>
-        </div>
-      </div>
-
-      {/* Grid of Social Media Cards with Hyperlinks */}
-      <div className="space-y-3">
-        <div className="flex items-center justify-between px-1">
+    <div className="my-10 pt-8 border-t border-neutral-200/90 space-y-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-1">
+        <div>
           <div className="text-xs font-bold uppercase tracking-wider text-neutral-900 font-mono flex items-center gap-2">
             <Sparkles className="w-3.5 h-3.5 text-purple-600" />
-            <span>Official Social Channels (@orixnalgroup)</span>
+            <span>Connect With ORIXNAL (@orixnalgroup)</span>
           </div>
-          <span className="text-[11px] text-neutral-500 font-mono">
-            9 Verified Platforms & Directories
-          </span>
+          <p className="text-xs text-neutral-500 mt-0.5">
+            Click any official logo below to visit our official page on that platform
+          </p>
         </div>
+        <span className="text-[11px] text-purple-800 font-mono font-bold bg-purple-50 border border-purple-200/80 px-2.5 py-1 rounded-lg self-start sm:self-auto">
+          9 Verified Official Handles
+        </span>
+      </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5">
-          {SOCIAL_PLATFORMS.map((platform) => (
-            <motion.a
-              key={platform.name}
-              href={platform.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ y: -2 }}
-              className={`bg-white border border-neutral-200/90 rounded-2xl p-4 transition-all duration-200 group flex flex-col justify-between space-y-3 shadow-2xs hover:shadow-md ${platform.colorClass}`}
-            >
-              <div className="flex items-center justify-between gap-2">
-                <div className={`p-2.5 rounded-xl bg-neutral-100 transition-colors ${platform.bgHover}`}>
-                  {platform.icon}
-                </div>
-
-                <div className="flex items-center gap-1">
-                  {platform.badge && (
-                    <span className="text-[9px] font-mono font-bold uppercase bg-neutral-100 text-neutral-600 px-2 py-0.5 rounded-md border border-neutral-200">
-                      {platform.badge}
-                    </span>
-                  )}
-                  <ExternalLink className="w-3.5 h-3.5 text-neutral-400 group-hover:text-purple-600 transition-colors shrink-0" />
-                </div>
-              </div>
-
-              <div>
-                <div className="flex items-center justify-between">
-                  <h4 className="text-sm font-black text-neutral-900 group-hover:text-purple-900 transition-colors">
-                    {platform.name}
-                  </h4>
-                  <span className="text-[10px] font-mono text-purple-700 font-bold">
-                    {platform.handle}
-                  </span>
-                </div>
-                <p className="text-[11px] text-neutral-500 leading-snug mt-1 line-clamp-2">
-                  {platform.description}
-                </p>
-              </div>
-
-              {/* Individual Join Us CTA link inside each card */}
-              <div className="pt-2 border-t border-neutral-100 flex items-center justify-between text-[11px] font-bold text-neutral-800 group-hover:text-purple-700 transition-colors">
-                <span>Join us</span>
-                <span className="inline-flex items-center gap-1 text-[10px] font-mono uppercase font-black text-purple-800 group-hover:translate-x-0.5 transition-transform">
-                  Follow <ArrowUpRight className="w-3 h-3" />
-                </span>
-              </div>
-            </motion.a>
-          ))}
-        </div>
+      {/* Row of Official Social Media Logos with Hyperlinks */}
+      <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+        {SOCIAL_PLATFORMS.map((platform) => (
+          <motion.a
+            key={platform.name}
+            href={platform.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={`Official ORIXNAL page on ${platform.name} (${platform.handle})`}
+            aria-label={`Official ORIXNAL page on ${platform.name}`}
+            whileHover={{ y: -3, scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={`flex items-center gap-2.5 px-4 py-3 rounded-2xl bg-white border border-neutral-200 shadow-2xs hover:shadow-md transition-all duration-200 group ${platform.colorClass}`}
+          >
+            <div className={`p-2 rounded-xl bg-neutral-100 transition-colors ${platform.bgHover}`}>
+              {platform.icon}
+            </div>
+            <span className="text-xs font-extrabold text-neutral-800 group-hover:text-neutral-950 transition-colors">
+              {platform.name}
+            </span>
+            <ExternalLink className="w-3 h-3 text-neutral-400 group-hover:text-purple-600 transition-colors" />
+          </motion.a>
+        ))}
       </div>
     </div>
   );

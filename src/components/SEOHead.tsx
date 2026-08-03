@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { PageRoute } from '../types';
-import { COMPANY_DETAILS, FOUNDER_INFO, FAQ_LIST } from '../data/brandData';
+import { COMPANY_DETAILS, FOUNDER_INFO, FAQ_LIST, OFFICIAL_ASSETS } from '../data/brandData';
 
 interface SEOHeadProps {
   currentRoute: PageRoute;
@@ -9,8 +9,7 @@ interface SEOHeadProps {
 
 export const SEOHead: React.FC<SEOHeadProps> = ({ currentRoute, titleSuffix }) => {
   useEffect(() => {
-    // Dynamic page title
-    const baseTitle = 'ORIXNAL® — Global Brand Development Company';
+    // Dynamic page titles and descriptions
     const titles: Record<PageRoute, string> = {
       home: 'ORIXNAL® — Global Brand Development Company',
       about: 'About ORIXNAL — Brand DNA, Philosophy & The ORIXNAL Method',
@@ -34,7 +33,109 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ currentRoute, titleSuffix }) =
       terms: 'Terms & Conditions | ORIXNAL Group',
     };
 
-    document.title = titleSuffix ? `${titleSuffix} | ORIXNAL` : titles[currentRoute] || baseTitle;
+    const descriptions: Record<PageRoute, string> = {
+      home: 'ORIXNAL helps ambitious startups and corporate enterprises transform ideas into clear, meaningful, and scalable global brands through strategy, legal protection, identity design, web engineering, and GTM execution.',
+      about: 'Discover ORIXNAL brand DNA, core values, and founder-led philosophy. We unite naming, legal IP, visual identity, and high-performance engineering under one high-conviction company.',
+      founder: 'Meet Asim Khan, Founder & Chief Brand Strategist at ORIXNAL. Learn about his high-conviction approach to brand architecture, legal trademark defense, and digital transformation.',
+      services: 'Explore ORIXNAL 8 master capabilities: Brand Naming, Legal IP & Incorporation, Studio Design Systems, Web Engineering, Marketing Strategy, Ads & Media, Event Activations, and Founder Advisory.',
+      'service-detail': 'Deep dive into ORIXNAL strategic brand development capability.',
+      'case-studies': 'Review real-world brand outcomes, repositioning case studies, and quantifiable growth achieved for global clients by ORIXNAL.',
+      'case-study-detail': 'Detailed brand engineering case study by ORIXNAL.',
+      portfolio: 'Examine concept visual identities, packaging systems, and digital product designs crafted by ORIXNAL Studio.',
+      insights: 'Executive essays, thought leadership, and strategic frameworks on brand positioning, trademark defense, and consumer psychology.',
+      'insight-detail': 'Strategic brand insight essay by ORIXNAL leadership.',
+      blog: 'Official ORIXNAL blog covering trademark filing guides, brand architecture, Shopify e-commerce scaling, and MSME growth strategies.',
+      'blog-detail': 'Strategic blog guide by ORIXNAL experts.',
+      industries: 'Tailored brand development solutions across Tech Startups, D2C Consumer Goods, Food & Hospitality, Real Estate, Healthcare, and Professional Services.',
+      foooz: 'Foooz® is an everyday food brand ecosystem created by ORIXNAL, connecting farm-fresh agricultural sourcing with packaged consumer food products.',
+      events: 'Orixnal Event organizes corporate expos, brand launches, VIP leadership summits, and IP workshops across global business hubs.',
+      careers: 'Build your career at ORIXNAL. Join a high-conviction team of brand strategists, IP lawyers, UI/UX designers, and full-stack web engineers.',
+      faq: 'Get instant answers regarding ORIXNAL engagement models, pricing, legal IP search, trademark timeline, and 1-on-1 Founder Audits.',
+      contact: 'Connect directly with ORIXNAL Founder Asim Khan and our strategic team in Noida/Ghaziabad, UP. Call +91 8447561650 or schedule a Brand Audit.',
+      privacy: 'ORIXNAL Group Privacy Policy explaining our data handling, security protocols, and client confidentiality standards.',
+      terms: 'Terms & Conditions governing engagement with ORIXNAL Brand Development Company.',
+    };
+
+    const ogImages: Partial<Record<PageRoute, string>> = {
+      founder: OFFICIAL_ASSETS.founderPhoto,
+      foooz: OFFICIAL_ASSETS.fooozLogo,
+    };
+
+    const currentTitle = titleSuffix ? `${titleSuffix} | ORIXNAL` : titles[currentRoute] || titles.home;
+    const currentDesc = descriptions[currentRoute] || descriptions.home;
+    const currentUrl = currentRoute === 'home' ? 'https://www.orixnal.com/' : `https://www.orixnal.com/#/${currentRoute}`;
+    const currentOgImage = ogImages[currentRoute] || `https://www.orixnal.com/api/og-image?page=${currentRoute}`;
+    const currentOgType = currentRoute === 'founder' ? 'profile' : currentRoute.includes('detail') || currentRoute === 'blog' || currentRoute === 'insights' ? 'article' : 'website';
+
+    // Set Document Title
+    document.title = currentTitle;
+
+    // Helper to safely set or update meta tag
+    const updateMetaTag = (attrName: 'name' | 'property', attrValue: string, contentValue: string) => {
+      let tag = document.querySelector(`meta[${attrName}="${attrValue}"]`);
+      if (!tag) {
+        tag = document.createElement('meta');
+        tag.setAttribute(attrName, attrValue);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute('content', contentValue);
+    };
+
+    // Standard Meta Tags
+    updateMetaTag('name', 'description', currentDesc);
+
+    // Canonical Tag
+    let canonicalTag = document.querySelector('link[rel="canonical"]');
+    if (!canonicalTag) {
+      canonicalTag = document.createElement('link');
+      canonicalTag.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonicalTag);
+    }
+    canonicalTag.setAttribute('href', currentUrl);
+
+    // Open Graph Tags
+    updateMetaTag('property', 'og:site_name', 'ORIXNAL®');
+    updateMetaTag('property', 'og:locale', 'en_US');
+    updateMetaTag('property', 'og:type', currentOgType);
+    updateMetaTag('property', 'og:title', currentTitle);
+    updateMetaTag('property', 'og:description', currentDesc);
+    updateMetaTag('property', 'og:url', currentUrl);
+    updateMetaTag('property', 'og:image', currentOgImage);
+    updateMetaTag('property', 'og:image:width', '1200');
+    updateMetaTag('property', 'og:image:height', '630');
+    updateMetaTag('property', 'og:image:type', 'image/png');
+
+    // Twitter Card Meta Tags
+    updateMetaTag('name', 'twitter:card', 'summary_large_image');
+    updateMetaTag('name', 'twitter:site', '@orixnalgroup');
+    updateMetaTag('name', 'twitter:creator', '@orixnalgroup');
+    updateMetaTag('name', 'twitter:title', currentTitle);
+    updateMetaTag('name', 'twitter:description', currentDesc);
+    updateMetaTag('name', 'twitter:image', currentOgImage);
+
+    // Dynamic Favicon Update
+    let iconTag = document.querySelector('link[rel="icon"]');
+    if (iconTag) {
+      iconTag.setAttribute('href', OFFICIAL_ASSETS.icon);
+      iconTag.setAttribute('type', 'image/png');
+    }
+
+    // Inject WebSite & SearchAction Schema
+    const websiteSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      '@id': 'https://www.orixnal.com/#website',
+      url: 'https://www.orixnal.com',
+      name: 'ORIXNAL®',
+      publisher: {
+        '@id': 'https://www.orixnal.com/#organization',
+      },
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: 'https://www.orixnal.com/#/services?q={search_term_string}',
+        'query-input': 'required name=search_term_string',
+      },
+    };
 
     // Inject Organization & LocalBusiness JSON-LD Schema
     const orgSchema = {
@@ -44,15 +145,26 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ currentRoute, titleSuffix }) =
       name: COMPANY_DETAILS.legalName,
       alternateName: 'ORIXNAL',
       url: 'https://www.orixnal.com',
-      logo: COMPANY_DETAILS.website + '/favicon.svg',
-      image: 'https://lh3.googleusercontent.com/d/1PQ9-ihBp0XRHe9nmFEmrmqqrUyBIaZh7',
+      logo: OFFICIAL_ASSETS.icon,
+      image: OFFICIAL_ASSETS.logo,
       telephone: COMPANY_DETAILS.phone,
       email: COMPANY_DETAILS.email,
-      description: 'Brand development company helping businesses build clear, meaningful, and scalable brands through strategy, legal protection, visual identity, web engineering, and marketing.',
+      description: currentDesc,
+      sameAs: [
+        'https://www.linkedin.com/company/orixnalgroup',
+        'https://www.instagram.com/orixnalgroup',
+        'https://www.youtube.com/@orixnalgroup',
+        'https://x.com/orixnalgroup',
+        'https://www.facebook.com/orixnalgroup',
+        'https://clutch.co/profile/orixnal',
+      ],
       founder: {
         '@type': 'Person',
+        '@id': 'https://www.orixnal.com/#founder',
         name: FOUNDER_INFO.name,
         jobTitle: FOUNDER_INFO.title,
+        email: COMPANY_DETAILS.email,
+        sameAs: 'https://www.linkedin.com/in/asimkhanorixnal',
       },
       address: {
         '@type': 'PostalAddress',
@@ -62,6 +174,11 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ currentRoute, titleSuffix }) =
         postalCode: '201301',
         addressCountry: 'IN',
       },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: '28.5355',
+        longitude: '77.3910',
+      },
       identifier: [
         {
           '@type': 'PropertyValue',
@@ -70,6 +187,41 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ currentRoute, titleSuffix }) =
         },
       ],
       priceRange: '$$$',
+    };
+
+    // Inject BreadcrumbList Schema
+    const breadcrumbSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://www.orixnal.com/',
+        },
+        ...(currentRoute !== 'home'
+          ? [
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: currentRoute.charAt(0).toUpperCase() + currentRoute.slice(1).replace('-', ' '),
+                item: currentUrl,
+              },
+            ]
+          : []),
+      ],
+    };
+
+    // Inject Speakable Schema for AI Voice Search
+    const speakableSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: currentTitle,
+      speakable: {
+        '@type': 'SpeakableSpecification',
+        cssSelector: ['h1', 'h2', '.speakable-text'],
+      },
     };
 
     // FAQ Schema
@@ -86,21 +238,25 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ currentRoute, titleSuffix }) =
       })),
     };
 
-    // Remove old schema tags
+    // Clean up existing schema script tags
     const existingSchemas = document.querySelectorAll('script[type="application/ld+json"]');
     existingSchemas.forEach((s) => s.remove());
 
     // Inject fresh schemas
-    const script1 = document.createElement('script');
-    script1.type = 'application/ld+json';
-    script1.text = JSON.stringify(orgSchema);
-    document.head.appendChild(script1);
+    const injectJsonLd = (data: object) => {
+      const script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.text = JSON.stringify(data);
+      document.head.appendChild(script);
+    };
+
+    injectJsonLd(websiteSchema);
+    injectJsonLd(orgSchema);
+    injectJsonLd(breadcrumbSchema);
+    injectJsonLd(speakableSchema);
 
     if (currentRoute === 'faq' || currentRoute === 'home') {
-      const script2 = document.createElement('script');
-      script2.type = 'application/ld+json';
-      script2.text = JSON.stringify(faqSchema);
-      document.head.appendChild(script2);
+      injectJsonLd(faqSchema);
     }
   }, [currentRoute, titleSuffix]);
 

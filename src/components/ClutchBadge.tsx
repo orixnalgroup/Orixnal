@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
-import { ExternalLink, Star, ShieldCheck, ArrowUpRight, X } from 'lucide-react';
+import { ExternalLink, Star, ShieldCheck, ArrowUpRight, X, Award, CheckCircle2 } from 'lucide-react';
 
 export const CLUTCH_PROFILE_URL = 'https://clutch.co/profile/orixnal-group';
+export const MANIFEST_PROFILE_URL = 'https://themanifest.com/company/orixnal-group';
 
 export const ClutchIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
   <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
     <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 3.8c4.529 0 8.2 3.671 8.2 8.2 0 4.529-3.671 8.2-8.2 8.2-4.529 0-8.2-3.671-8.2-8.2 0-4.529 3.671-8.2 8.2-8.2zm-2 3.8c-2.43 0-4.4 1.97-4.4 4.4s1.97 4.4 4.4 4.4c1.215 0 2.316-.493 3.112-1.288l-1.556-1.556c-.398.398-.948.644-1.556.644-1.215 0-2.2-.985-2.2-2.2s.985-2.2 2.2-2.2c.608 0 1.158.246 1.556.644l1.556-1.556C12.316 8.093 11.215 7.6 10 7.6zm6.6.2h-2.2v8.4h2.2V7.8z" />
+  </svg>
+);
+
+export const ManifestIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
   </svg>
 );
 
@@ -45,72 +52,154 @@ export const ClutchHeroBadge: React.FC<{ className?: string }> = ({ className = 
 };
 
 /**
- * Trust Pill for Credentials Bar
+ * Trust Pills for Credentials Bar
  */
 export const ClutchTrustPill: React.FC = () => {
   return (
-    <a
-      href={CLUTCH_PROFILE_URL}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-flex items-center gap-2 text-xs font-semibold text-neutral-800 bg-orange-50/90 hover:bg-orange-100/90 border border-orange-200/90 px-3 py-1 rounded-full transition-all group"
-      title="View ORIXNAL Group on Clutch"
-    >
-      <ClutchIcon className="w-3.5 h-3.5 text-[#FF4A1C]" />
-      <span className="font-bold text-neutral-900">Recognized on Clutch</span>
-      <span className="inline-flex items-center gap-0.5 text-[10px] bg-[#FF4A1C] text-white px-1.5 py-0.2 rounded font-mono font-bold">
-        5.0 <Star className="w-2.5 h-2.5 fill-white text-white inline" />
-      </span>
-      <ArrowUpRight className="w-3 h-3 text-neutral-400 group-hover:text-neutral-900 group-hover:translate-x-0.5 transition-transform" />
-    </a>
+    <div className="flex items-center gap-2 flex-wrap">
+      <a
+        href={CLUTCH_PROFILE_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 text-xs font-semibold text-neutral-800 bg-orange-50/90 hover:bg-orange-100/90 border border-orange-200/90 px-3 py-1 rounded-full transition-all group"
+        title="View ORIXNAL Group on Clutch"
+      >
+        <ClutchIcon className="w-3.5 h-3.5 text-[#FF4A1C]" />
+        <span className="font-bold text-neutral-900">Clutch Top Rated</span>
+        <span className="inline-flex items-center gap-0.5 text-[10px] bg-[#FF4A1C] text-white px-1.5 py-0.2 rounded font-mono font-bold">
+          5.0 <Star className="w-2.5 h-2.5 fill-white text-white inline" />
+        </span>
+        <ArrowUpRight className="w-3 h-3 text-neutral-400 group-hover:text-neutral-900 group-hover:translate-x-0.5 transition-transform" />
+      </a>
+
+      <a
+        href={MANIFEST_PROFILE_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 text-xs font-semibold text-neutral-800 bg-blue-50/90 hover:bg-blue-100/90 border border-blue-200/90 px-3 py-1 rounded-full transition-all group"
+        title="View ORIXNAL Group on The Manifest"
+      >
+        <ManifestIcon className="w-3.5 h-3.5 text-blue-600" />
+        <span className="font-bold text-neutral-900">Featured on The Manifest</span>
+        <span className="inline-flex items-center gap-0.5 text-[10px] bg-blue-600 text-white px-1.5 py-0.2 rounded font-mono font-bold">
+          Top B2B
+        </span>
+        <ArrowUpRight className="w-3 h-3 text-neutral-400 group-hover:text-neutral-900 group-hover:translate-x-0.5 transition-transform" />
+      </a>
+    </div>
   );
 };
 
 /**
- * Full-width Clutch Recognition Section Banner for HomePage
+ * Full-width Clutch & The Manifest Recognition Section Banner for HomePage
  */
 export const ClutchTrustBanner: React.FC = () => {
   return (
-    <div className="orixnal-gradient-bg text-white rounded-3xl p-6 sm:p-8 border border-purple-400/30 shadow-xl relative overflow-hidden my-10">
-      <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-radial from-white/10 to-transparent pointer-events-none" />
+    <div className="bg-white border border-neutral-200/90 rounded-3xl p-6 sm:p-10 shadow-lg relative overflow-hidden my-8 space-y-8">
+      {/* Background Accent Gradients */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-purple-100/40 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-100/30 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
-        
-        {/* Left info block */}
-        <div className="space-y-3 max-w-2xl">
-          <div className="flex items-center gap-2.5 flex-wrap">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 border border-white/30 text-white text-xs font-mono font-bold uppercase tracking-wider backdrop-blur-md">
-              <ClutchIcon className="w-3.5 h-3.5 text-white" />
-              <span>Official Recognition</span>
-            </span>
-
-            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-400/25 border border-amber-300/40 text-amber-200 text-xs font-bold font-mono">
-              <Star className="w-3 h-3 fill-amber-300 text-amber-300" />
-              <span>5.0 / 5.0 Rating on Clutch</span>
-            </span>
+      {/* Section Header */}
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-neutral-100 pb-6 relative z-10">
+        <div className="space-y-1">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 text-purple-900 text-[11px] font-mono font-bold uppercase tracking-wider border border-purple-200">
+            <Award className="w-3.5 h-3.5 text-purple-700" />
+            <span>Global B2B Industry Recognition & Awards</span>
           </div>
-
-          <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-white tracking-tight">
-            Recognized as a Top Brand Development Agency on Clutch
-          </h3>
-
-          <p className="text-xs sm:text-sm text-purple-100 leading-relaxed font-normal">
-            Clutch evaluates B2B leaders through direct client interviews, market presence, and verified project outcomes. ORIXNAL Group maintains an exceptional 5.0-star rating for strategic brand naming, legal IP protection, and web engineering.
-          </p>
+          <h2 className="text-2xl sm:text-3xl font-black text-neutral-950 tracking-tight">
+            Verified Clutch & The Manifest Achievements
+          </h2>
         </div>
 
-        {/* Right CTA Button */}
-        <div className="shrink-0 w-full sm:w-auto">
-          <a
-            href={CLUTCH_PROFILE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full sm:w-auto bg-white hover:bg-purple-50 text-purple-950 font-extrabold text-xs sm:text-sm px-6 py-3.5 rounded-2xl shadow-lg transition-all inline-flex items-center justify-center gap-2 group"
-          >
-            <ClutchIcon className="w-4 h-4 text-[#FF4A1C]" />
-            <span>View Verified Clutch Profile</span>
-            <ArrowUpRight className="w-4 h-4 text-purple-900 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-          </a>
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-mono font-bold text-emerald-800 bg-emerald-50 border border-emerald-200/90 px-3 py-1.5 rounded-xl flex items-center gap-1.5 shadow-2xs">
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+            <span>100% Verified B2B Client Reviews</span>
+          </span>
+        </div>
+      </div>
+
+      {/* Grid of Two Flagship Achievement Cards: Clutch + The Manifest */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+        
+        {/* Card 1: Clutch Achievement */}
+        <div className="bg-gradient-to-br from-orange-50/70 via-white to-amber-50/40 border border-orange-200/90 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between space-y-5 group">
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <div className="inline-flex items-center gap-2 bg-[#FF4A1C] text-white px-3 py-1 rounded-xl text-xs font-mono font-bold shadow-xs">
+                <ClutchIcon className="w-4 h-4" />
+                <span>Clutch.co Verified Leader</span>
+              </div>
+
+              <div className="flex items-center gap-1 bg-amber-100 border border-amber-300 px-2.5 py-0.5 rounded-full text-xs font-mono font-black text-amber-900">
+                <span>5.0</span>
+                <Star className="w-3 h-3 fill-amber-500 text-amber-500" />
+                <Star className="w-3 h-3 fill-amber-500 text-amber-500" />
+                <Star className="w-3 h-3 fill-amber-500 text-amber-500" />
+                <Star className="w-3 h-3 fill-amber-500 text-amber-500" />
+                <Star className="w-3 h-3 fill-amber-500 text-amber-500" />
+              </div>
+            </div>
+
+            <h3 className="text-xl font-extrabold text-neutral-900 group-hover:text-[#FF4A1C] transition-colors">
+              Top Rated Brand Development & Web Engineering Firm
+            </h3>
+
+            <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed font-normal">
+              Evaluated by Clutch through direct client interviews, market strategy execution, and verified project outcomes. ORIXNAL Group maintains a perfect 5.0-star rating across brand positioning, legal IP advisory, and web technology deployments.
+            </p>
+          </div>
+
+          <div className="pt-3 border-t border-orange-100 flex items-center justify-between">
+            <span className="text-xs font-semibold text-neutral-500">Verified Client Feedback</span>
+            <a
+              href={CLUTCH_PROFILE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-[#FF4A1C] hover:bg-orange-700 text-white font-extrabold text-xs px-4 py-2 rounded-xl transition-all inline-flex items-center gap-1.5 shadow-xs"
+            >
+              <span>View Clutch Profile</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </a>
+          </div>
+        </div>
+
+        {/* Card 2: The Manifest Achievement */}
+        <div className="bg-gradient-to-br from-blue-50/70 via-white to-sky-50/40 border border-blue-200/90 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between space-y-5 group">
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <div className="inline-flex items-center gap-2 bg-blue-600 text-white px-3 py-1 rounded-xl text-xs font-mono font-bold shadow-xs">
+                <ManifestIcon className="w-4 h-4" />
+                <span>The Manifest B2B Award</span>
+              </div>
+
+              <div className="bg-blue-100 border border-blue-300 px-2.5 py-0.5 rounded-full text-xs font-mono font-bold text-blue-900">
+                Top Design & Brand Partner
+              </div>
+            </div>
+
+            <h3 className="text-xl font-extrabold text-neutral-900 group-hover:text-blue-700 transition-colors">
+              Recognized Company Achievement on The Manifest
+            </h3>
+
+            <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed font-normal">
+              The Manifest spotlights top-performing design, brand strategy, and tech consultancy firms globally. ORIXNAL Group is officially featured on The Manifest for delivering end-to-end brand transformation and corporate identity architecture.
+            </p>
+          </div>
+
+          <div className="pt-3 border-t border-blue-100 flex items-center justify-between">
+            <span className="text-xs font-semibold text-neutral-500">Official Company Listing</span>
+            <a
+              href={MANIFEST_PROFILE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs px-4 py-2 rounded-xl transition-all inline-flex items-center gap-1.5 shadow-xs"
+            >
+              <span>View Manifest Listing</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </a>
+          </div>
         </div>
 
       </div>

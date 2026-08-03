@@ -50,18 +50,18 @@ const ROUTE_ORDER: PageRoute[] = [
 ];
 
 const pageVariants = {
-  enter: (dir: number) => ({
-    x: dir > 0 ? '100%' : '-100%',
-    opacity: 0
-  }),
-  center: {
-    x: '0%',
-    opacity: 1
+  enter: {
+    opacity: 0,
+    y: 8,
   },
-  exit: (dir: number) => ({
-    x: dir < 0 ? '100%' : '-100%',
-    opacity: 0
-  })
+  center: {
+    opacity: 1,
+    y: 0,
+  },
+  exit: {
+    opacity: 0,
+    y: -8,
+  },
 };
 
 export default function App() {
@@ -191,8 +191,8 @@ export default function App() {
             animate="center"
             exit="exit"
             transition={{
-              x: { type: 'spring', stiffness: 280, damping: 30 },
-              opacity: { duration: 0.28, ease: 'easeInOut' }
+              duration: 0.22,
+              ease: 'easeInOut'
             }}
             className="w-full min-h-[60vh]"
           >

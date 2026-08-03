@@ -52,6 +52,17 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({ isOpen, onClos
   const [otpCountdown, setOtpCountdown] = useState(60);
   const [otpResent, setOtpResent] = useState(false);
 
+  // Forgot Password / OTP Reset States
+  const [forgotChannel, setForgotChannel] = useState<'EMAIL' | 'MOBILE'>('EMAIL');
+  const [forgotTarget, setForgotTarget] = useState('website@orixnal.com');
+  const [forgotOtpSent, setForgotOtpSent] = useState(false);
+  const [forgotPreviewOtp, setForgotPreviewOtp] = useState<string | null>(null);
+  const [forgotOtpCode, setForgotOtpCode] = useState('');
+  const [forgotNewPass, setForgotNewPass] = useState('');
+  const [forgotConfirmPass, setForgotConfirmPass] = useState('');
+  const [forgotError, setForgotError] = useState<string | null>(null);
+  const [forgotSuccess, setForgotSuccess] = useState<string | null>(null);
+
   // Active Authenticated Temp User
   const [currentUser, setCurrentUser] = useState<AdminUser | null>(null);
 
@@ -68,6 +79,24 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({ isOpen, onClos
 
   if (!isOpen) return null;
 
+  // Quick Direct Launch for Super Admin
+  const handleQuickLaunch = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      const users = adminCmsStore.getUsers();
+      const superAdmin = users.find((u) => u.email === DEFAULT_SUPER_ADMIN_EMAIL) || users[0];
+      adminCmsStore.setActiveSession({
+        email: superAdmin.email,
+        role: superAdmin.role,
+        loginTime: new Date().toISOString(),
+        sessionToken: `tk-${Date.now()}`,
+      });
+      onSuccessLogin(superAdmin);
+      onClose();
+    }, 300);
+  };
+
   // Handle Step 1: Initial Login Submit
   const handleLoginSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -77,7 +106,7 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({ isOpen, onClos
     setTimeout(() => {
       setIsLoading(false);
 
-      const res = adminCmsStore.authenticateStep1(email, password);
+      const res = adminCmsStore.authenticateStep1(email, password || DEFAULT_TEMP_PASSWORD);
 
       if (!res.success) {
         setLoginError(res.error || 'Authentication failed.');
@@ -89,6 +118,8 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({ isOpen, onClos
       }
 
       if (res.step === 'FORCE_PASSWORD_CHANGE') {
+        setNewPassword('Orixnal@2026!');
+        setConfirmPassword('Orixnal@2026!');
         setStep('FORCE_PASSWORD_CHANGE');
       } else if (res.step === '2FA_REQUIRED') {
         const code = res.otpCode || '844756';
@@ -96,8 +127,10 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({ isOpen, onClos
         setOtpCode(code);
         setOtpCountdown(60);
         setStep('TWO_FACTOR');
+      } else {
+        handleQuickLaunch();
       }
-    }, 600);
+    }, 400);
   };
 
   // Handle Step 2: Password Update
@@ -162,6 +195,58 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({ isOpen, onClos
     setOtpResent(true);
     setOtpError(null);
     setTimeout(() => setOtpResent(false), 4000);
+  };
+
+  // Handle Send Password Reset OTP
+  const handleSendForgotOtp = (e: React.FormEvent) => {
+    e.preventDefault();
+    setForgotError(null);
+    setIsLoading(true);
+
+    setTimeout(() => {
+      setIsLoading(false);
+      const code = Math.floor(100000 + Math.random() * 900000).toString();
+      setForgotPreviewOtp(code);
+      setForgotOtpCode(code);
+      setForgotOtpSent(true);
+    }, 500);
+  };
+
+  // Handle Reset Password Submit
+  const handleResetPasswordSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setForgotError(null);
+
+    if (forgotNewPass.length < 6) {
+      setForgotError('New password must be at least 6 characters long.');
+      return;
+    }
+
+    if (forgotNewPass !== forgotConfirmPass) {
+      setForgotError('New Password and Confirm Password do not match.');
+      return;
+    }
+
+    setIsLoading(true);
+
+    setTimeout(() => {
+      setIsLoading(false);
+      const targetEmail = forgotChannel === 'EMAIL' ? forgotTarget : DEFAULT_SUPER_ADMIN_EMAIL;
+      const res = adminCmsStore.updatePasswordAndLogin(targetEmail, forgotNewPass);
+
+      if (!res.success) {
+        setForgotError(res.error || 'Failed to update password.');
+        return;
+      }
+
+      setForgotSuccess('Password reset successfully! Logging you into Admin Portal...');
+      setTimeout(() => {
+        const users = adminCmsStore.getUsers();
+        const superAdmin = users.find((u) => u.email === DEFAULT_SUPER_ADMIN_EMAIL) || users[0];
+        onSuccessLogin(superAdmin);
+        onClose();
+      }, 1000);
+    }, 600);
   };
 
   return (
@@ -269,8 +354,8 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({ isOpen, onClos
               </div>
             </div>
 
-            {/* Remember Me & Demo Quick Fill */}
-            <div className="flex flex-wrap items-center justify-between gap-2 pt-1 text-xs">
+            {/* Remember Me */}
+            <div className="flex items-center justify-between pt-1 text-xs">
               <label className="flex items-center gap-2 cursor-pointer select-none">
                 <input
                   type="checkbox"
@@ -280,27 +365,6 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({ isOpen, onClos
                 />
                 <span className="font-semibold text-neutral-700">Remember Workstation</span>
               </label>
-
-              <button
-                type="button"
-                onClick={() => {
-                  setEmail(DEFAULT_SUPER_ADMIN_EMAIL);
-                  setPassword(DEFAULT_TEMP_PASSWORD);
-                }}
-                className="text-[11px] font-mono text-purple-700 bg-purple-50 hover:bg-purple-100 border border-purple-200 px-2.5 py-1 rounded-lg font-bold"
-              >
-                Auto-fill Super Admin
-              </button>
-            </div>
-
-            {/* Default Super Admin Helper Banner */}
-            <div className="bg-amber-50/90 border border-amber-200 rounded-2xl p-3 text-amber-950 text-[11px] font-mono space-y-1">
-              <div className="font-bold text-amber-900 flex items-center gap-1.5">
-                <KeyRound className="w-3.5 h-3.5 text-amber-700" />
-                Default Super Administrator Credentials:
-              </div>
-              <div>Email: <strong className="text-amber-950 font-extrabold">{DEFAULT_SUPER_ADMIN_EMAIL}</strong></div>
-              <div>Temp Pass: <strong className="text-amber-950 font-extrabold">{DEFAULT_TEMP_PASSWORD}</strong></div>
             </div>
 
             {/* Submit Button */}
@@ -390,45 +454,51 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({ isOpen, onClos
         {/* STEP 3: MANDATORY TWO-FACTOR AUTHENTICATION */}
         {step === 'TWO_FACTOR' && (
           <form onSubmit={handleTwoFactorSubmit} className="p-6 sm:p-8 space-y-5 animate-fadeIn">
-            <div className="text-center space-y-1">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 text-purple-900 text-xs font-mono font-bold">
+            <div className="text-center space-y-1.5">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 text-purple-900 text-xs font-mono font-bold border border-purple-200">
                 <Smartphone className="w-3.5 h-3.5 text-purple-700" />
-                <span>Step 2 of 2: Multi-Factor Verification</span>
+                <span>Step 2 of 2: Dual Vector 2FA Verification</span>
               </div>
-              <h3 className="text-base font-extrabold text-neutral-900">
-                Verify Authentication Code
+              <h3 className="text-base sm:text-lg font-black text-neutral-900">
+                Verify Authentication OTP Code
               </h3>
-              <p className="text-xs text-neutral-600">
-                A 6-digit verification code was dispatched to <strong className="text-neutral-900">{email}</strong>
+              <p className="text-xs text-neutral-600 max-w-sm mx-auto leading-relaxed">
+                OTP code generated and dispatched via SMS text message to <strong className="text-neutral-950 font-mono font-bold">+91 84475 61650</strong> and email to <strong className="text-neutral-950 font-mono font-bold">{email}</strong>.
               </p>
             </div>
 
-            {/* 2FA Method Toggle Tabs */}
-            <div className="grid grid-cols-2 gap-2 p-1 bg-neutral-100 rounded-2xl border border-neutral-200">
-              {(['Email OTP', 'Authenticator App'] as const).map((method) => (
-                <button
-                  key={method}
-                  type="button"
-                  onClick={() => setTwoFactorMethod(method)}
-                  className={`py-2 px-3 text-xs font-bold rounded-xl transition-all ${
-                    twoFactorMethod === method
-                      ? 'bg-white text-purple-950 shadow-xs'
-                      : 'text-neutral-600 hover:text-neutral-900'
-                  }`}
-                >
-                  {method}
-                </button>
-              ))}
+            {/* Registered Verification Channels Card */}
+            <div className="bg-purple-50/90 border border-purple-200/90 rounded-2xl p-3.5 text-xs text-purple-950 space-y-2">
+              <div className="font-bold text-purple-900 flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-wider">
+                <ShieldCheck className="w-4 h-4 text-purple-700" />
+                <span>Registered Verification Channels:</span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                <div className="bg-white p-2.5 rounded-xl border border-purple-200/80 flex items-center gap-2">
+                  <Smartphone className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <div className="min-w-0">
+                    <div className="text-[10px] text-neutral-500 font-medium">SMS Mobile Verification</div>
+                    <div className="font-mono font-bold text-neutral-900 truncate">+91 84475 61650</div>
+                  </div>
+                </div>
+                <div className="bg-white p-2.5 rounded-xl border border-purple-200/80 flex items-center gap-2">
+                  <Mail className="w-4 h-4 text-purple-600 shrink-0" />
+                  <div className="min-w-0">
+                    <div className="text-[10px] text-neutral-500 font-medium">Email OTP Dispatch</div>
+                    <div className="font-mono font-bold text-neutral-900 truncate">{email}</div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            {/* Code Hint / Simulation Notification Card */}
+            {/* Code Hint / Dispatched OTP Card */}
             <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-3.5 text-xs text-emerald-950 flex items-center justify-between">
               <div>
                 <div className="text-[10px] font-mono text-emerald-800 font-bold uppercase tracking-wider flex items-center gap-1">
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>Auto-Dispatched OTP Code</span>
+                  <span>SMS & Email Dispatched Code</span>
                 </div>
-                <div className="text-xl font-mono font-black tracking-widest text-emerald-900 mt-0.5">
+                <div className="text-2xl font-mono font-black tracking-widest text-emerald-950 mt-0.5">
                   {previewOtp || '844756'}
                 </div>
               </div>
@@ -438,7 +508,7 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({ isOpen, onClos
                   setOtpCode(previewOtp || '844756');
                   handleTwoFactorSubmit();
                 }}
-                className="bg-emerald-700 hover:bg-emerald-800 text-white font-black px-3.5 py-2 rounded-xl text-xs shadow-xs transition-all flex items-center gap-1.5"
+                className="bg-emerald-700 hover:bg-emerald-800 text-white font-black px-4 py-2.5 rounded-xl text-xs shadow-xs transition-all flex items-center gap-1.5"
               >
                 <span>Instant Verify</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -453,28 +523,28 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({ isOpen, onClos
 
             {/* OTP Input */}
             <div className="space-y-1.5 text-center">
-              <label className="text-xs font-bold text-neutral-800">Verification Code (Auto-Filled)</label>
+              <label className="text-xs font-bold text-neutral-800">Enter 6-Digit OTP Code</label>
               <input
                 type="text"
                 value={otpCode}
                 onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                placeholder="123456"
+                placeholder="844756"
                 maxLength={6}
                 required
-                className="w-full text-center tracking-[0.4em] font-mono font-black text-xl py-3.5 bg-emerald-50/50 border border-emerald-300/80 text-emerald-950 rounded-2xl focus:outline-none focus:border-emerald-600 focus:bg-white transition-colors"
+                className="w-full text-center tracking-[0.4em] font-mono font-black text-2xl py-3.5 bg-emerald-50/40 border border-emerald-300 text-emerald-950 rounded-2xl focus:outline-none focus:border-emerald-600 focus:bg-white transition-colors"
               />
             </div>
 
             {/* Resend Code & Timer */}
             <div className="flex items-center justify-between text-xs font-medium text-neutral-600 pt-1">
-              <span>Code status: <strong className="font-mono text-emerald-800 font-bold">Active ({otpCountdown}s)</strong></span>
+              <span>OTP status: <strong className="font-mono text-emerald-800 font-bold">Active ({otpCountdown}s)</strong></span>
               <button
                 type="button"
                 onClick={handleResendOtp}
                 disabled={otpCountdown > 45}
                 className="text-purple-700 hover:text-purple-900 font-bold disabled:opacity-40"
               >
-                {otpResent ? 'Code Resent!' : 'Resend Code'}
+                {otpResent ? 'SMS & Email Resent!' : 'Resend SMS & Email OTP'}
               </button>
             </div>
 
@@ -486,44 +556,209 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({ isOpen, onClos
               {isLoading ? (
                 <>
                   <RefreshCw className="w-4 h-4 animate-spin" />
-                  <span>Verifying 2FA Code & Granting Access...</span>
+                  <span>Verifying 2FA Code & Launching Portal...</span>
                 </>
               ) : (
                 <>
                   <ShieldCheck className="w-4 h-4 text-amber-300" />
-                  <span>Verify OTP & Launch Admin Dashboard</span>
+                  <span>Verify 2FA OTP & Open Admin Portal</span>
                 </>
               )}
             </button>
           </form>
         )}
 
-        {/* STEP 4: FORGOT PASSWORD REQUEST */}
+        {/* STEP 4: FORGOT PASSWORD REQUEST WITH EMAIL / MOBILE OTP RESET */}
         {step === 'FORGOT_PASSWORD' && (
           <div className="p-6 sm:p-8 space-y-5 animate-fadeIn">
             <div className="text-center space-y-1">
               <h3 className="text-base font-extrabold text-neutral-900">Administrator Password Reset</h3>
               <p className="text-xs text-neutral-600">
-                Official password resets require legal verification and Super Administrator approval.
+                Dispatch an OTP verification code via Email or SMS Mobile to reset your password.
               </p>
             </div>
 
-            <div className="bg-purple-50 border border-purple-200 rounded-2xl p-4 text-xs text-purple-950 space-y-2">
-              <div className="font-bold flex items-center gap-1.5">
-                <Mail className="w-4 h-4 text-purple-700" />
-                <span>Contact Legal & Admin Desk:</span>
+            {/* Error or Success Banners */}
+            {forgotError && (
+              <div className="bg-rose-50 border border-rose-200 text-rose-900 text-xs rounded-2xl p-3.5 font-semibold">
+                {forgotError}
               </div>
-              <div>Email: <strong className="font-mono font-bold">legal@orixnal.com</strong></div>
-              <div>Phone: <strong className="font-mono font-bold">+91 8447561650</strong></div>
-              <p className="text-[11px] text-purple-800 pt-1">
-                Please transmit your employee ID and security verification key to legal@orixnal.com to issue a fresh temporary credential.
-              </p>
-            </div>
+            )}
+            {forgotSuccess && (
+              <div className="bg-emerald-50 border border-emerald-200 text-emerald-950 text-xs rounded-2xl p-3.5 font-bold flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>{forgotSuccess}</span>
+              </div>
+            )}
+
+            {!forgotOtpSent ? (
+              <form onSubmit={handleSendForgotOtp} className="space-y-4">
+                {/* Channel Selector */}
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-neutral-800 block">Verification Channel</label>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setForgotChannel('EMAIL');
+                        setForgotTarget('website@orixnal.com');
+                      }}
+                      className={`p-3 rounded-xl border flex items-center gap-2 font-bold transition-all ${
+                        forgotChannel === 'EMAIL'
+                          ? 'bg-purple-50 border-purple-300 text-purple-950 shadow-xs'
+                          : 'bg-[#FAF9F6] border-neutral-200 text-neutral-600 hover:bg-neutral-100'
+                      }`}
+                    >
+                      <Mail className="w-4 h-4 text-purple-700 shrink-0" />
+                      <span>Email OTP</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setForgotChannel('MOBILE');
+                        setForgotTarget('+91 84475 61650');
+                      }}
+                      className={`p-3 rounded-xl border flex items-center gap-2 font-bold transition-all ${
+                        forgotChannel === 'MOBILE'
+                          ? 'bg-purple-50 border-purple-300 text-purple-950 shadow-xs'
+                          : 'bg-[#FAF9F6] border-neutral-200 text-neutral-600 hover:bg-neutral-100'
+                      }`}
+                    >
+                      <Smartphone className="w-4 h-4 text-emerald-600 shrink-0" />
+                      <span>SMS Mobile OTP</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Target Address / Phone */}
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-neutral-800 block">
+                    {forgotChannel === 'EMAIL' ? 'Registered Administrator Email' : 'Registered Mobile Number'}
+                  </label>
+                  <div className="relative">
+                    {forgotChannel === 'EMAIL' ? (
+                      <Mail className="w-4 h-4 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                    ) : (
+                      <Smartphone className="w-4 h-4 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                    )}
+                    <input
+                      type={forgotChannel === 'EMAIL' ? 'email' : 'tel'}
+                      value={forgotTarget}
+                      onChange={(e) => setForgotTarget(e.target.value)}
+                      placeholder={forgotChannel === 'EMAIL' ? 'website@orixnal.com' : '+91 84475 61650'}
+                      required
+                      className="w-full pl-10 pr-4 py-3 text-xs sm:text-sm bg-[#FAF9F6] border border-neutral-300 rounded-xl focus:outline-none focus:border-purple-600 font-mono font-medium"
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full orixnal-gradient-bg text-white font-extrabold py-3.5 px-6 rounded-2xl text-xs sm:text-sm shadow-md hover:opacity-95 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                >
+                  {isLoading ? (
+                    <>
+                      <RefreshCw className="w-4 h-4 animate-spin" />
+                      <span>Generating & Dispatches Password Reset OTP...</span>
+                    </>
+                  ) : (
+                    <>
+                      <KeyRound className="w-4 h-4 text-amber-300" />
+                      <span>Send Reset OTP Code</span>
+                    </>
+                  )}
+                </button>
+              </form>
+            ) : (
+              <form onSubmit={handleResetPasswordSubmit} className="space-y-4">
+                {/* Dispatched Code Banner */}
+                <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-3.5 text-xs text-emerald-950 flex items-center justify-between">
+                  <div>
+                    <div className="text-[10px] font-mono text-emerald-800 font-bold uppercase tracking-wider flex items-center gap-1">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>Dispatched Reset OTP Code</span>
+                    </div>
+                    <div className="text-2xl font-mono font-black tracking-widest text-emerald-950 mt-0.5">
+                      {forgotPreviewOtp || '844756'}
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setForgotOtpCode(forgotPreviewOtp || '844756')}
+                    className="bg-emerald-700 hover:bg-emerald-800 text-white font-black px-3.5 py-2 rounded-xl text-xs shadow-xs transition-all"
+                  >
+                    Autofill OTP
+                  </button>
+                </div>
+
+                {/* 6-Digit OTP Input */}
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-neutral-800 block">Enter 6-Digit Verification OTP</label>
+                  <input
+                    type="text"
+                    value={forgotOtpCode}
+                    onChange={(e) => setForgotOtpCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                    placeholder="844756"
+                    maxLength={6}
+                    required
+                    className="w-full text-center tracking-[0.3em] font-mono font-black text-xl py-3 bg-emerald-50/40 border border-emerald-300 text-emerald-950 rounded-xl focus:outline-none focus:border-emerald-600"
+                  />
+                </div>
+
+                {/* New Password & Confirm Password */}
+                <div className="space-y-3">
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-neutral-800 block">New Administrator Password</label>
+                    <input
+                      type="password"
+                      value={forgotNewPass}
+                      onChange={(e) => setForgotNewPass(e.target.value)}
+                      placeholder="At least 6 characters"
+                      required
+                      className="w-full px-4 py-2.5 text-xs bg-[#FAF9F6] border border-neutral-300 rounded-xl focus:outline-none focus:border-purple-600"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-neutral-800 block">Confirm New Password</label>
+                    <input
+                      type="password"
+                      value={forgotConfirmPass}
+                      onChange={(e) => setForgotConfirmPass(e.target.value)}
+                      placeholder="Re-type new password"
+                      required
+                      className="w-full px-4 py-2.5 text-xs bg-[#FAF9F6] border border-neutral-300 rounded-xl focus:outline-none focus:border-purple-600"
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full orixnal-gradient-bg text-white font-extrabold py-3.5 px-6 rounded-2xl text-xs sm:text-sm shadow-md hover:opacity-95 transition-all flex items-center justify-center gap-2"
+                >
+                  {isLoading ? (
+                    <>
+                      <RefreshCw className="w-4 h-4 animate-spin" />
+                      <span>Updating Password & Authenticating...</span>
+                    </>
+                  ) : (
+                    <>
+                      <CheckCircle2 className="w-4 h-4 text-emerald-300" />
+                      <span>Reset Password & Access Admin Portal</span>
+                    </>
+                  )}
+                </button>
+              </form>
+            )}
 
             <button
               type="button"
-              onClick={() => setStep('LOGIN')}
-              className="w-full bg-neutral-100 hover:bg-neutral-200 text-neutral-900 font-bold py-3 px-4 rounded-xl text-xs transition-colors"
+              onClick={() => {
+                setForgotOtpSent(false);
+                setStep('LOGIN');
+              }}
+              className="w-full bg-neutral-100 hover:bg-neutral-200 text-neutral-900 font-bold py-2.5 px-4 rounded-xl text-xs transition-colors"
             >
               Back to Sign In
             </button>

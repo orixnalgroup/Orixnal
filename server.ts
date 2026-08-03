@@ -4,6 +4,7 @@ import { fileURLToPath } from "url";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI, Modality } from "@google/genai";
 import dotenv from "dotenv";
+import { renderOgBuffer } from "./src/server/ogGenerator";
 
 dotenv.config();
 
@@ -182,6 +183,25 @@ Use these exact CTA trigger tags so the frontend can render clickable action but
     }
   });
 
+  // Dynamic High-Resolution 1200x630 Open Graph PNG Image Banner Endpoint
+  app.get("/api/og-image", (req, res) => {
+    try {
+      const page = typeof req.query.page === "string" ? req.query.page : "home";
+      const title = typeof req.query.title === "string" ? req.query.title : undefined;
+      const subtitle = typeof req.query.subtitle === "string" ? req.query.subtitle : undefined;
+      const badge = typeof req.query.badge === "string" ? req.query.badge : undefined;
+
+      const pngBuffer = renderOgBuffer({ page, title, subtitle, badge });
+
+      res.setHeader("Content-Type", "image/png");
+      res.setHeader("Cache-Control", "public, max-age=86400, s-maxage=86400");
+      return res.send(pngBuffer);
+    } catch (err: any) {
+      console.error("Error generating OG PNG image:", err);
+      return res.status(500).send("Error generating preview image");
+    }
+  });
+
   // Dynamic Sitemap XML
   app.get("/sitemap.xml", (req, res) => {
     const baseUrl = process.env.APP_URL || "https://www.orixnal.com";
@@ -193,6 +213,8 @@ Use these exact CTA trigger tags so the frontend can render clickable action but
       "/case-studies",
       "/portfolio",
       "/insights",
+      "/blog",
+      "/events",
       "/industries",
       "/foooz",
       "/careers",
