@@ -204,6 +204,13 @@ Use these exact CTA trigger tags so the frontend can render clickable action but
 
   // Dynamic Sitemap XML
   app.get("/sitemap.xml", (req, res) => {
+    const sitemapPath = path.join(process.cwd(), "public", "sitemap.xml");
+    if (import('fs').then(fs => fs.existsSync(sitemapPath))) {
+      res.setHeader("Content-Type", "application/xml");
+      res.setHeader("Cache-Control", "public, max-age=3600");
+      return res.sendFile(sitemapPath);
+    }
+
     const baseUrl = process.env.APP_URL || "https://www.orixnal.com";
     const pages = [
       "",
@@ -240,18 +247,42 @@ Use these exact CTA trigger tags so the frontend can render clickable action but
 </urlset>`;
 
     res.header("Content-Type", "application/xml");
+    res.setHeader("Cache-Control", "public, max-age=3600");
     res.send(xml);
   });
 
   // Robots.txt
   app.get("/robots.txt", (req, res) => {
+    const robotsPath = path.join(process.cwd(), "public", "robots.txt");
+    if (import('fs').then(fs => fs.existsSync(robotsPath))) {
+      res.setHeader("Content-Type", "text/plain");
+      res.setHeader("Cache-Control", "public, max-age=3600");
+      return res.sendFile(robotsPath);
+    }
+
     const baseUrl = process.env.APP_URL || "https://www.orixnal.com";
     const txt = `User-agent: *
 Allow: /
 Sitemap: ${baseUrl}/sitemap.xml
 `;
     res.header("Content-Type", "text/plain");
+    res.setHeader("Cache-Control", "public, max-age=3600");
     res.send(txt);
+  });
+
+  // LLMs AI Search Context Files
+  app.get("/llms.txt", (req, res) => {
+    const llmsPath = path.join(process.cwd(), "public", "llms.txt");
+    res.setHeader("Content-Type", "text/plain; charset=utf-8");
+    res.setHeader("Cache-Control", "public, max-age=86400");
+    return res.sendFile(llmsPath);
+  });
+
+  app.get("/llms-full.txt", (req, res) => {
+    const llmsFullPath = path.join(process.cwd(), "public", "llms-full.txt");
+    res.setHeader("Content-Type", "text/plain; charset=utf-8");
+    res.setHeader("Cache-Control", "public, max-age=86400");
+    return res.sendFile(llmsFullPath);
   });
 
   // Vite development server setup
