@@ -236,7 +236,82 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ currentUser, onL
     showToast('SEO Settings and Schema Markup updated!');
   };
 
-  // Export Backup
+  // Client Items Handlers
+  const handleToggleClientVisibility = (id: string) => {
+    const updated = clientItems.map((item) =>
+      item.id === id ? { ...item, visible: !item.visible } : item
+    );
+    adminCmsStore.saveClientItems(updated);
+    setClientItems(updated);
+    showToast('Client visibility status toggled.');
+  };
+
+  const handleAddClientItem = () => {
+    const name = prompt('Enter Client / Brand Name:');
+    if (!name) return;
+    const logoUrl = prompt('Enter Client Logo Image URL (or leave blank for default):') || 'https://lh3.googleusercontent.com/d/1PQ9-ihBp0XRHe9nmFEmrmqqrUyBIaZh7';
+    const industry = prompt('Enter Industry / Category:', 'Brand Strategy & Technology');
+    
+    const newItem: ClientManagementItem = {
+      id: `cli-${Date.now()}`,
+      clientName: name,
+      clientLogo: logoUrl,
+      industry: industry || 'Brand Development',
+      projectName: `${name} Positioning & Strategy`,
+      projectDescription: `Masterbrand design, legal IP protection and web architecture for ${name}.`,
+      caseStudyUrl: '/#/case-studies',
+      websiteUrl: 'https://orixnal.com',
+      featured: true,
+      order: clientItems.length + 1,
+      visible: true,
+    };
+
+    const updated = [newItem, ...clientItems];
+    adminCmsStore.saveClientItems(updated);
+    setClientItems(updated);
+    showToast(`New client ${name} added successfully!`);
+  };
+
+  const handleDeleteClientItem = (id: string) => {
+    if (!confirm('Are you sure you want to delete this client entry?')) return;
+    const updated = clientItems.filter((i) => i.id !== id);
+    adminCmsStore.saveClientItems(updated);
+    setClientItems(updated);
+    showToast('Client entry removed.');
+  };
+
+  // AI Knowledge Handlers
+  const handleAddAiDoc = () => {
+    const title = prompt('Enter Knowledge Base Topic Title:');
+    if (!title) return;
+    const category = prompt('Enter Category:', 'Strategic Framework');
+    const answer = prompt('Enter AI Response Answer / Guidelines:');
+    if (!answer) return;
+
+    const newDoc: AiKnowledgeDoc = {
+      id: `ai-${Date.now()}`,
+      title,
+      category: category || 'General',
+      keywords: title.toLowerCase().split(' '),
+      answer,
+      lastUpdated: new Date().toISOString().split('T')[0],
+      status: 'Active',
+    };
+
+    const updated = [newDoc, ...aiKnowledge];
+    adminCmsStore.saveAiKnowledge(updated);
+    setAiKnowledge(updated);
+    showToast('New AI Knowledge document added!');
+  };
+
+  const handleDeleteAiDoc = (id: string) => {
+    const updated = aiKnowledge.filter((d) => d.id !== id);
+    adminCmsStore.saveAiKnowledge(updated);
+    setAiKnowledge(updated);
+    showToast('AI Knowledge document removed.');
+  };
+
+  // Export & Import Backup
   const handleExportBackup = () => {
     const jsonStr = adminCmsStore.exportFullSiteState();
     const blob = new Blob([jsonStr], { type: 'application/json' });
@@ -246,6 +321,26 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ currentUser, onL
     a.download = `ORIXNAL_Full_Backup_${new Date().toISOString().split('T')[0]}.json`;
     a.click();
     showToast('Full Website Enterprise Backup exported!');
+  };
+
+  const handleImportBackup = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const content = event.target?.result as string;
+      if (content) {
+        const success = adminCmsStore.importFullSiteState(content);
+        if (success) {
+          reloadData();
+          showToast('Full Platform State restored successfully from JSON backup!');
+        } else {
+          alert('Error: Failed to parse or restore JSON snapshot file.');
+        }
+      }
+    };
+    reader.readAsText(file);
   };
 
   return (
@@ -303,6 +398,45 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ currentUser, onL
         </div>
       </header>
 
+      {/* MOBILE NAVIGATION BAR */}
+      <div className="md:hidden bg-white border-b border-neutral-200 px-3 py-2 flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0 shadow-2xs">
+        {[
+          { id: 'overview', label: 'Overview', icon: LayoutDashboard },
+          { id: 'website_cms', label: 'Website', icon: Globe },
+          { id: 'blog_cms', label: 'Blog', icon: FileText, badge: blogs.length },
+          { id: 'event_cms', label: 'Events', icon: Calendar, badge: events.length },
+          { id: 'media_library', label: 'Media', icon: ImageIcon },
+          { id: 'client_management', label: 'Clients', icon: Building },
+          { id: 'crm_leads', label: 'CRM Leads', icon: Inbox, badge: crmLeads.length },
+          { id: 'ai_support', label: 'AI Support', icon: Bot },
+          { id: 'seo_center', label: 'SEO', icon: Search },
+          { id: 'users_security', label: 'Security', icon: ShieldCheck, alertCount: securityAlerts.filter((a) => !a.resolved).length },
+          { id: 'backup_restore', label: 'Backup', icon: Database },
+        ].map((item) => {
+          const Icon = item.icon;
+          const active = activeTab === item.id;
+          return (
+            <button
+              key={item.id}
+              onClick={() => setActiveTab(item.id as TabType)}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0 ${
+                active
+                  ? 'orixnal-gradient-bg text-white shadow-2xs'
+                  : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
+              }`}
+            >
+              <Icon className={`w-3.5 h-3.5 ${active ? 'text-white' : 'text-purple-700'}`} />
+              <span>{item.label}</span>
+              {item.badge !== undefined && item.badge > 0 && (
+                <span className={`text-[10px] font-mono font-bold px-1.5 py-0.2 rounded-full ${active ? 'bg-white/20 text-white' : 'bg-purple-100 text-purple-900'}`}>
+                  {item.badge}
+                </span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+
       {/* MAIN LAYOUT: SIDEBAR + DASHBOARD CONTENT */}
       <div className="flex-1 flex overflow-hidden">
         
@@ -359,31 +493,6 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ currentUser, onL
             );
           })}
         </aside>
-
-        {/* MOBILE NAVIGATION BAR */}
-        <div className="md:hidden bg-white border-b border-neutral-200 px-3 py-2 flex items-center gap-1 overflow-x-auto no-scrollbar shrink-0">
-          {[
-            { id: 'overview', label: 'Overview' },
-            { id: 'website_cms', label: 'Website' },
-            { id: 'blog_cms', label: 'Blog' },
-            { id: 'event_cms', label: 'Events' },
-            { id: 'crm_leads', label: 'CRM Leads' },
-            { id: 'users_security', label: 'Security' },
-            { id: 'backup_restore', label: 'Backup' },
-          ].map((item) => (
-            <button
-              key={item.id}
-              onClick={() => setActiveTab(item.id as TabType)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
-                activeTab === item.id
-                  ? 'orixnal-gradient-bg text-white shadow-2xs'
-                  : 'bg-neutral-100 text-neutral-700'
-              }`}
-            >
-              {item.label}
-            </button>
-          ))}
-        </div>
 
         {/* RIGHT MAIN CONTENT AREA */}
         <main className="flex-1 bg-[#FAF9F6] p-4 sm:p-8 overflow-y-auto space-y-6">
@@ -750,7 +859,79 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ currentUser, onL
             </div>
           )}
 
-          {/* TAB 6: CRM LEADS & ENQUIRIES */}
+          {/* TAB 6: CLIENT LOGOS & PORTFOLIO CMS */}
+          {activeTab === 'client_management' && (
+            <div className="space-y-6 animate-fadeIn">
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <h1 className="text-xl font-black text-neutral-950">Client Logos & Portfolio Management</h1>
+                  <p className="text-xs text-neutral-600">
+                    Manage client logos, case study showcase links, industry categorizations, and homepage visibility.
+                  </p>
+                </div>
+                <button
+                  onClick={handleAddClientItem}
+                  className="orixnal-gradient-bg text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-xs flex items-center gap-2"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>Add Client Entry</span>
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {clientItems.map((cli) => (
+                  <div key={cli.id} className="bg-white border border-neutral-200 rounded-2xl p-5 space-y-4 shadow-2xs relative">
+                    <div className="flex items-center justify-between">
+                      <span className="bg-purple-100 text-purple-900 font-mono font-bold text-[10px] px-2.5 py-0.5 rounded-full">
+                        {cli.industry}
+                      </span>
+                      <button
+                        onClick={() => handleToggleClientVisibility(cli.id)}
+                        className={`text-[10px] font-bold px-2 py-0.5 rounded-md ${
+                          cli.visible ? 'bg-emerald-100 text-emerald-800' : 'bg-neutral-200 text-neutral-600'
+                        }`}
+                      >
+                        {cli.visible ? 'Visible' : 'Hidden'}
+                      </button>
+                    </div>
+
+                    <div className="flex items-center gap-3 pt-1">
+                      <div className="w-12 h-12 rounded-xl bg-neutral-100 border border-neutral-200 p-2 flex items-center justify-center shrink-0">
+                        <img src={cli.clientLogo} alt={cli.clientName} className="max-w-full max-h-full object-contain" referrerPolicy="no-referrer" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <h3 className="font-black text-sm text-neutral-950 truncate">{cli.clientName}</h3>
+                        <p className="text-[11px] text-neutral-500 font-medium truncate">{cli.projectName}</p>
+                      </div>
+                    </div>
+
+                    <p className="text-xs text-neutral-600 line-clamp-2 leading-relaxed">{cli.projectDescription}</p>
+
+                    <div className="pt-3 border-t border-neutral-100 flex items-center justify-between">
+                      <a
+                        href={cli.caseStudyUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-[11px] font-bold text-purple-700 hover:underline flex items-center gap-1"
+                      >
+                        <span>Case Study</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                      <button
+                        onClick={() => handleDeleteClientItem(cli.id)}
+                        className="text-rose-600 hover:bg-rose-50 p-1.5 rounded-lg text-xs"
+                        title="Delete Client"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* TAB 7: CRM LEADS & ENQUIRIES */}
           {activeTab === 'crm_leads' && (
             <div className="space-y-6 animate-fadeIn">
               <div className="flex flex-wrap items-center justify-between gap-4">
@@ -816,7 +997,58 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ currentUser, onL
             </div>
           )}
 
-          {/* TAB 7: ADMIN USERS & SECURITY POLICY */}
+          {/* TAB 8: AI SUPPORT KNOWLEDGE BASE */}
+          {activeTab === 'ai_support' && (
+            <div className="space-y-6 animate-fadeIn max-w-5xl">
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <h1 className="text-xl font-black text-neutral-950">AI Support Knowledge Base</h1>
+                  <p className="text-xs text-neutral-600">
+                    Feed custom Q&A guidelines, brand facts, and responses to the website AI Advisor assistant.
+                  </p>
+                </div>
+                <button
+                  onClick={handleAddAiDoc}
+                  className="orixnal-gradient-bg text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-xs flex items-center gap-2"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>Add Knowledge Document</span>
+                </button>
+              </div>
+
+              <div className="space-y-4">
+                {aiKnowledge.map((doc) => (
+                  <div key={doc.id} className="bg-white border border-neutral-200 rounded-2xl p-5 space-y-3 shadow-2xs">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="bg-purple-100 text-purple-950 font-bold text-[10px] px-2.5 py-0.5 rounded-full">
+                          {doc.category}
+                        </span>
+                        <h3 className="font-black text-sm text-neutral-950">{doc.title}</h3>
+                      </div>
+                      <button
+                        onClick={() => handleDeleteAiDoc(doc.id)}
+                        className="text-rose-600 hover:bg-rose-50 p-1.5 rounded-lg text-xs"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+
+                    <p className="text-xs text-neutral-700 bg-neutral-50 p-3 rounded-xl font-medium border border-neutral-200/60 leading-relaxed">
+                      {doc.answer}
+                    </p>
+
+                    <div className="flex items-center justify-between text-[11px] font-mono text-neutral-500">
+                      <span>Keywords: {doc.keywords.join(', ')}</span>
+                      <span>Last Updated: {doc.lastUpdated}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* TAB 9: ADMIN USERS & SECURITY POLICY */}
           {activeTab === 'users_security' && (
             <div className="space-y-6 animate-fadeIn max-w-5xl">
               <div className="flex flex-wrap items-center justify-between gap-4">
@@ -885,7 +1117,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ currentUser, onL
             </div>
           )}
 
-          {/* TAB 8: SEO & BACKUP CENTER */}
+          {/* TAB 10: SEO & SCHEMA CENTER */}
           {activeTab === 'seo_center' && (
             <form onSubmit={handleSaveSeoConfig} className="space-y-6 animate-fadeIn max-w-4xl">
               <div className="flex items-center justify-between">
@@ -925,7 +1157,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ currentUser, onL
             </form>
           )}
 
-          {/* TAB 9: BACKUP & RESTORE */}
+          {/* TAB 11: BACKUP & RESTORE */}
           {activeTab === 'backup_restore' && (
             <div className="space-y-6 animate-fadeIn max-w-3xl">
               <div>
@@ -933,19 +1165,34 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ currentUser, onL
                 <p className="text-xs text-neutral-600">Export or restore full platform state instantly in encrypted JSON.</p>
               </div>
 
-              <div className="bg-white border border-neutral-200 rounded-2xl p-6 space-y-4 shadow-2xs">
-                <h3 className="text-sm font-extrabold text-neutral-950">Export Platform State</h3>
-                <p className="text-xs text-neutral-600">
-                  Generates a full JSON snapshot including website content, CRM leads, blog articles, events, and audit history.
-                </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="bg-white border border-neutral-200 rounded-2xl p-6 space-y-4 shadow-2xs">
+                  <h3 className="text-sm font-extrabold text-neutral-950">Export Platform State</h3>
+                  <p className="text-xs text-neutral-600">
+                    Generates a full JSON snapshot including website content, CRM leads, blog articles, events, and audit history.
+                  </p>
 
-                <button
-                  onClick={handleExportBackup}
-                  className="orixnal-gradient-bg text-white font-bold text-xs px-5 py-3 rounded-xl flex items-center gap-2 shadow-xs"
-                >
-                  <Download className="w-4 h-4" />
-                  <span>Download Full JSON Backup</span>
-                </button>
+                  <button
+                    onClick={handleExportBackup}
+                    className="orixnal-gradient-bg text-white font-bold text-xs px-5 py-3 rounded-xl flex items-center gap-2 shadow-xs"
+                  >
+                    <Download className="w-4 h-4" />
+                    <span>Download Full JSON Backup</span>
+                  </button>
+                </div>
+
+                <div className="bg-white border border-neutral-200 rounded-2xl p-6 space-y-4 shadow-2xs">
+                  <h3 className="text-sm font-extrabold text-neutral-950">Restore From Backup</h3>
+                  <p className="text-xs text-neutral-600">
+                    Upload a previously exported ORIXNAL JSON snapshot file to restore all website content and records.
+                  </p>
+
+                  <label className="inline-flex items-center gap-2 bg-neutral-900 text-white font-bold text-xs px-5 py-3 rounded-xl cursor-pointer hover:bg-neutral-800 shadow-xs">
+                    <Upload className="w-4 h-4" />
+                    <span>Upload JSON Snapshot</span>
+                    <input type="file" accept=".json" onChange={handleImportBackup} className="hidden" />
+                  </label>
+                </div>
               </div>
             </div>
           )}
