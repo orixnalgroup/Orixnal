@@ -371,15 +371,7 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
                     <span className="hidden sm:inline">Logout</span>
                   </button>
                 </>
-              ) : (
-                <button
-                  onClick={() => setShowLoginModal(true)}
-                  className="inline-flex items-center gap-2 orixnal-gradient-bg text-white hover:opacity-95 px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-2xs"
-                >
-                  <Lock className="w-3.5 h-3.5 text-amber-300" />
-                  <span>Admin Panel Login</span>
-                </button>
-              )}
+              ) : null}
             </div>
           </div>
 

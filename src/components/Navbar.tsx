@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { PageRoute } from '../types';
 import { Logo } from './Logo';
 import { COMPANY_DETAILS } from '../data/brandData';
-import { Menu, X, Phone, Mail, Sparkles, ArrowUpRight, Search, ShieldCheck } from 'lucide-react';
+import { Menu, X, Phone, Mail, Sparkles, ArrowUpRight, Search, ShieldCheck, Lock } from 'lucide-react';
 
 interface NavbarProps {
   currentRoute: PageRoute;
@@ -10,9 +10,10 @@ interface NavbarProps {
   onOpenAudit: () => void;
   onOpenSearch: () => void;
   onOpenChat?: () => void;
+  onOpenAdminLogin?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpenAudit, onOpenSearch, onOpenChat }) => {
+export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpenAudit, onOpenSearch, onOpenChat, onOpenAdminLogin }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -150,6 +151,17 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
               </button>
             )}
 
+            {onOpenAdminLogin && (
+              <button
+                onClick={onOpenAdminLogin}
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-neutral-800 hover:text-purple-900 bg-white hover:bg-neutral-100/90 px-3 py-1.5 rounded-full border border-neutral-300 shadow-2xs transition-all"
+                title="Official ORIXNAL Enterprise Admin Portal"
+              >
+                <Lock className="w-3.5 h-3.5 text-purple-700" />
+                <span>Admin Login</span>
+              </button>
+            )}
+
             <button
               onClick={onOpenAudit}
               className="orixnal-gradient-bg text-white text-xs font-bold px-4 py-2 rounded-full shadow-sm hover:opacity-95 transition-all flex items-center gap-1.5"
@@ -229,6 +241,19 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
                 <Sparkles className="w-4 h-4" />
                 <span>Launch Brand Audit Estimator</span>
               </button>
+
+              {onOpenAdminLogin && (
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenAdminLogin();
+                  }}
+                  className="w-full bg-white border border-neutral-300 text-neutral-900 font-bold py-3 px-4 rounded-2xl flex items-center justify-center gap-2 text-xs shadow-2xs hover:bg-neutral-50"
+                >
+                  <Lock className="w-4 h-4 text-purple-700" />
+                  <span>Admin Portal Login</span>
+                </button>
+              )}
 
               <div className="grid grid-cols-2 gap-2">
                 <a
