@@ -73,7 +73,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenAudit }) =
   // Admin Auth State
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState<boolean>(() => isBlogAdminLoggedIn());
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
-  const [loginEmail, setLoginEmail] = useState<string>('blog@orixnal.com');
+  const [loginEmail, setLoginEmail] = useState<string>('');
   const [loginPassword, setLoginPassword] = useState<string>('');
   const [loginError, setLoginError] = useState<string | null>(null);
 
@@ -1580,14 +1580,14 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenAudit }) =
               )}
 
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-neutral-700">Registered Admin Email</label>
+                <label className="text-xs font-bold text-neutral-700">Admin Email</label>
                 <div className="relative">
                   <User className="w-4 h-4 text-neutral-400 absolute left-3 top-1/2 -translate-y-1/2" />
                   <input
                     type="email"
                     value={loginEmail}
                     onChange={(e) => setLoginEmail(e.target.value)}
-                    placeholder="blog@orixnal.com"
+                    placeholder="Enter admin email address..."
                     required
                     className="w-full pl-9 pr-3 py-2.5 text-xs border border-neutral-300 rounded-xl bg-neutral-50 focus:bg-white focus:outline-none focus:border-purple-600 font-medium"
                   />
@@ -1641,7 +1641,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onOpenAudit }) =
                 </div>
                 <div>
                   <h2 className="text-base font-extrabold text-white">Change Admin Password</h2>
-                  <p className="text-xs text-purple-100">Update password for blog@orixnal.com</p>
+                  <p className="text-xs text-purple-100">Update blog admin password</p>
                 </div>
               </div>
               <button

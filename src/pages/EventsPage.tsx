@@ -43,7 +43,9 @@ import {
   CheckCircle2,
   Info,
   SlidersHorizontal,
-  UserCheck
+  UserCheck,
+  Upload,
+  ImagePlus
 } from 'lucide-react';
 
 interface EventsPageProps {
@@ -68,7 +70,7 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
-  const [loginEmail, setLoginEmail] = useState(ADMIN_EMAIL);
+  const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [loginError, setLoginError] = useState('');
 
@@ -120,6 +122,42 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
 
   const refreshEvents = () => {
     setEvents(getEvents());
+  };
+
+  // Direct File Upload Handlers for Cover Image & Gallery Photos
+  const handleCoverFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 10 * 1024 * 1024) {
+      alert('Cover image size must be under 10MB.');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      if (event.target?.result) {
+        setFormData((prev) => ({ ...prev, bannerImage: event.target!.result as string }));
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleGalleryFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    Array.from(files).forEach((file) => {
+      if (file.size > 10 * 1024 * 1024) return;
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        if (event.target?.result) {
+          setFormData((prev) => ({
+            ...prev,
+            gallery: [...prev.gallery, event.target!.result as string]
+          }));
+        }
+      };
+      reader.readAsDataURL(file);
+    });
   };
 
   // Login handler
@@ -371,7 +409,15 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
                     <span className="hidden sm:inline">Logout</span>
                   </button>
                 </>
-              ) : null}
+              ) : (
+                <button
+                  onClick={() => setShowLoginModal(true)}
+                  className="inline-flex items-center gap-2 orixnal-gradient-bg text-white hover:opacity-95 px-4 py-2 rounded-xl text-xs font-bold shadow-2xs transition-all"
+                >
+                  <Lock className="w-4 h-4 text-amber-300" />
+                  <span>Event Manager Login</span>
+                </button>
+              )}
             </div>
           </div>
 
@@ -878,7 +924,7 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
                     value={loginEmail}
                     onChange={(e) => setLoginEmail(e.target.value)}
                     required
-                    placeholder="event@orixnal.com"
+                    placeholder="Enter admin email address..."
                     className="w-full bg-neutral-50 border border-neutral-300 text-neutral-900 text-sm rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-600 font-medium"
                   />
                 </div>
@@ -932,7 +978,7 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
                 </div>
                 <h3 className="text-xl font-bold text-neutral-950">Update Admin Password</h3>
                 <p className="text-xs text-neutral-500">
-                  Change password for account <strong>{ADMIN_EMAIL}</strong>.
+                  Update your event manager admin password.
                 </p>
               </div>
 
@@ -1055,23 +1101,37 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
                   />
                 </div>
 
-                {/* Banner Image URL + Preset picker */}
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-neutral-700 uppercase">
-                    Event Banner Image URL *
-                  </label>
+                {/* Banner Image File Upload + URL + Preset picker */}
+                <div className="space-y-2.5 bg-[#FAF9F6] p-4 rounded-2xl border border-neutral-200">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <label className="text-xs font-bold text-neutral-800 uppercase flex items-center gap-1.5">
+                      <ImageIcon className="w-4 h-4 text-purple-700" />
+                      <span>Event Cover / Banner Image *</span>
+                    </label>
+                    <label className="cursor-pointer inline-flex items-center gap-1.5 bg-purple-100 hover:bg-purple-200 text-purple-900 text-xs font-bold px-3 py-1.5 rounded-xl border border-purple-200 transition-colors self-start sm:self-auto">
+                      <Upload className="w-3.5 h-3.5 text-purple-700" />
+                      <span>Upload Cover Image File</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={handleCoverFileUpload}
+                      />
+                    </label>
+                  </div>
+
                   <input
-                    type="url"
+                    type="text"
                     required
                     value={formData.bannerImage}
                     onChange={(e) => setFormData({ ...formData, bannerImage: e.target.value })}
-                    placeholder="https://..."
-                    className="w-full bg-neutral-50 border border-neutral-300 text-neutral-900 text-xs rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-600 font-mono"
+                    placeholder="Paste image URL (https://...) or upload cover image file above"
+                    className="w-full bg-white border border-neutral-300 text-neutral-900 text-xs rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-600 font-mono"
                   />
 
                   {/* Preset Banner Selector */}
                   <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pt-1">
-                    <span className="text-[10px] font-bold text-neutral-400 uppercase shrink-0">Quick Presets:</span>
+                    <span className="text-[10px] font-bold text-neutral-400 uppercase shrink-0">Presets:</span>
                     {PRESET_BANNERS.map((preset, idx) => (
                       <button
                         type="button"
@@ -1089,13 +1149,16 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
                   </div>
 
                   {formData.bannerImage && (
-                    <div className="h-32 rounded-xl overflow-hidden bg-purple-50 border border-neutral-200 mt-2">
+                    <div className="relative h-36 rounded-xl overflow-hidden bg-purple-50 border border-neutral-200 mt-2">
                       <img
                         src={formData.bannerImage}
                         alt="Banner Preview"
                         className="w-full h-full object-cover"
                         referrerPolicy="no-referrer"
                       />
+                      <span className="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] font-bold px-2 py-0.5 rounded-md backdrop-blur-sm">
+                        Active Cover Preview
+                      </span>
                     </div>
                   )}
                 </div>
@@ -1309,17 +1372,33 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
                 </div>
 
                 {/* Photo Gallery Editor */}
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-neutral-700 uppercase">
-                    Event Photo Gallery
-                  </label>
+                <div className="space-y-2.5 bg-[#FAF9F6] p-4 rounded-2xl border border-neutral-200">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <label className="text-xs font-bold text-neutral-800 uppercase flex items-center gap-1.5">
+                      <ImageIcon className="w-4 h-4 text-purple-700" />
+                      <span>Event Photo Gallery</span>
+                    </label>
+
+                    <label className="cursor-pointer inline-flex items-center gap-1.5 orixnal-gradient-bg text-white text-xs font-bold px-3.5 py-1.5 rounded-xl shadow-2xs hover:opacity-95 transition-opacity self-start sm:self-auto">
+                      <ImagePlus className="w-3.5 h-3.5" />
+                      <span>Upload Photos from Device</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        className="hidden"
+                        onChange={handleGalleryFileUpload}
+                      />
+                    </label>
+                  </div>
+
                   <div className="flex gap-2">
                     <input
-                      type="url"
+                      type="text"
                       value={newGalleryUrl}
                       onChange={(e) => setNewGalleryUrl(e.target.value)}
-                      placeholder="Add image URL for gallery..."
-                      className="flex-1 bg-neutral-50 border border-neutral-300 text-xs rounded-xl px-3 py-2 font-mono"
+                      placeholder="Or paste image URL for gallery..."
+                      className="flex-1 bg-white border border-neutral-300 text-xs rounded-xl px-3 py-2 font-mono"
                     />
                     <button
                       type="button"
@@ -1332,31 +1411,36 @@ export const EventsPage: React.FC<EventsPageProps> = ({ onNavigate, onOpenAudit 
                           setNewGalleryUrl('');
                         }
                       }}
-                      className="orixnal-gradient-bg text-white text-xs font-bold px-3 py-2 rounded-xl shadow-xs"
+                      className="bg-purple-900 text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-purple-950 transition-colors"
                     >
-                      Add Photo
+                      Add URL Photo
                     </button>
                   </div>
 
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
-                    {formData.gallery.map((url, idx) => (
-                      <div key={idx} className="relative h-20 rounded-xl overflow-hidden bg-neutral-100 border border-neutral-200 group">
-                        <img src={url} alt={`Photo ${idx}`} className="w-full h-full object-cover" />
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setFormData({
-                              ...formData,
-                              gallery: formData.gallery.filter((_, i) => i !== idx)
-                            });
-                          }}
-                          className="absolute top-1 right-1 bg-rose-600 text-white p-1 rounded-full text-[10px]"
-                        >
-                          <X className="w-3 h-3" />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
+                  {formData.gallery.length > 0 ? (
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
+                      {formData.gallery.map((url, idx) => (
+                        <div key={idx} className="relative h-24 rounded-xl overflow-hidden bg-neutral-100 border border-neutral-200 group">
+                          <img src={url} alt={`Photo ${idx + 1}`} className="w-full h-full object-cover" />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setFormData({
+                                ...formData,
+                                gallery: formData.gallery.filter((_, i) => i !== idx)
+                              });
+                            }}
+                            className="absolute top-1.5 right-1.5 bg-rose-600 text-white p-1 rounded-full text-[10px] shadow-sm hover:bg-rose-700 transition-colors"
+                            title="Remove Photo"
+                          >
+                            <X className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-[11px] text-neutral-400 italic">No gallery photos added yet. Upload files above or paste URLs.</p>
+                  )}
                 </div>
 
                 {/* Homepage Visibility */}

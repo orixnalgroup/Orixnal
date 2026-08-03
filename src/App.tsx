@@ -9,10 +9,6 @@ import { BrandAuditModal } from './components/BrandAuditModal';
 import { SearchModal } from './components/SearchModal';
 import { AIChatbot } from './components/AIChatbot';
 import { AIChatLauncher } from './components/AIChatLauncher';
-import { AdminLoginModal } from './components/AdminLoginModal';
-import { AdminDashboard } from './components/AdminDashboard';
-import { AdminErrorBoundary } from './components/AdminErrorBoundary';
-import { adminCmsStore, AdminUser } from './data/adminCmsStore';
 
 import { HomePage } from './pages/HomePage';
 import { AboutPage } from './pages/AboutPage';
@@ -71,21 +67,6 @@ export default function App() {
   const [auditModalOpen, setAuditModalOpen] = useState(false);
   const [searchModalOpen, setSearchModalOpen] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
-
-  // Admin CMS States
-  const [adminLoginModalOpen, setAdminLoginModalOpen] = useState(false);
-  const [adminDashboardOpen, setAdminDashboardOpen] = useState(false);
-  const [activeAdminUser, setActiveAdminUser] = useState<AdminUser | null>(() => adminCmsStore.getActiveUser());
-
-  const handleOpenAdminPortal = () => {
-    const active = adminCmsStore.getActiveUser();
-    if (active) {
-      setActiveAdminUser(active);
-      setAdminDashboardOpen(true);
-    } else {
-      setAdminLoginModalOpen(true);
-    }
-  };
 
   // Global Cmd+K / Ctrl+K listener
   useEffect(() => {
@@ -179,7 +160,6 @@ export default function App() {
         onOpenAudit={() => setAuditModalOpen(true)}
         onOpenSearch={() => setSearchModalOpen(true)}
         onOpenChat={() => setChatOpen(true)}
-        onOpenAdminLogin={handleOpenAdminPortal}
       />
 
       <main className="flex-1 pt-28 sm:pt-32 overflow-x-hidden relative w-full">
@@ -229,30 +209,6 @@ export default function App() {
         onOpenAudit={() => setAuditModalOpen(true)}
         onNavigate={navigateTo}
       />
-
-      <AdminLoginModal
-        isOpen={adminLoginModalOpen}
-        onClose={() => setAdminLoginModalOpen(false)}
-        onSuccessLogin={(user) => {
-          setActiveAdminUser(user);
-          setAdminDashboardOpen(true);
-        }}
-      />
-
-      {adminDashboardOpen && activeAdminUser && (
-        <AdminErrorBoundary onClose={() => setAdminDashboardOpen(false)}>
-          <AdminDashboard
-            currentUser={activeAdminUser}
-            onLogout={() => {
-              adminCmsStore.logout();
-              setActiveAdminUser(null);
-              setAdminDashboardOpen(false);
-            }}
-            onClose={() => setAdminDashboardOpen(false)}
-            onNavigateSite={(route) => navigateTo(route)}
-          />
-        </AdminErrorBoundary>
-      )}
     </div>
   );
 }
