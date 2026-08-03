@@ -107,17 +107,44 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ currentUser, onL
 
   // Load Data on Mount & Tab change
   const reloadData = () => {
-    setUsers(adminCmsStore.getUsers());
-    setAuditLogs(adminCmsStore.getAuditLogs());
-    setSecurityAlerts(adminCmsStore.getSecurityAlerts());
-    setCrmLeads(adminCmsStore.getCrmLeads());
-    setWebsiteContent(adminCmsStore.getWebsiteContent());
-    setMediaItems(adminCmsStore.getMediaItems());
-    setClientItems(adminCmsStore.getClientItems());
-    setSeoConfig(adminCmsStore.getSeoConfig());
-    setAiKnowledge(adminCmsStore.getAiKnowledge());
-    setBlogs([...DEFAULT_BLOG_POSTS]);
-    setEvents([...INITIAL_EVENTS]);
+    try {
+      console.log(`[ORIXNAL CMS] Loading platform state for tab: '${activeTab}'...`);
+      const loadedUsers = adminCmsStore.getUsers() || [];
+      const loadedAuditLogs = adminCmsStore.getAuditLogs() || [];
+      const loadedAlerts = adminCmsStore.getSecurityAlerts() || [];
+      const loadedLeads = adminCmsStore.getCrmLeads() || [];
+      const loadedWebsite = adminCmsStore.getWebsiteContent();
+      const loadedMedia = adminCmsStore.getMediaItems() || [];
+      const loadedClients = adminCmsStore.getClientItems() || [];
+      const loadedSeo = adminCmsStore.getSeoConfig();
+      const loadedAi = adminCmsStore.getAiKnowledge() || [];
+
+      setUsers(loadedUsers);
+      setAuditLogs(loadedAuditLogs);
+      setSecurityAlerts(loadedAlerts);
+      setCrmLeads(loadedLeads);
+      if (loadedWebsite) setWebsiteContent(loadedWebsite);
+      setMediaItems(loadedMedia);
+      setClientItems(loadedClients);
+      if (loadedSeo) setSeoConfig(loadedSeo);
+      setAiKnowledge(loadedAi);
+      setBlogs([...(DEFAULT_BLOG_POSTS || [])]);
+      setEvents([...(INITIAL_EVENTS || [])]);
+
+      console.log('[ORIXNAL CMS] Platform state successfully loaded:', {
+        usersCount: loadedUsers.length,
+        auditLogsCount: loadedAuditLogs.length,
+        alertsCount: loadedAlerts.length,
+        crmLeadsCount: loadedLeads.length,
+        mediaItemsCount: loadedMedia.length,
+        clientItemsCount: loadedClients.length,
+        aiKnowledgeCount: loadedAi.length,
+        blogsCount: DEFAULT_BLOG_POSTS?.length || 0,
+        eventsCount: INITIAL_EVENTS?.length || 0,
+      });
+    } catch (err) {
+      console.error('[ORIXNAL CMS] Critical error loading CMS data in reloadData:', err);
+    }
   };
 
   useEffect(() => {
@@ -342,6 +369,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ currentUser, onL
     };
     reader.readAsText(file);
   };
+
+  console.log(`[ORIXNAL CMS Component] Rendering AdminDashboard for user: ${currentUser.email}, activeTab: '${activeTab}'`);
 
   return (
     <div className="fixed inset-0 z-50 bg-[#FAF9F6] text-neutral-900 flex flex-col font-sans overflow-hidden animate-fadeIn">
@@ -1194,6 +1223,24 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ currentUser, onL
                   </label>
                 </div>
               </div>
+            </div>
+          )}
+
+          {/* FALLBACK TAB UI IF UNKNOWN TAB IS SELECTED */}
+          {!['overview', 'website_cms', 'blog_cms', 'event_cms', 'media_library', 'client_management', 'crm_leads', 'ai_support', 'seo_center', 'users_security', 'backup_restore'].includes(activeTab) && (
+            <div className="bg-white border border-neutral-200 rounded-2xl p-8 text-center space-y-4 max-w-xl mx-auto shadow-sm my-8">
+              <AlertTriangle className="w-10 h-10 text-amber-500 mx-auto" />
+              <div>
+                <h2 className="text-lg font-black text-neutral-950">CMS Module View Fallback</h2>
+                <p className="text-xs text-neutral-600 font-mono">Selected Tab Key: '{activeTab}'</p>
+                <p className="text-xs text-neutral-500 mt-1">The requested module layout is initializing or unavailable.</p>
+              </div>
+              <button
+                onClick={() => setActiveTab('overview')}
+                className="orixnal-gradient-bg text-white font-bold text-xs px-5 py-2.5 rounded-xl shadow-xs"
+              >
+                Return to Executive Command Center
+              </button>
             </div>
           )}
 

@@ -11,6 +11,7 @@ import { AIChatbot } from './components/AIChatbot';
 import { AIChatLauncher } from './components/AIChatLauncher';
 import { AdminLoginModal } from './components/AdminLoginModal';
 import { AdminDashboard } from './components/AdminDashboard';
+import { AdminErrorBoundary } from './components/AdminErrorBoundary';
 import { adminCmsStore, AdminUser } from './data/adminCmsStore';
 
 import { HomePage } from './pages/HomePage';
@@ -239,16 +240,18 @@ export default function App() {
       />
 
       {adminDashboardOpen && activeAdminUser && (
-        <AdminDashboard
-          currentUser={activeAdminUser}
-          onLogout={() => {
-            adminCmsStore.logout();
-            setActiveAdminUser(null);
-            setAdminDashboardOpen(false);
-          }}
-          onClose={() => setAdminDashboardOpen(false)}
-          onNavigateSite={(route) => navigateTo(route)}
-        />
+        <AdminErrorBoundary onClose={() => setAdminDashboardOpen(false)}>
+          <AdminDashboard
+            currentUser={activeAdminUser}
+            onLogout={() => {
+              adminCmsStore.logout();
+              setActiveAdminUser(null);
+              setAdminDashboardOpen(false);
+            }}
+            onClose={() => setAdminDashboardOpen(false)}
+            onNavigateSite={(route) => navigateTo(route)}
+          />
+        </AdminErrorBoundary>
       )}
     </div>
   );
