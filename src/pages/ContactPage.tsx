@@ -4,7 +4,7 @@ import { COMPANY_DETAILS, FOUNDER_INFO } from '../data/brandData';
 import { GlobalPresenceMap } from '../components/GlobalPresenceMap';
 import { CalendlyScheduler, CALENDLY_URL } from '../components/CalendlyScheduler';
 import { ContactButtonGroup } from '../components/ContactButtonGroup';
-import { Sparkles, Phone, Mail, MapPin, Building, ShieldCheck, Globe, Clock, ArrowRight, Calendar, Video, CheckCircle2 } from 'lucide-react';
+import { Sparkles, Phone, Mail, MapPin, Building, ShieldCheck, Globe, Clock, ArrowRight, Calendar, Video, CheckCircle2, ExternalLink } from 'lucide-react';
 
 interface ContactPageProps {
   onNavigate: (route: PageRoute) => void;
@@ -146,29 +146,69 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate, onOpenAudi
 
       {/* Office Locations & Registration Details */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="bg-white border border-neutral-200 p-8 rounded-3xl space-y-4 shadow-2xs">
-          <div className="flex items-center gap-3">
-            <Building className="w-6 h-6 text-purple-700" />
-            <h3 className="text-xl font-extrabold text-neutral-900">Noida Headquarters</h3>
+        <div className="bg-white border border-neutral-200 p-8 rounded-3xl space-y-4 shadow-2xs flex flex-col justify-between">
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Building className="w-6 h-6 text-purple-700" />
+                <h3 className="text-xl font-extrabold text-neutral-900">Headquarters</h3>
+              </div>
+              <span className="text-[10px] font-mono font-bold text-purple-800 bg-purple-50 border border-purple-200 px-2.5 py-1 rounded-full uppercase">
+                Corporate HQ
+              </span>
+            </div>
+            <p className="text-sm text-neutral-600 leading-relaxed">
+              {COMPANY_DETAILS.headquarters}
+            </p>
+            <div className="text-xs text-neutral-500 font-mono">
+              Corporate Strategy & Design Studio
+            </div>
           </div>
-          <p className="text-sm text-neutral-600 leading-relaxed">
-            {COMPANY_DETAILS.headquarters}
-          </p>
-          <div className="pt-2 text-xs text-neutral-500 font-mono">
-            Corporate Strategy & Design Studio
+
+          <div className="pt-4 border-t border-neutral-100">
+            <a
+              href={COMPANY_DETAILS.headquartersMapUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 text-xs font-bold text-purple-900 bg-purple-50 hover:bg-purple-100 border border-purple-200/80 px-4 py-2.5 rounded-xl transition-all"
+            >
+              <MapPin className="w-3.5 h-3.5 text-purple-700" />
+              <span>Noida Location on Google Maps</span>
+              <ExternalLink className="w-3 h-3 text-purple-600" />
+            </a>
           </div>
         </div>
 
-        <div className="bg-white border border-neutral-200 p-8 rounded-3xl space-y-4 shadow-2xs">
-          <div className="flex items-center gap-3">
-            <MapPin className="w-6 h-6 text-purple-700" />
-            <h3 className="text-xl font-extrabold text-neutral-900">Ghaziabad Registered Office</h3>
+        <div className="bg-white border border-neutral-200 p-8 rounded-3xl space-y-4 shadow-2xs flex flex-col justify-between">
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <MapPin className="w-6 h-6 text-purple-700" />
+                <h3 className="text-xl font-extrabold text-neutral-900">Registered Address</h3>
+              </div>
+              <span className="text-[10px] font-mono font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-full uppercase">
+                Legal Entity
+              </span>
+            </div>
+            <p className="text-sm text-neutral-600 leading-relaxed">
+              {COMPANY_DETAILS.registeredAddress}
+            </p>
+            <div className="text-xs text-neutral-500 font-mono">
+              Legal Registered Entity: Orixnal Group (MSME Udyam)
+            </div>
           </div>
-          <p className="text-sm text-neutral-600 leading-relaxed">
-            {COMPANY_DETAILS.registeredAddress}
-          </p>
-          <div className="pt-2 text-xs text-neutral-500 font-mono">
-            Legal Registered Entity: Orixnal Group
+
+          <div className="pt-4 border-t border-neutral-100">
+            <a
+              href={COMPANY_DETAILS.ghaziabadMapUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 text-xs font-bold text-emerald-950 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-4 py-2.5 rounded-xl transition-all"
+            >
+              <MapPin className="w-3.5 h-3.5 text-emerald-700" />
+              <span>Ghaziabad Location on Google Maps</span>
+              <ExternalLink className="w-3 h-3 text-emerald-600" />
+            </a>
           </div>
         </div>
       </div>
@@ -176,30 +216,107 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate, onOpenAudi
       {/* D3.js Interactive Global Footprint Map */}
       <GlobalPresenceMap onOpenAudit={onOpenAudit} />
 
-      {/* Interactive Map Embed Mockup */}
-      <div className="bg-white border border-neutral-200 rounded-3xl p-6 shadow-2xs overflow-hidden space-y-4">
-        <div className="flex items-center justify-between">
-          <h3 className="text-lg font-extrabold text-neutral-900">ORIXNAL Studio Location Map</h3>
-          <span className="text-xs font-mono font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
-            Sector 96, Noida, UP
+      {/* Interactive Location Maps Grid with Live Google Map Frames */}
+      <div className="bg-white border border-neutral-200 rounded-3xl p-6 sm:p-8 shadow-2xs space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-neutral-100">
+          <div>
+            <h3 className="text-xl font-extrabold text-neutral-900">Official Google Maps Locations</h3>
+            <p className="text-xs text-neutral-500 font-medium pt-0.5">
+              Live Google Map embeds for ORIXNAL Registered Address and Corporate Headquarters.
+            </p>
+          </div>
+          <span className="text-xs font-mono font-bold text-emerald-900 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full shrink-0">
+            Google Maps Verified
           </span>
         </div>
 
-        <div className="w-full h-64 rounded-2xl bg-neutral-100 relative overflow-hidden border border-neutral-200 flex items-center justify-center">
-          <div className="absolute inset-0 opacity-40 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]" />
-          <div className="relative text-center p-6 space-y-2 max-w-md bg-white/95 backdrop-blur-md rounded-2xl border border-neutral-200 shadow-lg">
-            <MapPin className="w-8 h-8 text-purple-700 mx-auto animate-bounce" />
-            <h4 className="font-extrabold text-neutral-900 text-sm">ESquare Building, Plot C-2, Sector 96</h4>
-            <p className="text-xs text-neutral-500">Noida, Uttar Pradesh – 201301, India</p>
-            <a
-              href="https://maps.google.com/?q=Sector+96+Noida+Uttar+Pradesh"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-purple-800 hover:underline pt-1"
-            >
-              <span>Open in Google Maps</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </a>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Location Map Card with Live iFrame */}
+          <div className="w-full rounded-2xl bg-white border border-emerald-200 p-5 space-y-4 shadow-sm flex flex-col justify-between">
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-900 bg-emerald-100/80 px-2.5 py-1 rounded-full border border-emerald-200">
+                  Registered Address
+                </span>
+                <span className="text-xs text-emerald-700 font-semibold flex items-center gap-1">
+                  <MapPin className="w-3.5 h-3.5" /> Sadullabad, Ghaziabad
+                </span>
+              </div>
+              <h4 className="font-extrabold text-neutral-900 text-base">ORIXNAL® Registered Address Location</h4>
+              <p className="text-xs text-neutral-600 leading-relaxed">{COMPANY_DETAILS.registeredAddress}</p>
+            </div>
+
+            {/* Live Embedded Google Map Frame */}
+            <div className="w-full h-72 rounded-xl border border-neutral-200 overflow-hidden relative shadow-inner bg-neutral-100">
+              <iframe
+                title="ORIXNAL Ghaziabad Location Google Map"
+                src={COMPANY_DETAILS.ghaziabadEmbedUrl}
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={false}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="w-full h-full"
+              />
+            </div>
+
+            <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <a
+                href={COMPANY_DETAILS.ghaziabadMapUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="w-full sm:w-auto bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs py-2.5 px-5 rounded-xl flex items-center justify-center gap-2 transition-colors shadow-2xs"
+              >
+                <span>Open Ghaziabad Google Map</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+              <span className="text-[11px] text-neutral-500 font-mono">MSME Registered Office</span>
+            </div>
+          </div>
+
+          {/* Headquarters Location Map Card with Live iFrame */}
+          <div className="w-full rounded-2xl bg-white border border-purple-200 p-5 space-y-4 shadow-sm flex flex-col justify-between">
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-purple-900 bg-purple-100/80 px-2.5 py-1 rounded-full border border-purple-200">
+                  Corporate Headquarters
+                </span>
+                <span className="text-xs text-purple-700 font-semibold flex items-center gap-1">
+                  <Building className="w-3.5 h-3.5" /> Sector 96, Noida
+                </span>
+              </div>
+              <h4 className="font-extrabold text-neutral-900 text-base">ORIXNAL® Studio Headquarters</h4>
+              <p className="text-xs text-neutral-600 leading-relaxed">{COMPANY_DETAILS.headquarters}</p>
+            </div>
+
+            {/* Live Embedded Google Map Frame */}
+            <div className="w-full h-72 rounded-xl border border-neutral-200 overflow-hidden relative shadow-inner bg-neutral-100">
+              <iframe
+                title="ORIXNAL Headquarters Google Map"
+                src={COMPANY_DETAILS.headquartersEmbedUrl}
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={false}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="w-full h-full"
+              />
+            </div>
+
+            <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <a
+                href={COMPANY_DETAILS.headquartersMapUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="w-full sm:w-auto orixnal-gradient-bg text-white font-bold text-xs py-2.5 px-5 rounded-xl flex items-center justify-center gap-2 hover:opacity-95 transition-opacity shadow-2xs"
+              >
+                <span>Open Noida Google Map</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+              <span className="text-[11px] text-neutral-500 font-mono">Design Studio & HQ</span>
+            </div>
           </div>
         </div>
       </div>

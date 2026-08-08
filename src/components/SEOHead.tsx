@@ -1,6 +1,14 @@
 import React, { useEffect } from 'react';
 import { PageRoute } from '../types';
-import { COMPANY_DETAILS, FOUNDER_INFO, FAQ_LIST, OFFICIAL_ASSETS } from '../data/brandData';
+import { OFFICIAL_ASSETS } from '../data/brandData';
+import {
+  generateWebSiteSchema,
+  generateLocalBusinessSchema,
+  generateBreadcrumbSchema,
+  generateSpeakableSchema,
+  generateServicesSchema,
+  generateFAQSchema,
+} from '../utils/schema';
 
 interface SEOHeadProps {
   currentRoute: PageRoute;
@@ -31,6 +39,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ currentRoute, titleSuffix }) =
       contact: 'Contact ORIXNAL — Schedule Strategic Consultation | +91 8447561650',
       privacy: 'Privacy Policy | ORIXNAL Group',
       terms: 'Terms & Conditions | ORIXNAL Group',
+      'not-found': 'Page Not Found — 404 | ORIXNAL®',
     };
 
     const descriptions: Record<PageRoute, string> = {
@@ -54,6 +63,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ currentRoute, titleSuffix }) =
       contact: 'Connect directly with ORIXNAL Founder Asim Khan and our strategic team in Noida/Ghaziabad, UP. Call +91 8447561650 or schedule a Brand Audit.',
       privacy: 'ORIXNAL Group Privacy Policy explaining our data handling, security protocols, and client confidentiality standards.',
       terms: 'Terms & Conditions governing engagement with ORIXNAL Brand Development Company.',
+      'not-found': 'The requested page could not be found. Return to the ORIXNAL homepage to explore our global brand development services, strategy, and insights.',
     };
 
     const ogImages: Partial<Record<PageRoute, string>> = {
@@ -63,7 +73,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ currentRoute, titleSuffix }) =
 
     const currentTitle = titleSuffix ? `${titleSuffix} | ORIXNAL` : titles[currentRoute] || titles.home;
     const currentDesc = descriptions[currentRoute] || descriptions.home;
-    const currentUrl = currentRoute === 'home' ? 'https://www.orixnal.com/' : `https://www.orixnal.com/#/${currentRoute}`;
+    const currentUrl = currentRoute === 'home' ? 'https://www.orixnal.com/' : `https://www.orixnal.com/${currentRoute}`;
     const currentOgImage = ogImages[currentRoute] || `https://www.orixnal.com/api/og-image?page=${currentRoute}`;
     const currentOgType = currentRoute === 'founder' ? 'profile' : currentRoute.includes('detail') || currentRoute === 'blog' || currentRoute === 'insights' ? 'article' : 'website';
 
@@ -83,6 +93,11 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ currentRoute, titleSuffix }) =
 
     // Standard Meta Tags
     updateMetaTag('name', 'description', currentDesc);
+    if (currentRoute === 'not-found') {
+      updateMetaTag('name', 'robots', 'noindex, follow');
+    } else {
+      updateMetaTag('name', 'robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
+    }
 
     // Canonical Tag
     let canonicalTag = document.querySelector('link[rel="canonical"]');
@@ -120,148 +135,13 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ currentRoute, titleSuffix }) =
       iconTag.setAttribute('type', 'image/png');
     }
 
-    // Inject WebSite & SearchAction Schema
-    const websiteSchema = {
-      '@context': 'https://schema.org',
-      '@type': 'WebSite',
-      '@id': 'https://www.orixnal.com/#website',
-      url: 'https://www.orixnal.com',
-      name: 'ORIXNAL®',
-      publisher: {
-        '@id': 'https://www.orixnal.com/#organization',
-      },
-      potentialAction: {
-        '@type': 'SearchAction',
-        target: 'https://www.orixnal.com/#/services?q={search_term_string}',
-        'query-input': 'required name=search_term_string',
-      },
-    };
-
-    // Inject Organization & LocalBusiness JSON-LD Schema
-    const orgSchema = {
-      '@context': 'https://schema.org',
-      '@type': ['Organization', 'ProfessionalService'],
-      '@id': 'https://www.orixnal.com/#organization',
-      name: COMPANY_DETAILS.legalName,
-      alternateName: 'ORIXNAL',
-      url: 'https://www.orixnal.com',
-      logo: OFFICIAL_ASSETS.icon,
-      image: OFFICIAL_ASSETS.logo,
-      telephone: COMPANY_DETAILS.phone,
-      email: COMPANY_DETAILS.email,
-      description: currentDesc,
-      sameAs: [
-        'https://www.linkedin.com/company/orixnalgroup',
-        'https://www.instagram.com/orixnalgroup',
-        'https://www.youtube.com/@orixnalgroup',
-        'https://x.com/orixnalgroup',
-        'https://www.facebook.com/orixnalgroup',
-        'https://clutch.co/profile/orixnal',
-      ],
-      founder: {
-        '@type': 'Person',
-        '@id': 'https://www.orixnal.com/#founder',
-        name: FOUNDER_INFO.name,
-        jobTitle: FOUNDER_INFO.title,
-        email: COMPANY_DETAILS.email,
-        sameAs: 'https://www.linkedin.com/in/asimkhanorixnal',
-      },
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: 'ESquare Building, Plot C-2, Sector 96',
-        addressLocality: 'Noida',
-        addressRegion: 'Uttar Pradesh',
-        postalCode: '201301',
-        addressCountry: 'IN',
-      },
-      geo: {
-        '@type': 'GeoCoordinates',
-        latitude: '28.5355',
-        longitude: '77.3910',
-      },
-      identifier: [
-        {
-          '@type': 'PropertyValue',
-          name: 'Udyam Registration Number',
-          value: COMPANY_DETAILS.udyamNumber,
-        },
-      ],
-      priceRange: '$$$',
-    };
-
-    // Inject BreadcrumbList Schema
-    const breadcrumbSchema = {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        {
-          '@type': 'ListItem',
-          position: 1,
-          name: 'Home',
-          item: 'https://www.orixnal.com/',
-        },
-        ...(currentRoute !== 'home'
-          ? [
-              {
-                '@type': 'ListItem',
-                position: 2,
-                name: currentRoute.charAt(0).toUpperCase() + currentRoute.slice(1).replace('-', ' '),
-                item: currentUrl,
-              },
-            ]
-          : []),
-      ],
-    };
-
-    // Inject Speakable Schema for AI Voice Search
-    const speakableSchema = {
-      '@context': 'https://schema.org',
-      '@type': 'WebPage',
-      name: currentTitle,
-      speakable: {
-        '@type': 'SpeakableSpecification',
-        cssSelector: ['h1', 'h2', '.speakable-text'],
-      },
-    };
-
-    // Services Schema for the 8 Pillars
-    const servicesSchema = {
-      '@context': 'https://schema.org',
-      '@type': 'Service',
-      provider: {
-        '@id': 'https://www.orixnal.com/#organization',
-      },
-      serviceType: 'Brand Development & Legal IP Engineering',
-      areaServed: 'Worldwide',
-      hasOfferCatalog: {
-        '@type': 'OfferCatalog',
-        name: 'ORIXNAL 8 Core Brand Capabilities',
-        itemListElement: [
-          { '@type': 'Offer', name: 'ORIXNAL Name — Strategic Brand Naming & Positioning' },
-          { '@type': 'Offer', name: 'ORIXNAL Legal — Trademark Class Filings & Pvt Ltd Incorporation' },
-          { '@type': 'Offer', name: 'ORIXNAL Studio — Visual Identity & Design Systems' },
-          { '@type': 'Offer', name: 'ORIXNAL Digital — High-Performance React Web Engineering & Shopify' },
-          { '@type': 'Offer', name: 'ORIXNAL Marketing — Go-To-Market & Retention Mechanics' },
-          { '@type': 'Offer', name: 'ORIXNAL Ads — Omnichannel Brand Campaign Management' },
-          { '@type': 'Offer', name: 'ORIXNAL Event — Corporate Expos, Stage Production & Launch Activations' },
-          { '@type': 'Offer', name: 'ORIXNAL Consultancy — 1-on-1 Founder Strategic Advisory with Asim Khan' },
-        ],
-      },
-    };
-
-    // FAQ Schema
-    const faqSchema = {
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: FAQ_LIST.map((faq) => ({
-        '@type': 'Question',
-        name: faq.question,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: faq.answer,
-        },
-      })),
-    };
+    // Inject JSON-LD Schemas generated via utils/schema.ts
+    const websiteSchema = generateWebSiteSchema();
+    const localBusinessSchema = generateLocalBusinessSchema(currentDesc);
+    const breadcrumbSchema = generateBreadcrumbSchema(currentRoute, currentUrl);
+    const speakableSchema = generateSpeakableSchema(currentTitle);
+    const servicesSchema = generateServicesSchema();
+    const faqSchema = generateFAQSchema();
 
     // Clean up existing schema script tags
     const existingSchemas = document.querySelectorAll('script[type="application/ld+json"]');
@@ -276,7 +156,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ currentRoute, titleSuffix }) =
     };
 
     injectJsonLd(websiteSchema);
-    injectJsonLd(orgSchema);
+    injectJsonLd(localBusinessSchema);
     injectJsonLd(breadcrumbSchema);
     injectJsonLd(speakableSchema);
 

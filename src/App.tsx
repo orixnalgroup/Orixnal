@@ -7,8 +7,6 @@ import { Footer } from './components/Footer';
 import { SEOHead } from './components/SEOHead';
 import { BrandAuditModal } from './components/BrandAuditModal';
 import { SearchModal } from './components/SearchModal';
-import { AIChatbot } from './components/AIChatbot';
-import { AIChatLauncher } from './components/AIChatLauncher';
 
 import { HomePage } from './pages/HomePage';
 import { AboutPage } from './pages/AboutPage';
@@ -66,7 +64,6 @@ export default function App() {
   const [direction, setDirection] = useState<number>(1);
   const [auditModalOpen, setAuditModalOpen] = useState(false);
   const [searchModalOpen, setSearchModalOpen] = useState(false);
-  const [chatOpen, setChatOpen] = useState(false);
 
   // Global Cmd+K / Ctrl+K listener
   useEffect(() => {
@@ -80,23 +77,49 @@ export default function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Sync route with URL hash or state
+  // Helper to extract valid route from URL path or hash
+  const getRouteFromUrl = (): PageRoute => {
+    // Check hash first for backward compatibility with old links like /#/about or /#about
+    const hashRaw = window.location.hash.replace('#/', '').replace('#', '').trim();
+    if (hashRaw && (ROUTE_ORDER as string[]).includes(hashRaw)) {
+      // Migrate hash to clean path silently
+      const cleanPath = hashRaw === 'home' ? '/' : `/${hashRaw}`;
+      window.history.replaceState(null, '', cleanPath);
+      return hashRaw as PageRoute;
+    }
+
+    // Check clean pathname
+    const pathRaw = window.location.pathname.replace(/^\//, '').trim();
+    if (!pathRaw || pathRaw === 'index.html') {
+      return 'home';
+    }
+
+    if ((ROUTE_ORDER as string[]).includes(pathRaw)) {
+      return pathRaw as PageRoute;
+    }
+
+    return 'not-found';
+  };
+
+  // Sync route with URL pathname or popstate
   useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace('#/', '').replace('#', '') as PageRoute;
-      if (hash && ROUTE_ORDER.includes(hash)) {
-        if (hash !== currentRoute) {
-          const prevIndex = ROUTE_ORDER.indexOf(currentRoute);
-          const nextIndex = ROUTE_ORDER.indexOf(hash);
-          setDirection(nextIndex >= prevIndex ? 1 : -1);
-          setCurrentRoute(hash);
-        }
+    const handleLocationSync = () => {
+      const targetRoute = getRouteFromUrl();
+      if (targetRoute !== currentRoute) {
+        const prevIndex = ROUTE_ORDER.indexOf(currentRoute);
+        const nextIndex = ROUTE_ORDER.indexOf(targetRoute);
+        setDirection(nextIndex >= prevIndex ? 1 : -1);
+        setCurrentRoute(targetRoute);
       }
     };
 
-    handleHashChange();
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    handleLocationSync();
+    window.addEventListener('popstate', handleLocationSync);
+    window.addEventListener('hashchange', handleLocationSync);
+    return () => {
+      window.removeEventListener('popstate', handleLocationSync);
+      window.removeEventListener('hashchange', handleLocationSync);
+    };
   }, [currentRoute]);
 
   const navigateTo = (route: PageRoute) => {
@@ -105,7 +128,11 @@ export default function App() {
     const nextIndex = ROUTE_ORDER.indexOf(route);
     setDirection(nextIndex >= prevIndex ? 1 : -1);
     setCurrentRoute(route);
-    window.location.hash = `#/${route === 'home' ? '' : route}`;
+
+    const targetPath = route === 'home' ? '/' : `/${route}`;
+    if (window.location.pathname !== targetPath) {
+      window.history.pushState(null, '', targetPath);
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -144,6 +171,28 @@ export default function App() {
         return <PrivacyPage />;
       case 'terms':
         return <TermsPage />;
+      case 'not-found':
+        return (
+          <div className="max-w-4xl mx-auto px-4 py-28 sm:py-36 text-center space-y-6">
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-purple-100 text-purple-900 font-mono text-2xl font-black border border-purple-200">
+              404
+            </div>
+            <h1 className="text-3xl sm:text-5xl font-extrabold text-neutral-900 tracking-tight">
+              Page Not Found
+            </h1>
+            <p className="text-neutral-600 max-w-md mx-auto text-sm sm:text-base leading-relaxed">
+              The page you are looking for does not exist or may have been moved. Return to our homepage to explore ORIXNAL brand capabilities, strategy, and insights.
+            </p>
+            <div className="pt-2">
+              <button
+                onClick={() => navigateTo('home')}
+                className="orixnal-gradient-bg text-white font-extrabold text-sm px-6 py-3.5 rounded-2xl shadow-md hover:opacity-95 transition-all inline-flex items-center gap-2"
+              >
+                <span>Return to Homepage</span>
+              </button>
+            </div>
+          </div>
+        );
       default:
         return <HomePage onNavigate={navigateTo} onOpenAudit={() => setAuditModalOpen(true)} />;
     }
@@ -159,7 +208,6 @@ export default function App() {
         onNavigate={navigateTo}
         onOpenAudit={() => setAuditModalOpen(true)}
         onOpenSearch={() => setSearchModalOpen(true)}
-        onOpenChat={() => setChatOpen(true)}
       />
 
       <main className="flex-1 pt-28 sm:pt-32 overflow-x-hidden relative w-full">
@@ -195,18 +243,6 @@ export default function App() {
       <SearchModal
         isOpen={searchModalOpen}
         onClose={() => setSearchModalOpen(false)}
-        onNavigate={navigateTo}
-      />
-
-      <AIChatLauncher
-        isOpen={chatOpen}
-        onToggle={() => setChatOpen(true)}
-      />
-
-      <AIChatbot
-        isOpen={chatOpen}
-        onClose={() => setChatOpen(false)}
-        onOpenAudit={() => setAuditModalOpen(true)}
         onNavigate={navigateTo}
       />
     </div>

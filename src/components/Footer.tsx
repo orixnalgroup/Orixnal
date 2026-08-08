@@ -87,39 +87,39 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAudit }) => {
             </h4>
             <ul className="space-y-2.5 text-xs text-neutral-600 font-medium">
               <li>
-                <button onClick={() => onNavigate('services')} className="hover:text-purple-700 transition-colors">
+                <a href="/services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }} className="hover:text-purple-700 transition-colors">
                   Brand Naming & Positioning
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('services')} className="hover:text-purple-700 transition-colors">
+                <a href="/services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }} className="hover:text-purple-700 transition-colors">
                   Legal IP & Trademark Registration
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('services')} className="hover:text-purple-700 transition-colors">
+                <a href="/services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }} className="hover:text-purple-700 transition-colors">
                   Visual Identity & Design Systems
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('services')} className="hover:text-purple-700 transition-colors">
+                <a href="/services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }} className="hover:text-purple-700 transition-colors">
                   Custom Web & React Engineering
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('services')} className="hover:text-purple-700 transition-colors">
+                <a href="/services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }} className="hover:text-purple-700 transition-colors">
                   Go-To-Market & Growth Strategy
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('services')} className="hover:text-purple-700 transition-colors">
+                <a href="/services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }} className="hover:text-purple-700 transition-colors">
                   Brand Campaign & Advertising
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('services')} className="hover:text-purple-700 transition-colors">
+                <a href="/services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }} className="hover:text-purple-700 transition-colors">
                   1-on-1 Founder Strategic Advisory
-                </button>
+                </a>
               </li>
             </ul>
           </div>
@@ -131,52 +131,52 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAudit }) => {
             </h4>
             <ul className="space-y-2.5 text-xs text-neutral-600 font-medium">
               <li>
-                <button onClick={() => onNavigate('about')} className="hover:text-purple-700 transition-colors">
+                <a href="/about" onClick={(e) => { e.preventDefault(); onNavigate('about'); }} className="hover:text-purple-700 transition-colors">
                   About ORIXNAL
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('founder')} className="hover:text-purple-700 transition-colors">
+                <a href="/founder" onClick={(e) => { e.preventDefault(); onNavigate('founder'); }} className="hover:text-purple-700 transition-colors">
                   Meet Founder Asim Khan
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('case-studies')} className="hover:text-purple-700 transition-colors">
+                <a href="/case-studies" onClick={(e) => { e.preventDefault(); onNavigate('case-studies'); }} className="hover:text-purple-700 transition-colors">
                   Case Studies & Outcomes
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('portfolio')} className="hover:text-purple-700 transition-colors">
+                <a href="/portfolio" onClick={(e) => { e.preventDefault(); onNavigate('portfolio'); }} className="hover:text-purple-700 transition-colors">
                   Concept Portfolio
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('insights')} className="hover:text-purple-700 transition-colors">
+                <a href="/insights" onClick={(e) => { e.preventDefault(); onNavigate('insights'); }} className="hover:text-purple-700 transition-colors">
                   Insights & Essays
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('events')} className="hover:text-purple-700 transition-colors flex items-center gap-1.5 font-bold text-purple-900">
+                <a href="/events" onClick={(e) => { e.preventDefault(); onNavigate('events'); }} className="hover:text-purple-700 transition-colors flex items-center gap-1.5 font-bold text-purple-900">
                   <span>Orixnal Event</span>
                   <span className="w-1.5 h-1.5 rounded-full bg-purple-600 animate-pulse" />
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('blog')} className="hover:text-purple-700 transition-colors flex items-center gap-1.5 font-bold text-purple-900">
+                <a href="/blog" onClick={(e) => { e.preventDefault(); onNavigate('blog'); }} className="hover:text-purple-700 transition-colors flex items-center gap-1.5 font-bold text-purple-900">
                   <span>Blog & Editor</span>
                   <span className="bg-purple-100 text-purple-800 text-[9px] font-mono font-bold px-1.5 py-0.2 rounded uppercase">New</span>
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('foooz')} className="hover:text-purple-700 transition-colors flex items-center gap-1.5 font-bold text-amber-800">
+                <a href="/foooz" onClick={(e) => { e.preventDefault(); onNavigate('foooz'); }} className="hover:text-purple-700 transition-colors flex items-center gap-1.5 font-bold text-amber-800">
                   <span>Foooz® Sub-Brand</span>
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('careers')} className="hover:text-purple-700 transition-colors">
+                <a href="/careers" onClick={(e) => { e.preventDefault(); onNavigate('careers'); }} className="hover:text-purple-700 transition-colors">
                   Careers & Culture
-                </button>
+                </a>
               </li>
             </ul>
           </div>
@@ -191,6 +191,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAudit }) => {
               <div className="flex items-start gap-2">
                 <Building className="w-4 h-4 text-purple-700 shrink-0 mt-0.5" />
                 <div>
+                  <span className="font-semibold text-neutral-900 block mb-0.5">Headquarters:</span>
                   <span>{COMPANY_DETAILS.headquarters}</span>
                   
                   {/* Email & Website below office address and above prior appointment note */}
@@ -216,6 +217,24 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAudit }) => {
                   <span className="block text-[11px] text-purple-800 font-medium italic mt-2 bg-purple-50 px-2 py-0.5 rounded border border-purple-100">
                     {COMPANY_DETAILS.appointmentNote}
                   </span>
+                </div>
+              </div>
+
+              {/* Registered Address */}
+              <div className="pt-2.5 border-t border-neutral-200/60 flex items-start gap-2">
+                <MapPin className="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" />
+                <div className="space-y-1">
+                  <span className="font-semibold text-neutral-900 block">Registered Address:</span>
+                  <span className="block text-[11px] text-neutral-600 leading-snug">{COMPANY_DETAILS.registeredAddress}</span>
+                  <a
+                    href={COMPANY_DETAILS.ghaziabadMapUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-800 hover:text-emerald-950 underline pt-0.5"
+                  >
+                    <span>Ghaziabad Google Map</span>
+                    <ArrowUpRight className="w-3 h-3 text-emerald-700" />
+                  </a>
                 </div>
               </div>
 
@@ -259,12 +278,12 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAudit }) => {
           </div>
 
           <div className="flex items-center gap-6">
-            <button onClick={() => onNavigate('privacy')} className="hover:text-neutral-900 transition-colors">
+            <a href="/privacy" onClick={(e) => { e.preventDefault(); onNavigate('privacy'); }} className="hover:text-neutral-900 transition-colors">
               Privacy Policy
-            </button>
-            <button onClick={() => onNavigate('terms')} className="hover:text-neutral-900 transition-colors">
+            </a>
+            <a href="/terms" onClick={(e) => { e.preventDefault(); onNavigate('terms'); }} className="hover:text-neutral-900 transition-colors">
               Terms & Conditions
-            </button>
+            </a>
             <a href="/sitemap.xml" target="_blank" rel="noreferrer" className="hover:text-neutral-900 transition-colors flex items-center gap-1">
               <span>XML Sitemap</span>
               <ArrowUpRight className="w-3 h-3" />

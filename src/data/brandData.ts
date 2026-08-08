@@ -1,9 +1,10 @@
 import { ServiceCategory, CaseStudy, PortfolioProject, InsightArticle, FAQItem } from '../types';
 
 export const OFFICIAL_ASSETS = {
-  logo: 'https://lh3.googleusercontent.com/d/1PQ9-ihBp0XRHe9nmFEmrmqqrUyBIaZh7',
+  logo: '/orixnal-logo.svg',
   logoFallback: 'https://drive.google.com/uc?export=view&id=1PQ9-ihBp0XRHe9nmFEmrmqqrUyBIaZh7',
-  icon: 'https://lh3.googleusercontent.com/d/19Ef0F3RV-qiAxZv5jR1d5McDUyySj1CB',
+  logoGoogleDrive: 'https://lh3.googleusercontent.com/d/1PQ9-ihBp0XRHe9nmFEmrmqqrUyBIaZh7',
+  icon: '/orixnal-icon.svg',
   founderPhoto: 'https://lh3.googleusercontent.com/d/1FNDEJo6U0KShaDKlTKKJsiuKDYaFXyL_',
   fooozLogo: 'https://lh3.googleusercontent.com/d/1MISS3V-ms3WBVgjtmCfej1Xd4mPHkjYz',
 };
@@ -23,8 +24,12 @@ export const COMPANY_DETAILS = {
   emailRaw: 'mailto:contact@orixnal.com',
   website: 'www.orixnal.com',
   headquarters: 'ESquare Building, Plot C-2, Sector 96, Noida, Uttar Pradesh – 201301, India',
+  headquartersMapUrl: 'https://maps.google.com/?q=Sector+96+Noida+Uttar+Pradesh',
+  headquartersEmbedUrl: 'https://maps.google.com/maps?q=ESquare+Building+Sector+96+Noida+Uttar+Pradesh&t=&z=14&ie=UTF8&iwloc=&output=embed',
   appointmentNote: 'Meetings are available strictly by prior appointment.',
   registeredAddress: 'Orixnal Group, Kh. No. 206, Shankar Vihar, Sadullabad, Ghaziabad, Uttar Pradesh - 201102, India',
+  ghaziabadMapUrl: 'https://share.google/Cn60hzuhTsruGBWY4',
+  ghaziabadEmbedUrl: 'https://maps.google.com/maps?q=Orixnal+Group+Kh.+No.+206+Shankar+Vihar+Sadullabad+Ghaziabad+Uttar+Pradesh+201102&t=&z=14&ie=UTF8&iwloc=&output=embed',
   expandingLocations: ['Dubai', 'London', 'New York', 'Singapore'],
   nicCodes: [
     { code: '73100', name: 'Advertising & Market Research' },

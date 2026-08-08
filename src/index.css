@@ -124,5 +124,21 @@
   background: #722693;
 }
 
+/* Navbar logo container explicit visibility rules across all breakpoints */
+.navbar-logo-container {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative;
+  z-index: 20;
+}
+
+.navbar-logo-container img,
+.navbar-logo-container svg {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
 
 

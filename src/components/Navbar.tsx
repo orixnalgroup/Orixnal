@@ -9,10 +9,9 @@ interface NavbarProps {
   onNavigate: (route: PageRoute) => void;
   onOpenAudit: () => void;
   onOpenSearch: () => void;
-  onOpenChat?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpenAudit, onOpenSearch, onOpenChat }) => {
+export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpenAudit, onOpenSearch }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -83,23 +82,32 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-3.5">
         <div className="flex items-center justify-between">
           {/* Brand Logo */}
-          <button
-            onClick={() => handleNavClick('home')}
-            className="flex items-center gap-2 group text-left focus:outline-none"
+          <a
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNavClick('home');
+            }}
+            className="navbar-logo-container flex items-center gap-2 group text-left focus:outline-none shrink-0 min-w-fit"
             aria-label="ORIXNAL Home"
           >
-            <Logo variant="full" size="md" />
-          </button>
+            <Logo variant="full" size="md" className="shrink-0" />
+          </a>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
+          <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1.5">
             {navLinks.map((link) => {
               const active = currentRoute === link.route;
+              const href = link.route === 'home' ? '/' : `/${link.route}`;
               return (
-                <button
+                <a
                   key={link.route}
-                  onClick={() => handleNavClick(link.route)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-semibold tracking-tight transition-all ${
+                  href={href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(link.route);
+                  }}
+                  className={`px-2 xl:px-3 py-1.5 rounded-full text-[11px] xl:text-xs font-semibold tracking-tight transition-all shrink-0 ${
                     active
                       ? 'orixnal-gradient-bg text-white shadow-xs font-bold'
                       : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100'
@@ -111,13 +119,13 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
                       Food
                     </span>
                   )}
-                </button>
+                </a>
               );
             })}
           </nav>
 
           {/* Right Direct CTAs (Search, Call & Email) */}
-          <div className="hidden lg:flex items-center gap-2">
+          <div className="hidden lg:flex items-center gap-1.5 xl:gap-2 shrink-0">
             <button
               onClick={onOpenSearch}
               className="inline-flex items-center gap-2 text-xs font-semibold text-neutral-600 hover:text-neutral-900 bg-white hover:bg-neutral-100/80 px-3 py-1.5 rounded-full border border-neutral-200/80 shadow-2xs transition-all"
@@ -139,17 +147,6 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
               <span>Call Us</span>
             </a>
 
-            {onOpenChat && (
-              <button
-                onClick={onOpenChat}
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-purple-900 bg-purple-50 hover:bg-purple-100 px-3 py-1.5 rounded-full border border-purple-200 shadow-2xs transition-all"
-                title="Ask ORIXNAL AI Strategic Advisor"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-purple-600 animate-pulse" />
-                <span>AI Advisor</span>
-              </button>
-            )}
-
             <button
               onClick={onOpenAudit}
               className="orixnal-gradient-bg text-white text-xs font-bold px-4 py-2 rounded-full shadow-sm hover:opacity-95 transition-all flex items-center gap-1.5"
@@ -160,15 +157,6 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
 
           {/* Mobile Menu Button */}
           <div className="flex lg:hidden items-center gap-2">
-            {onOpenChat && (
-              <button
-                onClick={onOpenChat}
-                className="p-2 text-purple-700 bg-purple-50 rounded-full border border-purple-200"
-                title="Ask AI Advisor"
-              >
-                <Sparkles className="w-4 h-4 text-purple-600" />
-              </button>
-            )}
             <button
               onClick={onOpenSearch}
               className="p-2 text-rose-600 bg-rose-50 rounded-full border border-rose-200"
@@ -203,20 +191,27 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
             <div className="text-[11px] font-bold uppercase tracking-wider text-neutral-400 mb-1">
               Navigation Menu
             </div>
-            {navLinks.map((link) => (
-              <button
-                key={link.route}
-                onClick={() => handleNavClick(link.route)}
-                className={`flex items-center justify-between px-4 py-3 rounded-2xl text-sm font-bold text-left transition-all ${
-                  currentRoute === link.route
-                    ? 'orixnal-gradient-bg text-white shadow-sm'
-                    : 'bg-white text-neutral-800 border border-neutral-200/60 hover:bg-neutral-100'
-                }`}
-              >
-                <span>{link.label}</span>
-                <ArrowUpRight className="w-4 h-4 opacity-50" />
-              </button>
-            ))}
+            {navLinks.map((link) => {
+              const href = link.route === 'home' ? '/' : `/${link.route}`;
+              return (
+                <a
+                  key={link.route}
+                  href={href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(link.route);
+                  }}
+                  className={`flex items-center justify-between px-4 py-3 rounded-2xl text-sm font-bold text-left transition-all ${
+                    currentRoute === link.route
+                      ? 'orixnal-gradient-bg text-white shadow-sm'
+                      : 'bg-white text-neutral-800 border border-neutral-200/60 hover:bg-neutral-100'
+                  }`}
+                >
+                  <span>{link.label}</span>
+                  <ArrowUpRight className="w-4 h-4 opacity-50" />
+                </a>
+              );
+            })}
 
             <div className="pt-4 border-t border-neutral-200 mt-2 space-y-2">
               <button

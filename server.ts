@@ -1,5 +1,6 @@
 import express from "express";
 import path from "path";
+import fs from "fs";
 import { fileURLToPath } from "url";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI, Modality } from "@google/genai";
@@ -205,7 +206,7 @@ Use these exact CTA trigger tags so the frontend can render clickable action but
   // Dynamic Sitemap XML
   app.get("/sitemap.xml", (req, res) => {
     const sitemapPath = path.join(process.cwd(), "public", "sitemap.xml");
-    if (import('fs').then(fs => fs.existsSync(sitemapPath))) {
+    if (fs.existsSync(sitemapPath)) {
       res.setHeader("Content-Type", "application/xml");
       res.setHeader("Cache-Control", "public, max-age=3600");
       return res.sendFile(sitemapPath);
@@ -254,7 +255,7 @@ Use these exact CTA trigger tags so the frontend can render clickable action but
   // Robots.txt
   app.get("/robots.txt", (req, res) => {
     const robotsPath = path.join(process.cwd(), "public", "robots.txt");
-    if (import('fs').then(fs => fs.existsSync(robotsPath))) {
+    if (fs.existsSync(robotsPath)) {
       res.setHeader("Content-Type", "text/plain");
       res.setHeader("Cache-Control", "public, max-age=3600");
       return res.sendFile(robotsPath);

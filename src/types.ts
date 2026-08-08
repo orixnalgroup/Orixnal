@@ -18,7 +18,8 @@ export type PageRoute =
   | 'faq'
   | 'contact'
   | 'privacy'
-  | 'terms';
+  | 'terms'
+  | 'not-found';
 
 export type EventStatus = 'Current' | 'Upcoming' | 'Past';
 
