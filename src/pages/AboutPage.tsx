@@ -96,13 +96,18 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate, onOpenAudit })
           <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full blur-2xl pointer-events-none" />
 
           <div className="space-y-4 relative z-10">
-            <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-white/40 shadow-md bg-white">
+            <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-white/40 shadow-md bg-[#FAF9F6] flex items-center justify-center">
               <img
                 src={OFFICIAL_ASSETS.founderPhoto}
                 alt="Asim Khan - Founder & Chief Strategist"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain object-bottom pt-1"
                 onError={(e) => {
-                  (e.target as HTMLElement).style.display = 'none';
+                  const target = e.currentTarget;
+                  if (target.src !== OFFICIAL_ASSETS.founderPhotoFallback) {
+                    target.src = OFFICIAL_ASSETS.founderPhotoFallback;
+                  } else {
+                    target.style.display = 'none';
+                  }
                 }}
               />
             </div>

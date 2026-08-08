@@ -23,14 +23,21 @@ export const FounderPage: React.FC<FounderPageProps> = ({ onNavigate, onOpenAudi
           {/* Photograph Column */}
           <div className="lg:col-span-5 flex justify-center">
             <div className="relative w-full max-w-sm bg-[#FAF9F6] p-3 rounded-3xl border border-neutral-200 shadow-lg">
-              <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-neutral-100 flex items-center justify-center">
+              <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-gradient-to-b from-purple-50 via-neutral-100 to-purple-100/70 flex items-center justify-center">
                 {!imgError ? (
                   <img
                     src={OFFICIAL_ASSETS.founderPhoto}
                     alt="Asim Khan — Founder & Chief Brand Strategist of ORIXNAL"
-                    className="w-full h-full object-cover object-top"
+                    className="w-full h-full object-contain object-bottom pt-2"
                     referrerPolicy="no-referrer"
-                    onError={() => setImgError(true)}
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (target.src !== OFFICIAL_ASSETS.founderPhotoFallback) {
+                        target.src = OFFICIAL_ASSETS.founderPhotoFallback;
+                      } else {
+                        setImgError(true);
+                      }
+                    }}
                   />
                 ) : (
                   <div className="w-full h-full bg-gradient-to-br from-purple-900 to-rose-900 text-white flex flex-col items-center justify-center p-6 text-center">

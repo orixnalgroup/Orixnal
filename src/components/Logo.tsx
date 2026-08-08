@@ -107,26 +107,12 @@ export const Logo: React.FC<LogoProps> = ({ variant = 'full', className = '', si
           }}
         />
       ) : (
-        <div className="inline-flex items-center gap-2.5 shrink-0">
-          {/* SVG Fallback matching official icon */}
-          <svg className="w-8 h-8 shrink-0" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="orixnalFallbackGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#411466" />
-                <stop offset="35%" stopColor="#722693" />
-                <stop offset="70%" stopColor="#a21c78" />
-                <stop offset="100%" stopColor="#d31e59" />
-              </linearGradient>
-            </defs>
-            <path d="M 22,18 C 22,18 42,42 50,50 C 58,58 78,82 78,82 L 66,82 C 66,82 48,60 41,52 C 34,44 22,28 22,18 Z" fill="url(#orixnalFallbackGrad)" />
-            <path d="M 78,18 C 78,18 58,42 50,50 C 42,58 22,82 22,82 L 34,82 C 34,82 52,60 59,52 C 66,44 78,28 78,18 Z" fill="url(#orixnalFallbackGrad)" />
-            <path d="M 32,22 C 45,38 55,38 68,22 C 55,32 45,32 32,22 Z" fill="url(#orixnalFallbackGrad)" />
-            <path d="M 32,78 C 45,62 55,62 68,78 C 55,68 45,68 32,78 Z" fill="url(#orixnalFallbackGrad)" />
-          </svg>
-          <span className="font-extrabold tracking-tight text-xl text-neutral-900 font-sans shrink-0">
-            ORIX<span className="orixnal-gradient-text">NAL</span>
-          </span>
-        </div>
+        <img
+          src={OFFICIAL_ASSETS.logoFallback}
+          alt="ORIXNAL Logo"
+          className={`${sizeClasses[size]} w-auto object-contain shrink-0`}
+          referrerPolicy="no-referrer"
+        />
       )}
     </div>
   );

@@ -1,11 +1,12 @@
 import { ServiceCategory, CaseStudy, PortfolioProject, InsightArticle, FAQItem } from '../types';
 
 export const OFFICIAL_ASSETS = {
-  logo: '/orixnal-logo.svg',
-  logoFallback: 'https://drive.google.com/uc?export=view&id=1PQ9-ihBp0XRHe9nmFEmrmqqrUyBIaZh7',
+  logo: '/assets/orixnal-official-logo.png',
+  logoFallback: 'https://lh3.googleusercontent.com/d/1PQ9-ihBp0XRHe9nmFEmrmqqrUyBIaZh7',
   logoGoogleDrive: 'https://lh3.googleusercontent.com/d/1PQ9-ihBp0XRHe9nmFEmrmqqrUyBIaZh7',
-  icon: '/orixnal-icon.svg',
-  founderPhoto: 'https://lh3.googleusercontent.com/d/1FNDEJo6U0KShaDKlTKKJsiuKDYaFXyL_',
+  icon: '/assets/orixnal-official-icon.png',
+  founderPhoto: '/assets/founder-transparent.png',
+  founderPhotoFallback: 'https://lh3.googleusercontent.com/d/1rjfFeJx-aVGSmj4iMpoxwX7_X7jkptl-',
   fooozLogo: 'https://lh3.googleusercontent.com/d/1MISS3V-ms3WBVgjtmCfej1Xd4mPHkjYz',
 };
 

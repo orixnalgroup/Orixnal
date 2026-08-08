@@ -129,7 +129,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenAudit }) =
             {/* Right Column: Founder Photograph Frame / Cover Image */}
             <div className="lg:col-span-5 flex flex-col items-center">
               <div className="relative w-full max-w-md bg-[#FAF9F6] p-3 rounded-3xl border border-neutral-200 shadow-lg group">
-                <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-neutral-100 flex items-center justify-center">
+                <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-gradient-to-b from-purple-50 via-neutral-100 to-purple-100/70 flex items-center justify-center">
                   
                   {/* Overlaid Clutch Recognition Badge on Cover Image */}
                   <div className="absolute top-3 left-3 z-20">
@@ -140,9 +140,16 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenAudit }) =
                     <img
                       src={OFFICIAL_ASSETS.founderPhoto}
                       alt="Asim Khan — Founder & Chief Strategist of ORIXNAL"
-                      className="w-full h-full object-cover object-top transition-all duration-700"
+                      className="w-full h-full object-contain object-bottom pt-2 transition-all duration-700"
                       referrerPolicy="no-referrer"
-                      onError={() => setFounderImgError(true)}
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        if (target.src !== OFFICIAL_ASSETS.founderPhotoFallback) {
+                          target.src = OFFICIAL_ASSETS.founderPhotoFallback;
+                        } else {
+                          setFounderImgError(true);
+                        }
+                      }}
                     />
                   ) : (
                     <div className="w-full h-full bg-gradient-to-br from-purple-900 to-rose-900 text-white flex flex-col items-center justify-center p-6 text-center">
