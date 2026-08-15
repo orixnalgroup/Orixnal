@@ -7,6 +7,7 @@ import { Footer } from './components/Footer';
 import { SEOHead } from './components/SEOHead';
 import { BrandAuditModal } from './components/BrandAuditModal';
 import { SearchModal } from './components/SearchModal';
+import { IndependenceDayPopup } from './components/IndependenceDayPopup';
 
 import { HomePage } from './pages/HomePage';
 import { AboutPage } from './pages/AboutPage';
@@ -245,6 +246,9 @@ export default function App() {
         onClose={() => setSearchModalOpen(false)}
         onNavigate={navigateTo}
       />
+
+      {/* TEMPORARY ORIXNAL® INDEPENDENCE DAY 2026 POPUP — REMOVE AFTER 18 AUGUST 2026 */}
+      <IndependenceDayPopup />
     </div>
   );
 }
