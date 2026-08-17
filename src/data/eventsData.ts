@@ -134,6 +134,9 @@ const ADMIN_PASSWORD_KEY = 'orixnal_admin_password_v1';
 const ADMIN_SESSION_KEY = 'orixnal_admin_session_v1';
 
 export function getEvents(): OrixnalEvent[] {
+  if (typeof window === 'undefined') {
+    return INITIAL_EVENTS;
+  }
   try {
     const data = localStorage.getItem(EVENTS_STORAGE_KEY);
     if (!data) {
@@ -148,6 +151,7 @@ export function getEvents(): OrixnalEvent[] {
 }
 
 export function saveEvents(events: OrixnalEvent[]): void {
+  if (typeof window === 'undefined') return;
   try {
     localStorage.setItem(EVENTS_STORAGE_KEY, JSON.stringify(events));
   } catch (err) {

@@ -1,16 +1,12 @@
 import express from "express";
 import path from "path";
 import fs from "fs";
-import { fileURLToPath } from "url";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI, Modality } from "@google/genai";
 import dotenv from "dotenv";
-import { renderOgBuffer } from "./src/server/ogGenerator";
+import { renderOgBuffer, renderOgJpegBuffer } from "./src/server/ogGenerator";
 
 dotenv.config();
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 async function startServer() {
   const app = express();
@@ -185,7 +181,7 @@ Use these exact CTA trigger tags so the frontend can render clickable action but
   });
 
   // Dynamic High-Resolution 1200x630 Open Graph PNG Image Banner Endpoint
-  app.get("/api/og-image", (req, res) => {
+  app.get(["/api/og-image", "/api/og-image.png"], (req, res) => {
     try {
       const page = typeof req.query.page === "string" ? req.query.page : "home";
       const title = typeof req.query.title === "string" ? req.query.title : undefined;
@@ -195,11 +191,76 @@ Use these exact CTA trigger tags so the frontend can render clickable action but
       const pngBuffer = renderOgBuffer({ page, title, subtitle, badge });
 
       res.setHeader("Content-Type", "image/png");
-      res.setHeader("Cache-Control", "public, max-age=86400, s-maxage=86400");
+      res.setHeader("Cache-Control", "public, max-age=86400, s-maxage=604800");
       return res.send(pngBuffer);
     } catch (err: any) {
       console.error("Error generating OG PNG image:", err);
       return res.status(500).send("Error generating preview image");
+    }
+  });
+
+  // Dynamic High-Resolution 1200x630 Open Graph JPEG Image Banner Endpoint
+  app.get("/api/og-image.jpg", async (req, res) => {
+    try {
+      const page = typeof req.query.page === "string" ? req.query.page : "home";
+      const title = typeof req.query.title === "string" ? req.query.title : undefined;
+      const subtitle = typeof req.query.subtitle === "string" ? req.query.subtitle : undefined;
+      const badge = typeof req.query.badge === "string" ? req.query.badge : undefined;
+
+      const jpgBuffer = await renderOgJpegBuffer({ page, title, subtitle, badge });
+
+      res.setHeader("Content-Type", "image/jpeg");
+      res.setHeader("Cache-Control", "public, max-age=86400, s-maxage=604800");
+      return res.send(jpgBuffer);
+    } catch (err: any) {
+      console.error("Error generating OG JPEG image:", err);
+      return res.status(500).send("Error generating preview image");
+    }
+  });
+
+  // Direct route for /assets/orixnal-og.jpg and other assets with automatic fallback rendering
+  app.get("/assets/orixnal-og.jpg", async (req, res) => {
+    const primaryPath = path.join(process.cwd(), "public", "assets", "orixnal-og.jpg");
+    const distPath = path.join(process.cwd(), "dist", "assets", "orixnal-og.jpg");
+    const filePath = fs.existsSync(primaryPath) ? primaryPath : (fs.existsSync(distPath) ? distPath : null);
+
+    if (filePath) {
+      res.setHeader("Content-Type", "image/jpeg");
+      res.setHeader("Cache-Control", "public, max-age=86400, s-maxage=604800");
+      return res.sendFile(filePath);
+    }
+
+    try {
+      const jpgBuffer = await renderOgJpegBuffer({ page: "home" });
+      res.setHeader("Content-Type", "image/jpeg");
+      res.setHeader("Cache-Control", "public, max-age=86400, s-maxage=604800");
+      return res.send(jpgBuffer);
+    } catch (err: any) {
+      console.error("Error rendering on-demand orixnal-og.jpg:", err);
+      return res.status(500).send("Error serving OG image");
+    }
+  });
+
+  app.get(["/assets/orixnal-og.png", "/assets/og-image.png"], (req, res) => {
+    const primaryPath = path.join(process.cwd(), "public", "assets", "orixnal-og.png");
+    const altPath = path.join(process.cwd(), "public", "assets", "og-image.png");
+    const distPath = path.join(process.cwd(), "dist", "assets", "orixnal-og.png");
+    const filePath = fs.existsSync(primaryPath) ? primaryPath : (fs.existsSync(altPath) ? altPath : (fs.existsSync(distPath) ? distPath : null));
+
+    if (filePath) {
+      res.setHeader("Content-Type", "image/png");
+      res.setHeader("Cache-Control", "public, max-age=86400, s-maxage=604800");
+      return res.sendFile(filePath);
+    }
+
+    try {
+      const pngBuffer = renderOgBuffer({ page: "home" });
+      res.setHeader("Content-Type", "image/png");
+      res.setHeader("Cache-Control", "public, max-age=86400, s-maxage=604800");
+      return res.send(pngBuffer);
+    } catch (err: any) {
+      console.error("Error rendering on-demand orixnal-og.png:", err);
+      return res.status(500).send("Error serving OG image");
     }
   });
 

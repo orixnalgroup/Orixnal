@@ -236,6 +236,9 @@ export function isUsingBlogTempPassword(): boolean {
 }
 
 export function getStoredBlogs(): BlogPost[] {
+  if (typeof window === 'undefined') {
+    return DEFAULT_BLOG_POSTS;
+  }
   try {
     const data = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (!data) {
@@ -250,6 +253,7 @@ export function getStoredBlogs(): BlogPost[] {
 }
 
 export function saveStoredBlogs(blogs: BlogPost[]) {
+  if (typeof window === 'undefined') return;
   try {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(blogs));
   } catch (err) {

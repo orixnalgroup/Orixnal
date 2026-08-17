@@ -69,7 +69,8 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ currentRoute, titleSuffix }) =
     const currentTitle = titleSuffix ? `${titleSuffix} | ORIXNAL` : titles[currentRoute] || titles.home;
     const currentDesc = descriptions[currentRoute] || descriptions.home;
     const currentUrl = currentRoute === 'home' ? 'https://www.orixnal.com/' : `https://www.orixnal.com/${currentRoute}`;
-    const currentOgImage = currentRoute === 'home' ? 'https://www.orixnal.com/assets/og-image.png' : `https://www.orixnal.com/assets/og-${currentRoute}.png`;
+    const currentOgImage = currentRoute === 'home' ? 'https://www.orixnal.com/assets/orixnal-og.jpg' : `https://www.orixnal.com/assets/og-${currentRoute}.png`;
+    const currentOgImageType = currentRoute === 'home' ? 'image/jpeg' : 'image/png';
     const currentOgType = currentRoute === 'founder' ? 'profile' : currentRoute.includes('detail') || currentRoute === 'blog' || currentRoute === 'insights' ? 'article' : 'website';
 
     // Set Document Title
@@ -114,7 +115,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ currentRoute, titleSuffix }) =
     updateMetaTag('property', 'og:image:secure_url', currentOgImage);
     updateMetaTag('property', 'og:image:width', '1200');
     updateMetaTag('property', 'og:image:height', '630');
-    updateMetaTag('property', 'og:image:type', 'image/png');
+    updateMetaTag('property', 'og:image:type', currentOgImageType);
     updateMetaTag('property', 'og:image:alt', `${currentTitle} — ORIXNAL®`);
 
     // Twitter Card Meta Tags

@@ -4,7 +4,8 @@ import fs from 'fs';
 import path from 'path';
 import { PageRoute } from '../src/types';
 import { StaticApp } from '../src/server/StaticApp';
-import { renderOgBuffer } from '../src/server/ogGenerator';
+import { renderOgBuffer, renderOgJpegBuffer } from '../src/server/ogGenerator';
+import sharp from 'sharp';
 import {
   generateWebSiteSchema,
   generateLocalBusinessSchema,
@@ -158,18 +159,41 @@ async function prerender() {
 
   console.log('🚀 Starting ORIXNAL SSG Prerendering & Open Graph Image Generation for all routes...');
 
+  // 1. Generate flagship Master OG images (both JPG and PNG)
+  try {
+    const homePngBuffer = renderOgBuffer({ page: 'home' });
+    const homeJpgBuffer = await renderOgJpegBuffer({ page: 'home' });
+
+    // Save flagship assets
+    const flagshipFiles = [
+      { name: 'orixnal-og.jpg', buf: homeJpgBuffer },
+      { name: 'orixnal-og.png', buf: homePngBuffer },
+      { name: 'og-image.jpg', buf: homeJpgBuffer },
+      { name: 'og-image.png', buf: homePngBuffer },
+      { name: 'og-home.png', buf: homePngBuffer },
+    ];
+
+    for (const f of flagshipFiles) {
+      fs.writeFileSync(path.join(publicAssetsDir, f.name), f.buf);
+      fs.writeFileSync(path.join(distAssetsDir, f.name), f.buf);
+    }
+    console.log('  🖼️  Flagship OG images generated: orixnal-og.jpg, orixnal-og.png, og-image.png');
+  } catch (flagshipErr) {
+    console.warn('  ⚠️ Could not pre-render flagship OG images:', flagshipErr);
+  }
+
   for (const item of ROUTES) {
     const { route, path: routePath, title, description, ogType = 'website' } = item;
     const currentUrl = route === 'home' ? 'https://www.orixnal.com/' : `https://www.orixnal.com/${routePath}`;
-    const ogFilename = route === 'home' ? 'og-image.png' : `og-${route}.png`;
+    const ogFilename = route === 'home' ? 'orixnal-og.jpg' : `og-${route}.png`;
     const ogImageUrl = `https://www.orixnal.com/assets/${ogFilename}`;
+    const ogMime = ogFilename.endsWith('.jpg') ? 'image/jpeg' : 'image/png';
 
-    // Pre-generate static OG image file
+    // Pre-generate static OG image file for this route
     try {
       const ogPngBuffer = renderOgBuffer({ page: route });
-      fs.writeFileSync(path.join(publicAssetsDir, ogFilename), ogPngBuffer);
-      fs.writeFileSync(path.join(distAssetsDir, ogFilename), ogPngBuffer);
-      console.log(`  🖼️  Rendered & saved static OG Image: assets/${ogFilename} (${ogPngBuffer.length} bytes)`);
+      fs.writeFileSync(path.join(publicAssetsDir, `og-${route}.png`), ogPngBuffer);
+      fs.writeFileSync(path.join(distAssetsDir, `og-${route}.png`), ogPngBuffer);
     } catch (imgErr) {
       console.warn(`  ⚠️ Could not pre-render OG image for ${route}:`, imgErr);
     }
@@ -244,6 +268,10 @@ async function prerender() {
     html = html.replace(
       /<meta property="og:image:secure_url" content=".*?" \/>/,
       `<meta property="og:image:secure_url" content="${ogImageUrl}" />`
+    );
+    html = html.replace(
+      /<meta property="og:image:type" content=".*?" \/>/,
+      `<meta property="og:image:type" content="${ogMime}" />`
     );
     html = html.replace(
       /<meta property="og:image:alt" content=".*?" \/>/,
