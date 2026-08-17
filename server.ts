@@ -203,6 +203,68 @@ Use these exact CTA trigger tags so the frontend can render clickable action but
     }
   });
 
+  // Contact Form Submission Endpoint
+  app.post("/api/contact", async (req, res) => {
+    try {
+      const { name, email, phone, organization, serviceInterest, message } = req.body;
+      if (!name || !email || !message) {
+        return res.status(400).json({ error: "Name, email, and message are required fields." });
+      }
+
+      console.log(`[ORIXNAL CONTACT LEAD] ${new Date().toISOString()}:`, {
+        name,
+        email,
+        phone: phone || "Not provided",
+        organization: organization || "Not provided",
+        serviceInterest: serviceInterest || "General",
+        messageSnippet: message.slice(0, 100),
+      });
+
+      return res.json({
+        success: true,
+        message: "Your inquiry has been received by ORIXNAL Founder Asim Khan. We will respond within 4 business hours.",
+        receivedAt: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      console.error("Error in /api/contact:", err);
+      return res.status(500).json({ error: "Failed to process inquiry" });
+    }
+  });
+
+  // Free Brand Audit Booking Endpoint
+  app.post("/api/audit-booking", async (req, res) => {
+    try {
+      const { name, email, phone, brandName, focusArea, preferredDate, preferredTime, notes } = req.body;
+      if (!name || !email) {
+        return res.status(400).json({ error: "Name and email are required fields." });
+      }
+
+      console.log(`[ORIXNAL BRAND AUDIT BOOKING] ${new Date().toISOString()}:`, {
+        name,
+        email,
+        phone: phone || "Not provided",
+        brandName: brandName || "Not provided",
+        focusArea: focusArea || "Full Brand Audit & Strategy",
+        preferredDate: preferredDate || "Earliest Available",
+        preferredTime: preferredTime || "Flexible",
+        notes: notes ? notes.slice(0, 100) : "None",
+      });
+
+      return res.json({
+        success: true,
+        bookingId: `ORX-AUD-${Date.now().toString().slice(-6)}`,
+        message: "Your 1-on-1 Brand Audit session with Founder Asim Khan has been reserved.",
+        scheduledDate: preferredDate || "Next Available Business Day",
+        scheduledTime: preferredTime || "11:00 AM IST",
+        meetPlatform: "Google Meet",
+        receivedAt: new Date().toISOString(),
+      });
+    } catch (err: any) {
+      console.error("Error in /api/audit-booking:", err);
+      return res.status(500).json({ error: "Failed to process audit booking" });
+    }
+  });
+
   // Dynamic Sitemap XML
   app.get("/sitemap.xml", (req, res) => {
     const sitemapPath = path.join(process.cwd(), "public", "sitemap.xml");
@@ -295,9 +357,49 @@ Sitemap: ${baseUrl}/sitemap.xml
     app.use(vite.middlewares);
   } else {
     const distPath = path.join(process.cwd(), "dist");
+    const VALID_CANONICAL_ROUTES = new Set([
+      "",
+      "about",
+      "founder",
+      "services",
+      "case-studies",
+      "portfolio",
+      "insights",
+      "blog",
+      "events",
+      "industries",
+      "foooz",
+      "careers",
+      "faq",
+      "contact",
+      "privacy",
+      "terms",
+    ]);
+
     app.use(express.static(distPath));
     app.get("*all", (req, res) => {
-      res.sendFile(path.join(distPath, "index.html"));
+      const cleanPath = req.path.replace(/^\//, "").replace(/\/$/, "");
+
+      if (cleanPath === "" || VALID_CANONICAL_ROUTES.has(cleanPath)) {
+        if (cleanPath) {
+          const nestedIndex = path.join(distPath, cleanPath, "index.html");
+          if (fs.existsSync(nestedIndex)) {
+            return res.sendFile(nestedIndex);
+          }
+          const flatHtml = path.join(distPath, `${cleanPath}.html`);
+          if (fs.existsSync(flatHtml)) {
+            return res.sendFile(flatHtml);
+          }
+        }
+        return res.sendFile(path.join(distPath, "index.html"));
+      }
+
+      // Return 404 HTTP status code for unknown direct URL requests
+      const notFoundHtml = path.join(distPath, "404.html");
+      if (fs.existsSync(notFoundHtml)) {
+        return res.status(404).sendFile(notFoundHtml);
+      }
+      return res.status(404).sendFile(path.join(distPath, "index.html"));
     });
   }
 

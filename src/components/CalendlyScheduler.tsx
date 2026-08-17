@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Clock, ShieldCheck, Sparkles, ExternalLink, CheckCircle2, UserCheck, Video, RefreshCw } from 'lucide-react';
+import { Calendar, Clock, ShieldCheck, Sparkles, ExternalLink, CheckCircle2, UserCheck, Video } from 'lucide-react';
 
 interface CalendlySchedulerProps {
   title?: string;
@@ -9,11 +9,12 @@ interface CalendlySchedulerProps {
   onCloseModal?: () => void;
 }
 
-export const CALENDLY_URL = 'https://calendly.com/orixnalgroup/brand-discovery-consultation';
+export const GOOGLE_CALENDAR_URL = 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ0Fxor5PTpYfSjiVGTt828KvPCnsJTvoSTSEGlnSkq9b-6ZrTAkhYnEv9c4duaf_n1Au64zNuqQ?gv=true';
+export const CALENDLY_URL = GOOGLE_CALENDAR_URL; // Backwards-compatible alias
 
 export const CalendlyScheduler: React.FC<CalendlySchedulerProps> = ({
   title = "Book a Brand Discovery Consultation",
-  subtitle = "Schedule a direct, confidential 1-on-1 strategy call with Founder Asim Khan to discuss your brand architecture, trademark engineering, or custom digital platform.",
+  subtitle = "Schedule a direct, confidential 1-on-1 strategy call with Founder Asim Khan via official Google Calendar Appointment Scheduling to discuss your brand architecture, trademark engineering, or custom digital platform.",
   className = "",
   mode = "inline",
   onCloseModal
@@ -21,11 +22,8 @@ export const CalendlyScheduler: React.FC<CalendlySchedulerProps> = ({
   const [iframeLoading, setIframeLoading] = useState(true);
   const [iframeError, setIframeError] = useState(false);
 
-  // Embed parameters to style Calendly cleanly
-  const embedUrl = `${CALENDLY_URL}?embed_type=Inline&hide_gdpr_banner=1&background_color=ffffff&text_color=0a0a0a&primary_color=7e22ce`;
-
   useEffect(() => {
-    // Reset state if URL or mode changes
+    // Reset state if mode changes
     setIframeLoading(true);
     setIframeError(false);
   }, [mode]);
@@ -37,7 +35,7 @@ export const CalendlyScheduler: React.FC<CalendlySchedulerProps> = ({
         <div className="space-y-2">
           <div className="inline-flex items-center gap-2 bg-purple-100 text-purple-900 border border-purple-200/90 px-3.5 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider">
             <Sparkles className="w-3.5 h-3.5 text-purple-700" />
-            <span>Official Appointment Scheduler</span>
+            <span>Google Calendar Appointment Scheduling</span>
           </div>
 
           <h2 className="text-2xl sm:text-4xl font-extrabold text-neutral-950 tracking-tight">
@@ -51,12 +49,12 @@ export const CalendlyScheduler: React.FC<CalendlySchedulerProps> = ({
 
         {/* Action button to open externally if needed */}
         <a
-          href={CALENDLY_URL}
+          href={GOOGLE_CALENDAR_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 text-xs font-bold bg-neutral-100 hover:bg-neutral-200 text-neutral-800 px-4 py-2.5 rounded-xl border border-neutral-300 transition-all shrink-0 self-start md:self-auto"
         >
-          <span>Open in Calendly</span>
+          <span>Open Google Calendar</span>
           <ExternalLink className="w-3.5 h-3.5 text-neutral-500" />
         </a>
       </div>
@@ -104,15 +102,15 @@ export const CalendlyScheduler: React.FC<CalendlySchedulerProps> = ({
         </div>
       </div>
 
-      {/* Embedded Calendly Frame Container */}
-      <div className="relative w-full rounded-3xl border border-neutral-200 overflow-hidden bg-white shadow-inner min-h-[680px]">
+      {/* Embedded Google Calendar Frame Container */}
+      <div className="relative w-full rounded-3xl border border-neutral-200 overflow-hidden bg-white shadow-inner min-h-[660px]">
         
         {/* Loading Spinner State */}
         {iframeLoading && (
           <div className="absolute inset-0 bg-white/90 backdrop-blur-xs flex flex-col items-center justify-center p-6 space-y-3 z-10">
             <div className="w-10 h-10 border-4 border-purple-200 border-t-purple-700 rounded-full animate-spin" />
-            <div className="text-xs font-bold text-neutral-800">Loading ORIXNAL Brand Discovery Scheduler...</div>
-            <div className="text-[11px] text-neutral-500 font-mono">Connecting with Calendly appointment service</div>
+            <div className="text-xs font-bold text-neutral-800">Loading Google Calendar Appointment Scheduling...</div>
+            <div className="text-[11px] text-neutral-500 font-mono">Connecting with Google Calendar service</div>
           </div>
         )}
 
@@ -120,27 +118,30 @@ export const CalendlyScheduler: React.FC<CalendlySchedulerProps> = ({
         {iframeError && (
           <div className="p-8 text-center space-y-4 max-w-md mx-auto my-12">
             <Calendar className="w-12 h-12 text-purple-700 mx-auto animate-bounce" />
-            <h3 className="text-lg font-extrabold text-neutral-900">Open Discovery Scheduler Directly</h3>
+            <h3 className="text-lg font-extrabold text-neutral-900">Open Google Calendar Schedule Directly</h3>
             <p className="text-xs text-neutral-600">
-              Your browser preview security rules may restrict embedded scheduling. You can open the official Calendly booking page directly below:
+              Your browser preview security rules may restrict embedded scheduling. You can open the official Google Calendar booking page directly below:
             </p>
             <a
-              href={CALENDLY_URL}
+              href={GOOGLE_CALENDAR_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="orixnal-gradient-bg text-white font-extrabold text-sm px-6 py-3 rounded-xl inline-flex items-center gap-2 shadow-md hover:opacity-95"
             >
-              <span>Launch Calendly Booking</span>
+              <span>Launch Google Calendar Booking</span>
               <ExternalLink className="w-4 h-4" />
             </a>
           </div>
         )}
 
-        {/* Native Calendly iFrame Embed */}
+        {/* Native Google Calendar iFrame Embed */}
         <iframe
-          src={embedUrl}
-          title="ORIXNAL Brand Discovery Consultation Scheduler"
-          className="w-full h-[680px] border-0"
+          src={GOOGLE_CALENDAR_URL}
+          title="ORIXNAL Brand Discovery Google Calendar Appointment Scheduling"
+          className="w-full h-[660px] border-0"
+          style={{ border: 0 }}
+          width="100%"
+          height="660"
           onLoad={() => setIframeLoading(false)}
           onError={() => {
             setIframeLoading(false);
@@ -153,10 +154,10 @@ export const CalendlyScheduler: React.FC<CalendlySchedulerProps> = ({
       <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-neutral-500 font-medium px-2">
         <div className="flex items-center gap-1.5 text-emerald-800 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full text-[11px]">
           <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-          <span>Instant calendar confirmation & Google Meet invite automatically dispatched upon booking</span>
+          <span>Automated Google Meet link and Google Calendar confirmation sent instantly upon scheduling</span>
         </div>
         <div className="text-[11px] font-mono text-neutral-500">
-          Official link: <span className="font-bold text-neutral-700">{CALENDLY_URL}</span>
+          Powered by <span className="font-bold text-neutral-700">Google Calendar</span>
         </div>
       </div>
     </div>

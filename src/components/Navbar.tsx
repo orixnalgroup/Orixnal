@@ -73,6 +73,15 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, route: PageRoute) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) {
+      // Allow browser native behavior (open in new tab/window)
+      return;
+    }
+    e.preventDefault();
+    handleNavClick(route);
+  };
+
   // Mobile navigation links list
   const mobileNavLinks: { label: string; route: PageRoute }[] = [
     { label: 'Home', route: 'home' },
@@ -125,10 +134,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
           {/* Official Brand Logo */}
           <a
             href="/"
-            onClick={(e) => {
-              e.preventDefault();
-              handleNavClick('home');
-            }}
+            onClick={(e) => handleLinkClick(e, 'home')}
             className="navbar-logo-container flex items-center gap-2 group text-left focus:outline-none shrink-0 min-w-fit"
             aria-label="ORIXNAL Home"
           >
@@ -140,10 +146,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
             {/* HOME */}
             <a
               href="/"
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick('home');
-              }}
+              onClick={(e) => handleLinkClick(e, 'home')}
               className={`px-3 py-1.5 rounded-full text-xs xl:text-sm font-semibold tracking-tight transition-all shrink-0 ${
                 currentRoute === 'home'
                   ? 'orixnal-gradient-bg text-white shadow-xs font-bold'
@@ -182,10 +185,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
                 <div className="absolute top-full left-0 mt-1.5 w-64 bg-[#FAF9F6] border border-neutral-200/90 rounded-2xl p-2 shadow-xl shadow-purple-950/10 z-50 animate-fadeIn">
                   <a
                     href="/about"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNavClick('about');
-                    }}
+                    onClick={(e) => handleLinkClick(e, 'about')}
                     className={`flex items-start gap-3 p-2.5 rounded-xl transition-all ${
                       currentRoute === 'about'
                         ? 'bg-purple-50 text-purple-950 font-bold border border-purple-200/60'
@@ -205,10 +205,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
 
                   <a
                     href="/founder"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNavClick('founder');
-                    }}
+                    onClick={(e) => handleLinkClick(e, 'founder')}
                     className={`flex items-start gap-3 p-2.5 rounded-xl transition-all ${
                       currentRoute === 'founder'
                         ? 'bg-purple-50 text-purple-950 font-bold border border-purple-200/60'
@@ -258,10 +255,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
                 <div className="absolute top-full left-0 mt-1.5 w-80 bg-[#FAF9F6] border border-neutral-200/90 rounded-2xl p-2.5 shadow-xl shadow-purple-950/10 z-50 animate-fadeIn">
                   <a
                     href="/services"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNavClick('services');
-                    }}
+                    onClick={(e) => handleLinkClick(e, 'services')}
                     className={`flex items-start gap-3 p-2.5 rounded-xl transition-all mb-1 ${
                       currentRoute === 'services'
                         ? 'bg-purple-100/80 text-purple-950 font-bold border border-purple-200'
@@ -286,10 +280,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
                   <div className="space-y-0.5">
                     <a
                       href="/services"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleNavClick('services');
-                      }}
+                      onClick={(e) => handleLinkClick(e, 'services')}
                       className="flex items-center gap-2.5 p-2 rounded-xl hover:bg-neutral-100 text-neutral-800 transition-all text-xs font-semibold"
                     >
                       <Sparkles className="w-3.5 h-3.5 text-purple-700 shrink-0" />
@@ -298,10 +289,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
 
                     <a
                       href="/services"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleNavClick('services');
-                      }}
+                      onClick={(e) => handleLinkClick(e, 'services')}
                       className="flex items-center gap-2.5 p-2 rounded-xl hover:bg-neutral-100 text-neutral-800 transition-all text-xs font-semibold"
                     >
                       <ShieldCheck className="w-3.5 h-3.5 text-purple-700 shrink-0" />
@@ -310,10 +298,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
 
                     <a
                       href="/services"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleNavClick('services');
-                      }}
+                      onClick={(e) => handleLinkClick(e, 'services')}
                       className="flex items-center gap-2.5 p-2 rounded-xl hover:bg-neutral-100 text-neutral-800 transition-all text-xs font-semibold"
                     >
                       <Palette className="w-3.5 h-3.5 text-purple-700 shrink-0" />
@@ -322,10 +307,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
 
                     <a
                       href="/services"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleNavClick('services');
-                      }}
+                      onClick={(e) => handleLinkClick(e, 'services')}
                       className="flex items-center gap-2.5 p-2 rounded-xl hover:bg-neutral-100 text-neutral-800 transition-all text-xs font-semibold"
                     >
                       <Code className="w-3.5 h-3.5 text-purple-700 shrink-0" />
@@ -334,10 +316,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
 
                     <a
                       href="/services"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleNavClick('services');
-                      }}
+                      onClick={(e) => handleLinkClick(e, 'services')}
                       className="flex items-center gap-2.5 p-2 rounded-xl hover:bg-neutral-100 text-neutral-800 transition-all text-xs font-semibold"
                     >
                       <TrendingUp className="w-3.5 h-3.5 text-purple-700 shrink-0" />
@@ -346,10 +325,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
 
                     <a
                       href="/services"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleNavClick('services');
-                      }}
+                      onClick={(e) => handleLinkClick(e, 'services')}
                       className="flex items-center gap-2.5 p-2 rounded-xl hover:bg-neutral-100 text-neutral-800 transition-all text-xs font-semibold"
                     >
                       <Compass className="w-3.5 h-3.5 text-purple-700 shrink-0" />
@@ -363,10 +339,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
             {/* EVENTS */}
             <a
               href="/events"
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick('events');
-              }}
+              onClick={(e) => handleLinkClick(e, 'events')}
               className={`px-3 py-1.5 rounded-full text-xs xl:text-sm font-semibold tracking-tight transition-all shrink-0 ${
                 currentRoute === 'events'
                   ? 'orixnal-gradient-bg text-white shadow-xs font-bold'
@@ -405,10 +378,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
                 <div className="absolute top-full left-0 mt-1.5 w-72 bg-[#FAF9F6] border border-neutral-200/90 rounded-2xl p-2 shadow-xl shadow-purple-950/10 z-50 animate-fadeIn">
                   <a
                     href="/blog"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNavClick('blog');
-                    }}
+                    onClick={(e) => handleLinkClick(e, 'blog')}
                     className={`flex items-start gap-3 p-2.5 rounded-xl transition-all ${
                       currentRoute === 'blog'
                         ? 'bg-purple-50 text-purple-950 font-bold border border-purple-200/60'
@@ -428,10 +398,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
 
                   <a
                     href="/case-studies"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNavClick('case-studies');
-                    }}
+                    onClick={(e) => handleLinkClick(e, 'case-studies')}
                     className={`flex items-start gap-3 p-2.5 rounded-xl transition-all ${
                       currentRoute === 'case-studies'
                         ? 'bg-purple-50 text-purple-950 font-bold border border-purple-200/60'
@@ -451,10 +418,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
 
                   <a
                     href="/insights"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNavClick('insights');
-                    }}
+                    onClick={(e) => handleLinkClick(e, 'insights')}
                     className={`flex items-start gap-3 p-2.5 rounded-xl transition-all ${
                       currentRoute === 'insights'
                         ? 'bg-purple-50 text-purple-950 font-bold border border-purple-200/60'
@@ -478,10 +442,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
             {/* INDUSTRIES */}
             <a
               href="/industries"
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick('industries');
-              }}
+              onClick={(e) => handleLinkClick(e, 'industries')}
               className={`px-3 py-1.5 rounded-full text-xs xl:text-sm font-semibold tracking-tight transition-all shrink-0 ${
                 currentRoute === 'industries'
                   ? 'orixnal-gradient-bg text-white shadow-xs font-bold'
@@ -494,10 +455,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
             {/* PORTFOLIO */}
             <a
               href="/portfolio"
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick('portfolio');
-              }}
+              onClick={(e) => handleLinkClick(e, 'portfolio')}
               className={`px-3 py-1.5 rounded-full text-xs xl:text-sm font-semibold tracking-tight transition-all shrink-0 ${
                 currentRoute === 'portfolio'
                   ? 'orixnal-gradient-bg text-white shadow-xs font-bold'
@@ -510,10 +468,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
             {/* FOOOZ */}
             <a
               href="/foooz"
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick('foooz');
-              }}
+              onClick={(e) => handleLinkClick(e, 'foooz')}
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs xl:text-sm font-semibold tracking-tight transition-all shrink-0 ${
                 currentRoute === 'foooz'
                   ? 'orixnal-gradient-bg text-white shadow-xs font-bold'
@@ -545,10 +500,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
             {/* Contact */}
             <a
               href="/contact"
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick('contact');
-              }}
+              onClick={(e) => handleLinkClick(e, 'contact')}
               className={`text-xs font-bold transition-all px-3 py-1.5 rounded-lg border border-neutral-200/80 bg-white shadow-2xs ${
                 currentRoute === 'contact'
                   ? 'text-purple-700 border-purple-300 font-extrabold bg-purple-50'
@@ -620,10 +572,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate, onOpen
                 <a
                   key={link.route}
                   href={href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick(link.route);
-                  }}
+                  onClick={(e) => handleLinkClick(e, link.route)}
                   className={`flex items-center justify-between px-4 py-3 rounded-2xl text-sm font-bold text-left transition-all ${
                     currentRoute === link.route
                       ? 'orixnal-gradient-bg text-white shadow-sm'

@@ -4,7 +4,8 @@ import { COMPANY_DETAILS, FOUNDER_INFO } from '../data/brandData';
 import { GlobalPresenceMap } from '../components/GlobalPresenceMap';
 import { CalendlyScheduler, CALENDLY_URL } from '../components/CalendlyScheduler';
 import { ContactButtonGroup } from '../components/ContactButtonGroup';
-import { Sparkles, Phone, Mail, MapPin, Building, ShieldCheck, Globe, Clock, ArrowRight, Calendar, Video, CheckCircle2, ExternalLink } from 'lucide-react';
+import { ContactInquiryForm } from '../components/ContactInquiryForm';
+import { Sparkles, Phone, Mail, MapPin, Building, ShieldCheck, Globe, Clock, ArrowRight, Calendar, Video, CheckCircle2, ExternalLink, MessageSquare } from 'lucide-react';
 
 interface ContactPageProps {
   onNavigate: (route: PageRoute) => void;
@@ -14,6 +15,13 @@ interface ContactPageProps {
 export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate, onOpenAudit }) => {
   const scrollToScheduler = () => {
     const el = document.getElementById('calendly-booking-section');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const scrollToForm = () => {
+    const el = document.getElementById('inquiry-form-section');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
@@ -36,7 +44,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate, onOpenAudi
             </h1>
 
             <p className="text-base sm:text-lg text-neutral-600 leading-relaxed font-normal">
-              Schedule a 1-on-1 Brand Discovery Consultation via Calendly below, or connect directly via phone dialer and email.
+              Schedule a 1-on-1 Brand Discovery Consultation via Google Calendar below, or connect directly via phone dialer and email.
             </p>
           </div>
 
@@ -50,14 +58,14 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate, onOpenAudi
         </div>
       </div>
 
-      {/* Primary Action Grid (Call, Email, & Calendly Quick Card) */}
+      {/* Primary Action Grid (Call, Email, & Google Calendar Quick Card) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* Calendly Booking Hero Card */}
+        {/* Google Calendar Booking Hero Card */}
         <div className="orixnal-gradient-bg text-white rounded-3xl p-8 space-y-6 shadow-xl relative overflow-hidden flex flex-col justify-between border border-transparent">
           <div className="space-y-3 relative z-10">
             <div className="inline-flex items-center gap-1.5 bg-white/20 text-white border border-white/30 px-3 py-1 rounded-full text-[11px] font-mono font-bold uppercase backdrop-blur-sm">
               <Calendar className="w-3.5 h-3.5 text-white" />
-              <span>Calendly Integration</span>
+              <span>Google Calendar Integration</span>
             </div>
             <h2 className="text-2xl font-extrabold text-white">Book Discovery Session</h2>
             <p className="text-purple-100 text-xs leading-relaxed font-medium">
@@ -136,11 +144,16 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate, onOpenAudi
         </div>
       </div>
 
-      {/* EMBEDDED CALENDLY SCHEDULER SECTION */}
+      {/* STRATEGIC CONSULTATION & INQUIRY FORM */}
+      <div id="inquiry-form-section" className="scroll-mt-24">
+        <ContactInquiryForm onOpenScheduler={scrollToScheduler} />
+      </div>
+
+      {/* EMBEDDED GOOGLE CALENDAR SCHEDULER SECTION */}
       <div id="calendly-booking-section" className="bg-white border border-neutral-200/90 rounded-3xl p-6 sm:p-10 shadow-sm scroll-mt-24">
         <CalendlyScheduler
           title="Book a Brand Discovery Consultation"
-          subtitle="Select your preferred date and time from our official Calendly calendar below. You will receive an automated Google Meet invitation upon confirmation."
+          subtitle="Select your preferred date and time from our official Google Calendar appointment schedule below. You will receive an automated Google Meet invitation upon confirmation."
         />
       </div>
 

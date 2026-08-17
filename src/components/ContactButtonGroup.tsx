@@ -61,11 +61,11 @@ export const ContactButtonGroup: React.FC<ContactButtonGroupProps> = ({
     if (onOpenConsultation) {
       onOpenConsultation();
     } else {
-      const el = document.getElementById('calendly-scheduler');
+      const el = document.getElementById('calendly-scheduler') || document.getElementById('calendly-booking-section');
       if (el) {
         el.scrollIntoView({ behavior: 'smooth' });
       } else {
-        window.location.hash = '#/contact';
+        window.location.pathname = '/contact';
       }
     }
   };

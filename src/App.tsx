@@ -7,7 +7,7 @@ import { Footer } from './components/Footer';
 import { SEOHead } from './components/SEOHead';
 import { BrandAuditModal } from './components/BrandAuditModal';
 import { SearchModal } from './components/SearchModal';
-import { IndependenceDayPopup } from './components/IndependenceDayPopup';
+import { FreeBrandAuditPopup } from './components/FreeBrandAuditPopup';
 
 import { HomePage } from './pages/HomePage';
 import { AboutPage } from './pages/AboutPage';
@@ -60,8 +60,34 @@ const pageVariants = {
   },
 };
 
+// Helper to extract valid route from URL path or hash
+const getRouteFromUrl = (): PageRoute => {
+  if (typeof window === 'undefined') return 'home';
+
+  // Check hash first for backward compatibility with old links like /#/about or /#about
+  const hashRaw = window.location.hash.replace('#/', '').replace('#', '').trim();
+  if (hashRaw && (ROUTE_ORDER as string[]).includes(hashRaw)) {
+    // Migrate hash to clean path silently
+    const cleanPath = hashRaw === 'home' ? '/' : `/${hashRaw}`;
+    window.history.replaceState(null, '', cleanPath);
+    return hashRaw as PageRoute;
+  }
+
+  // Check clean pathname
+  const pathRaw = window.location.pathname.replace(/^\//, '').trim();
+  if (!pathRaw || pathRaw === 'index.html') {
+    return 'home';
+  }
+
+  if ((ROUTE_ORDER as string[]).includes(pathRaw)) {
+    return pathRaw as PageRoute;
+  }
+
+  return 'not-found';
+};
+
 export default function App() {
-  const [currentRoute, setCurrentRoute] = useState<PageRoute>('home');
+  const [currentRoute, setCurrentRoute] = useState<PageRoute>(getRouteFromUrl);
   const [direction, setDirection] = useState<number>(1);
   const [auditModalOpen, setAuditModalOpen] = useState(false);
   const [searchModalOpen, setSearchModalOpen] = useState(false);
@@ -77,30 +103,6 @@ export default function App() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
-
-  // Helper to extract valid route from URL path or hash
-  const getRouteFromUrl = (): PageRoute => {
-    // Check hash first for backward compatibility with old links like /#/about or /#about
-    const hashRaw = window.location.hash.replace('#/', '').replace('#', '').trim();
-    if (hashRaw && (ROUTE_ORDER as string[]).includes(hashRaw)) {
-      // Migrate hash to clean path silently
-      const cleanPath = hashRaw === 'home' ? '/' : `/${hashRaw}`;
-      window.history.replaceState(null, '', cleanPath);
-      return hashRaw as PageRoute;
-    }
-
-    // Check clean pathname
-    const pathRaw = window.location.pathname.replace(/^\//, '').trim();
-    if (!pathRaw || pathRaw === 'index.html') {
-      return 'home';
-    }
-
-    if ((ROUTE_ORDER as string[]).includes(pathRaw)) {
-      return pathRaw as PageRoute;
-    }
-
-    return 'not-found';
-  };
 
   // Sync route with URL pathname or popstate
   useEffect(() => {
@@ -185,12 +187,18 @@ export default function App() {
               The page you are looking for does not exist or may have been moved. Return to our homepage to explore ORIXNAL brand capabilities, strategy, and insights.
             </p>
             <div className="pt-2">
-              <button
-                onClick={() => navigateTo('home')}
+              <a
+                href="/"
+                onClick={(e) => {
+                  if (!e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && e.button === 0) {
+                    e.preventDefault();
+                    navigateTo('home');
+                  }
+                }}
                 className="orixnal-gradient-bg text-white font-extrabold text-sm px-6 py-3.5 rounded-2xl shadow-md hover:opacity-95 transition-all inline-flex items-center gap-2"
               >
                 <span>Return to Homepage</span>
-              </button>
+              </a>
             </div>
           </div>
         );
@@ -247,8 +255,11 @@ export default function App() {
         onNavigate={navigateTo}
       />
 
-      {/* TEMPORARY ORIXNAL® INDEPENDENCE DAY 2026 POPUP — REMOVE AFTER 18 AUGUST 2026 */}
-      <IndependenceDayPopup />
+      {/* FREE BRAND AUDIT PROMOTIONAL POPUP WITH GOOGLE CALENDAR & SKIP/CLOSE BUTTONS */}
+      <FreeBrandAuditPopup
+        onOpenAuditEstimator={() => setAuditModalOpen(true)}
+        onNavigateContact={() => navigateTo('contact')}
+      />
     </div>
   );
 }

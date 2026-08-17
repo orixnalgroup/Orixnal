@@ -820,12 +820,12 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenAudit }) =
         </div>
       </section>
 
-      {/* 8.5 EMBEDDED CALENDLY APPOINTMENT SCHEDULER SECTION */}
+      {/* 8.5 EMBEDDED GOOGLE CALENDAR APPOINTMENT SCHEDULER SECTION */}
       <section id="homepage-calendly-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
         <div className="bg-white border border-neutral-200/90 rounded-3xl p-6 sm:p-10 shadow-sm">
           <CalendlyScheduler
             title="Book a Brand Discovery Consultation"
-            subtitle="Schedule a direct 1-on-1 strategy call with Founder Asim Khan to evaluate brand architecture, trademark clearance, visual identity systems, or web engineering."
+            subtitle="Schedule a direct 1-on-1 strategy call with Founder Asim Khan via Google Calendar to evaluate brand architecture, trademark clearance, visual identity systems, or web engineering."
           />
         </div>
       </section>
@@ -843,7 +843,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onOpenAudit }) =
             </h2>
 
             <p className="text-sm sm:text-base text-neutral-600">
-              Schedule a 1-on-1 Brand Discovery Consultation via Calendly above, or reach out directly to Founder Asim Khan.
+              Schedule a 1-on-1 Brand Discovery Consultation via Google Calendar above, or reach out directly to Founder Asim Khan.
             </p>
 
             <ContactButtonGroup

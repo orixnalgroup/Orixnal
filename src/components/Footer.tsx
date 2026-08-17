@@ -12,6 +12,15 @@ interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAudit }) => {
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, route: PageRoute) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) {
+      // Allow browser native behavior (open in new tab/window)
+      return;
+    }
+    e.preventDefault();
+    onNavigate(route);
+  };
+
   return (
     <footer className="bg-[#FAF8F5] border-t border-neutral-200 pt-16 pb-12 text-neutral-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -87,37 +96,37 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAudit }) => {
             </h4>
             <ul className="space-y-2.5 text-xs text-neutral-600 font-medium">
               <li>
-                <a href="/services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }} className="hover:text-purple-700 transition-colors">
+                <a href="/services" onClick={(e) => handleLinkClick(e, 'services')} className="hover:text-purple-700 transition-colors">
                   Brand Naming & Positioning
                 </a>
               </li>
               <li>
-                <a href="/services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }} className="hover:text-purple-700 transition-colors">
+                <a href="/services" onClick={(e) => handleLinkClick(e, 'services')} className="hover:text-purple-700 transition-colors">
                   Legal IP & Trademark Registration
                 </a>
               </li>
               <li>
-                <a href="/services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }} className="hover:text-purple-700 transition-colors">
+                <a href="/services" onClick={(e) => handleLinkClick(e, 'services')} className="hover:text-purple-700 transition-colors">
                   Visual Identity & Design Systems
                 </a>
               </li>
               <li>
-                <a href="/services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }} className="hover:text-purple-700 transition-colors">
+                <a href="/services" onClick={(e) => handleLinkClick(e, 'services')} className="hover:text-purple-700 transition-colors">
                   Custom Web & React Engineering
                 </a>
               </li>
               <li>
-                <a href="/services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }} className="hover:text-purple-700 transition-colors">
+                <a href="/services" onClick={(e) => handleLinkClick(e, 'services')} className="hover:text-purple-700 transition-colors">
                   Go-To-Market & Growth Strategy
                 </a>
               </li>
               <li>
-                <a href="/services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }} className="hover:text-purple-700 transition-colors">
+                <a href="/services" onClick={(e) => handleLinkClick(e, 'services')} className="hover:text-purple-700 transition-colors">
                   Brand Campaign & Advertising
                 </a>
               </li>
               <li>
-                <a href="/services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }} className="hover:text-purple-700 transition-colors">
+                <a href="/services" onClick={(e) => handleLinkClick(e, 'services')} className="hover:text-purple-700 transition-colors">
                   1-on-1 Founder Strategic Advisory
                 </a>
               </li>
@@ -131,50 +140,50 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAudit }) => {
             </h4>
             <ul className="space-y-2.5 text-xs text-neutral-600 font-medium">
               <li>
-                <a href="/about" onClick={(e) => { e.preventDefault(); onNavigate('about'); }} className="hover:text-purple-700 transition-colors">
+                <a href="/about" onClick={(e) => handleLinkClick(e, 'about')} className="hover:text-purple-700 transition-colors">
                   About ORIXNAL
                 </a>
               </li>
               <li>
-                <a href="/founder" onClick={(e) => { e.preventDefault(); onNavigate('founder'); }} className="hover:text-purple-700 transition-colors">
+                <a href="/founder" onClick={(e) => handleLinkClick(e, 'founder')} className="hover:text-purple-700 transition-colors">
                   Meet Founder Asim Khan
                 </a>
               </li>
               <li>
-                <a href="/case-studies" onClick={(e) => { e.preventDefault(); onNavigate('case-studies'); }} className="hover:text-purple-700 transition-colors">
+                <a href="/case-studies" onClick={(e) => handleLinkClick(e, 'case-studies')} className="hover:text-purple-700 transition-colors">
                   Case Studies & Outcomes
                 </a>
               </li>
               <li>
-                <a href="/portfolio" onClick={(e) => { e.preventDefault(); onNavigate('portfolio'); }} className="hover:text-purple-700 transition-colors">
+                <a href="/portfolio" onClick={(e) => handleLinkClick(e, 'portfolio')} className="hover:text-purple-700 transition-colors">
                   Concept Portfolio
                 </a>
               </li>
               <li>
-                <a href="/insights" onClick={(e) => { e.preventDefault(); onNavigate('insights'); }} className="hover:text-purple-700 transition-colors">
+                <a href="/insights" onClick={(e) => handleLinkClick(e, 'insights')} className="hover:text-purple-700 transition-colors">
                   Insights & Essays
                 </a>
               </li>
               <li>
-                <a href="/events" onClick={(e) => { e.preventDefault(); onNavigate('events'); }} className="hover:text-purple-700 transition-colors flex items-center gap-1.5 font-bold text-purple-900">
+                <a href="/events" onClick={(e) => handleLinkClick(e, 'events')} className="hover:text-purple-700 transition-colors flex items-center gap-1.5 font-bold text-purple-900">
                   <span>Orixnal Event</span>
                   <span className="w-1.5 h-1.5 rounded-full bg-purple-600 animate-pulse" />
                 </a>
               </li>
               <li>
-                <a href="/blog" onClick={(e) => { e.preventDefault(); onNavigate('blog'); }} className="hover:text-purple-700 transition-colors flex items-center gap-1.5 font-bold text-purple-900">
+                <a href="/blog" onClick={(e) => handleLinkClick(e, 'blog')} className="hover:text-purple-700 transition-colors flex items-center gap-1.5 font-bold text-purple-900">
                   <span>Blog & Editor</span>
                   <span className="bg-purple-100 text-purple-800 text-[9px] font-mono font-bold px-1.5 py-0.2 rounded uppercase">New</span>
                 </a>
               </li>
               <li>
-                <a href="/foooz" onClick={(e) => { e.preventDefault(); onNavigate('foooz'); }} className="hover:text-purple-700 transition-colors flex items-center gap-1.5 font-bold text-amber-800">
+                <a href="/foooz" onClick={(e) => handleLinkClick(e, 'foooz')} className="hover:text-purple-700 transition-colors flex items-center gap-1.5 font-bold text-amber-800">
                   <span>Foooz® Sub-Brand</span>
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
                 </a>
               </li>
               <li>
-                <a href="/careers" onClick={(e) => { e.preventDefault(); onNavigate('careers'); }} className="hover:text-purple-700 transition-colors">
+                <a href="/careers" onClick={(e) => handleLinkClick(e, 'careers')} className="hover:text-purple-700 transition-colors">
                   Careers & Culture
                 </a>
               </li>
@@ -278,10 +287,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAudit }) => {
           </div>
 
           <div className="flex items-center gap-6">
-            <a href="/privacy" onClick={(e) => { e.preventDefault(); onNavigate('privacy'); }} className="hover:text-neutral-900 transition-colors">
+            <a href="/privacy" onClick={(e) => handleLinkClick(e, 'privacy')} className="hover:text-neutral-900 transition-colors">
               Privacy Policy
             </a>
-            <a href="/terms" onClick={(e) => { e.preventDefault(); onNavigate('terms'); }} className="hover:text-neutral-900 transition-colors">
+            <a href="/terms" onClick={(e) => handleLinkClick(e, 'terms')} className="hover:text-neutral-900 transition-colors">
               Terms & Conditions
             </a>
             <a href="/sitemap.xml" target="_blank" rel="noreferrer" className="hover:text-neutral-900 transition-colors flex items-center gap-1">

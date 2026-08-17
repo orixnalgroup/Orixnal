@@ -19,23 +19,23 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ currentRoute, titleSuffix }) =
   useEffect(() => {
     // Dynamic page titles and descriptions
     const titles: Record<PageRoute, string> = {
-      home: 'ORIXNAL® — Global Brand Development Company',
+      home: 'ORIXNAL® — Originality Over Imitation.',
       about: 'About ORIXNAL — Brand DNA, Philosophy & The ORIXNAL Method',
       founder: 'Asim Khan — Founder & Chief Brand Strategist | ORIXNAL',
       services: 'Brand Development Services — Naming, Legal IP, Design & Web | ORIXNAL',
       'service-detail': 'Strategic Brand Capability | ORIXNAL',
       'case-studies': 'Case Studies & Brand Outcomes | ORIXNAL',
       'case-study-detail': 'In-Depth Case Study | ORIXNAL',
-      portfolio: 'Concept & Demonstration Projects | ORIXNAL Portfolio',
-      insights: 'Insights & Thought Leadership on Brand Building | ORIXNAL',
+      portfolio: 'Concept Portfolio & Systems | ORIXNAL Studio',
+      insights: 'Brand Insights & Thought Leadership | ORIXNAL',
       'insight-detail': 'Strategic Brand Essay | ORIXNAL Insights',
-      blog: 'Blog & Editorial Dashboard — Strategic Articles & IP Guides | ORIXNAL',
+      blog: 'Official Blog & Editorial Guides — Strategic Articles & IP | ORIXNAL',
       'blog-detail': 'Strategic Blog Publication | ORIXNAL',
       industries: 'Industries We Serve — Startups, D2C, Enterprise | ORIXNAL',
       foooz: 'Foooz® — Everyday Food Brand Ecosystem | ORIXNAL Sub-Brand',
       events: 'Orixnal Event — Global Strategic Gatherings & IP Workshops',
       careers: 'Careers at ORIXNAL — Join Our Brand Development Team',
-      faq: 'Frequently Asked Questions — Brand Building & Advisory | ORIXNAL',
+      faq: 'Frequently Asked Questions — Brand Advisory & IP | ORIXNAL',
       contact: 'Contact ORIXNAL — Schedule Strategic Consultation | +91 8447561650',
       privacy: 'Privacy Policy | ORIXNAL Group',
       terms: 'Terms & Conditions | ORIXNAL Group',
@@ -43,7 +43,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ currentRoute, titleSuffix }) =
     };
 
     const descriptions: Record<PageRoute, string> = {
-      home: 'ORIXNAL helps ambitious startups and corporate enterprises transform ideas into clear, meaningful, and scalable global brands through strategy, legal protection, identity design, web engineering, and GTM execution.',
+      home: 'ORIXNAL® is a creative and strategic brand consultancy built to help businesses think differently, communicate clearly and create meaningful brand experiences.',
       about: 'Discover ORIXNAL brand DNA, core values, and founder-led philosophy. We unite naming, legal IP, visual identity, and high-performance engineering under one high-conviction company.',
       founder: 'Meet Asim Khan, Founder & Chief Brand Strategist at ORIXNAL. Learn about his high-conviction approach to brand architecture, legal trademark defense, and digital transformation.',
       services: 'Explore ORIXNAL 8 master capabilities: Brand Naming, Legal IP & Incorporation, Studio Design Systems, Web Engineering, Marketing Strategy, Ads & Media, Event Activations, and Founder Advisory.',
@@ -66,15 +66,10 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ currentRoute, titleSuffix }) =
       'not-found': 'The requested page could not be found. Return to the ORIXNAL homepage to explore our global brand development services, strategy, and insights.',
     };
 
-    const ogImages: Partial<Record<PageRoute, string>> = {
-      founder: OFFICIAL_ASSETS.founderPhoto,
-      foooz: OFFICIAL_ASSETS.fooozLogo,
-    };
-
     const currentTitle = titleSuffix ? `${titleSuffix} | ORIXNAL` : titles[currentRoute] || titles.home;
     const currentDesc = descriptions[currentRoute] || descriptions.home;
     const currentUrl = currentRoute === 'home' ? 'https://www.orixnal.com/' : `https://www.orixnal.com/${currentRoute}`;
-    const currentOgImage = ogImages[currentRoute] || `https://www.orixnal.com/api/og-image?page=${currentRoute}`;
+    const currentOgImage = currentRoute === 'home' ? 'https://www.orixnal.com/assets/og-image.png' : `https://www.orixnal.com/assets/og-${currentRoute}.png`;
     const currentOgType = currentRoute === 'founder' ? 'profile' : currentRoute.includes('detail') || currentRoute === 'blog' || currentRoute === 'insights' ? 'article' : 'website';
 
     // Set Document Title
@@ -116,9 +111,11 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ currentRoute, titleSuffix }) =
     updateMetaTag('property', 'og:description', currentDesc);
     updateMetaTag('property', 'og:url', currentUrl);
     updateMetaTag('property', 'og:image', currentOgImage);
+    updateMetaTag('property', 'og:image:secure_url', currentOgImage);
     updateMetaTag('property', 'og:image:width', '1200');
     updateMetaTag('property', 'og:image:height', '630');
     updateMetaTag('property', 'og:image:type', 'image/png');
+    updateMetaTag('property', 'og:image:alt', `${currentTitle} — ORIXNAL®`);
 
     // Twitter Card Meta Tags
     updateMetaTag('name', 'twitter:card', 'summary_large_image');
@@ -127,6 +124,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ currentRoute, titleSuffix }) =
     updateMetaTag('name', 'twitter:title', currentTitle);
     updateMetaTag('name', 'twitter:description', currentDesc);
     updateMetaTag('name', 'twitter:image', currentOgImage);
+    updateMetaTag('name', 'twitter:image:alt', `${currentTitle} — ORIXNAL®`);
 
     // Dynamic Favicon Update
     let iconTag = document.querySelector('link[rel="icon"]');
