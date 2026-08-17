@@ -20,7 +20,7 @@ const ROUTES: Array<{ route: PageRoute; path: string; title: string; description
     route: 'home',
     path: '',
     title: 'ORIXNAL® — Originality Over Imitation.',
-    description: 'ORIXNAL® is a creative and strategic brand consultancy built to help businesses think differently, communicate clearly and create meaningful brand experiences.',
+    description: 'ORIXNAL® — Original Thinking. Human Impact.',
     ogType: 'website',
   },
   {
@@ -159,25 +159,34 @@ async function prerender() {
 
   console.log('🚀 Starting ORIXNAL SSG Prerendering & Open Graph Image Generation for all routes...');
 
-  // 1. Generate flagship Master OG images (both JPG and PNG)
+  // 1. Preserve official flagship Master OG artwork (exact official asset from Google Drive)
   try {
-    const homePngBuffer = renderOgBuffer({ page: 'home' });
-    const homeJpgBuffer = await renderOgJpegBuffer({ page: 'home' });
+    const officialPngPath = path.join(publicAssetsDir, 'official-og-artwork.png');
+    const sourcePng = fs.existsSync(officialPngPath) 
+      ? fs.readFileSync(officialPngPath) 
+      : (fs.existsSync(path.join(publicAssetsDir, 'orixnal-og.png')) ? fs.readFileSync(path.join(publicAssetsDir, 'orixnal-og.png')) : null);
 
-    // Save flagship assets
-    const flagshipFiles = [
-      { name: 'orixnal-og.jpg', buf: homeJpgBuffer },
-      { name: 'orixnal-og.png', buf: homePngBuffer },
-      { name: 'og-image.jpg', buf: homeJpgBuffer },
-      { name: 'og-image.png', buf: homePngBuffer },
-      { name: 'og-home.png', buf: homePngBuffer },
-    ];
+    if (sourcePng) {
+      const flagshipFiles = [
+        { name: 'orixnal-og.png', buf: sourcePng },
+        { name: 'og-image.png', buf: sourcePng },
+        { name: 'og-home.png', buf: sourcePng },
+      ];
 
-    for (const f of flagshipFiles) {
-      fs.writeFileSync(path.join(publicAssetsDir, f.name), f.buf);
-      fs.writeFileSync(path.join(distAssetsDir, f.name), f.buf);
+      for (const f of flagshipFiles) {
+        fs.writeFileSync(path.join(publicAssetsDir, f.name), f.buf);
+        fs.writeFileSync(path.join(distAssetsDir, f.name), f.buf);
+      }
+
+      // Generate lossless high-quality JPEG counterpart
+      const jpgBuf = await sharp(sourcePng).jpeg({ quality: 95, mozjpeg: true }).toBuffer();
+      fs.writeFileSync(path.join(publicAssetsDir, 'orixnal-og.jpg'), jpgBuf);
+      fs.writeFileSync(path.join(distAssetsDir, 'orixnal-og.jpg'), jpgBuf);
+      fs.writeFileSync(path.join(publicAssetsDir, 'og-image.jpg'), jpgBuf);
+      fs.writeFileSync(path.join(distAssetsDir, 'og-image.jpg'), jpgBuf);
+      
+      console.log('  🖼️  Preserved official flagship OG images: orixnal-og.png, og-image.png, orixnal-og.jpg');
     }
-    console.log('  🖼️  Flagship OG images generated: orixnal-og.jpg, orixnal-og.png, og-image.png');
   } catch (flagshipErr) {
     console.warn('  ⚠️ Could not pre-render flagship OG images:', flagshipErr);
   }
@@ -185,17 +194,20 @@ async function prerender() {
   for (const item of ROUTES) {
     const { route, path: routePath, title, description, ogType = 'website' } = item;
     const currentUrl = route === 'home' ? 'https://www.orixnal.com/' : `https://www.orixnal.com/${routePath}`;
-    const ogFilename = route === 'home' ? 'orixnal-og.jpg' : `og-${route}.png`;
+    const ogFilename = route === 'home' ? 'orixnal-og.png' : `og-${route}.png`;
     const ogImageUrl = `https://www.orixnal.com/assets/${ogFilename}`;
-    const ogMime = ogFilename.endsWith('.jpg') ? 'image/jpeg' : 'image/png';
+    const ogMime = 'image/png';
+    const ogAlt = route === 'home' ? 'ORIXNAL® — Original Thinking | Human Impact' : `${title} — ORIXNAL®`;
 
-    // Pre-generate static OG image file for this route
-    try {
-      const ogPngBuffer = renderOgBuffer({ page: route });
-      fs.writeFileSync(path.join(publicAssetsDir, `og-${route}.png`), ogPngBuffer);
-      fs.writeFileSync(path.join(distAssetsDir, `og-${route}.png`), ogPngBuffer);
-    } catch (imgErr) {
-      console.warn(`  ⚠️ Could not pre-render OG image for ${route}:`, imgErr);
+    // Pre-generate static OG image file for sub-routes
+    if (route !== 'home') {
+      try {
+        const ogPngBuffer = renderOgBuffer({ page: route });
+        fs.writeFileSync(path.join(publicAssetsDir, `og-${route}.png`), ogPngBuffer);
+        fs.writeFileSync(path.join(distAssetsDir, `og-${route}.png`), ogPngBuffer);
+      } catch (imgErr) {
+        console.warn(`  ⚠️ Could not pre-render OG image for ${route}:`, imgErr);
+      }
     }
 
     // 1. Render static body HTML
@@ -275,7 +287,7 @@ async function prerender() {
     );
     html = html.replace(
       /<meta property="og:image:alt" content=".*?" \/>/,
-      `<meta property="og:image:alt" content="${title} — ORIXNAL®" />`
+      `<meta property="og:image:alt" content="${ogAlt}" />`
     );
 
     // Replace Twitter tags
@@ -293,7 +305,7 @@ async function prerender() {
     );
     html = html.replace(
       /<meta name="twitter:image:alt" content=".*?" \/>/,
-      `<meta name="twitter:image:alt" content="${title} — ORIXNAL®" />`
+      `<meta name="twitter:image:alt" content="${ogAlt}" />`
     );
 
     // If 404 page, ensure noindex

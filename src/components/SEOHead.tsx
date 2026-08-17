@@ -67,10 +67,11 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ currentRoute, titleSuffix }) =
     };
 
     const currentTitle = titleSuffix ? `${titleSuffix} | ORIXNAL` : titles[currentRoute] || titles.home;
-    const currentDesc = descriptions[currentRoute] || descriptions.home;
+    const currentDesc = currentRoute === 'home' ? 'ORIXNAL® — Original Thinking. Human Impact.' : (descriptions[currentRoute] || descriptions.home);
     const currentUrl = currentRoute === 'home' ? 'https://www.orixnal.com/' : `https://www.orixnal.com/${currentRoute}`;
-    const currentOgImage = currentRoute === 'home' ? 'https://www.orixnal.com/assets/orixnal-og.jpg' : `https://www.orixnal.com/assets/og-${currentRoute}.png`;
-    const currentOgImageType = currentRoute === 'home' ? 'image/jpeg' : 'image/png';
+    const currentOgImage = currentRoute === 'home' ? 'https://www.orixnal.com/assets/orixnal-og.png' : `https://www.orixnal.com/assets/og-${currentRoute}.png`;
+    const currentOgImageType = 'image/png';
+    const currentOgAlt = currentRoute === 'home' ? 'ORIXNAL® — Original Thinking | Human Impact' : `${currentTitle} — ORIXNAL®`;
     const currentOgType = currentRoute === 'founder' ? 'profile' : currentRoute.includes('detail') || currentRoute === 'blog' || currentRoute === 'insights' ? 'article' : 'website';
 
     // Set Document Title
@@ -116,7 +117,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ currentRoute, titleSuffix }) =
     updateMetaTag('property', 'og:image:width', '1200');
     updateMetaTag('property', 'og:image:height', '630');
     updateMetaTag('property', 'og:image:type', currentOgImageType);
-    updateMetaTag('property', 'og:image:alt', `${currentTitle} — ORIXNAL®`);
+    updateMetaTag('property', 'og:image:alt', currentOgAlt);
 
     // Twitter Card Meta Tags
     updateMetaTag('name', 'twitter:card', 'summary_large_image');
@@ -125,7 +126,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({ currentRoute, titleSuffix }) =
     updateMetaTag('name', 'twitter:title', currentTitle);
     updateMetaTag('name', 'twitter:description', currentDesc);
     updateMetaTag('name', 'twitter:image', currentOgImage);
-    updateMetaTag('name', 'twitter:image:alt', `${currentTitle} — ORIXNAL®`);
+    updateMetaTag('name', 'twitter:image:alt', currentOgAlt);
 
     // Dynamic Favicon Update
     let iconTag = document.querySelector('link[rel="icon"]');
